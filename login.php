@@ -51,18 +51,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PM&JI Reservify - Login</title>
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="login.css?v=1">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 </head>
 
 <body>
     <form action="" method="POST" id="loginForm">
+        <!--Input Box-->
         <h1>Login</h1>
         <div class="input-box">
             <input type="email" name="Email" placeholder="Email" id="username" required>
@@ -79,16 +79,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="error-message"><?php echo $error_message; ?></div>
         <?php endif; ?>
 
-        <style>
-            .error-message {
-                margin-top: 10px;
-                text-align: center;
-                color: red !important; /* Red color for the error message */
-                font-size: 10px; /* Adjust font size */
-                font-weight: bold;
-                font-family: 'Poppins', sans-serif; /* Ensure consistent font */
-            }
-        </style>
 
         <div class="register-link">
             <p>Don't have an account? <a href="Sign up.php">Sign Up</a><br><a href="OTP.php" class="forgot-password">Forgot Password?</a></p>
@@ -96,5 +86,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     </form>
 </body>
-
 </html>

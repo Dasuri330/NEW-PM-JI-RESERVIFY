@@ -161,11 +161,7 @@ nav a:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
-.box:hover {
-    transform: scale(1.3);
-    z-index: 2;
-    transition: 1s;
-}
+
 
 .message-icon {
     position: fixed;
@@ -207,6 +203,20 @@ footer {
     font-family: "Poppins", sans-serif;
     bottom: 0;
     width: 100%;
+}
+.tag-line {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: justify;
+    padding-top: 30px;
+}
+
+.tag-line p {
+    max-width: 800px; /* Optional: Sets a maximum width to prevent text from stretching too much */
+    width: 100%;
+    margin: 0;
+    font-style: italic;
 }
 
 /* For tablets */

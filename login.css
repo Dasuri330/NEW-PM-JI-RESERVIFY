@@ -98,3 +98,11 @@ form h1 {
 .register-link a:hover {
     text-decoration: underline; /* Add underline on hover */
 }
+.error-message {
+    margin-top: 10px;
+    text-align: center;
+    color: red !important; /* Red color for the error message */
+    font-size: 10px; /* Adjust font size */
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif; /* Ensure consistent font */
+}

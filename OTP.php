@@ -1,10 +1,7 @@
 <?php
 session_start();
 require_once "database.php"; // Siguraduhin na tama ang database connection
-
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,35 +9,12 @@ require_once "database.php"; // Siguraduhin na tama ang database connection
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Forgot Password</title>
-    <link rel="stylesheet" href="OTP.css">
+    <link rel="stylesheet" href="OTP.css?v=1">
     <script src="https://smtpjs.com/v3/smtp.js"></script>
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 </head>
 
-<style> 
-.spinner {
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    border-left-color: #3498db;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    animation: spin 1s linear infinite;
-    
-    /* Centering the spinner */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    margin: 10px auto; /* Centers horizontally */
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-</style>
 <body>
     <form action="" method="POST" id="forgotPasswordForm">
         <h1>Forgot Password</h1>
@@ -61,6 +35,7 @@ require_once "database.php"; // Siguraduhin na tama ang database connection
 </div>
     </form>
 
+    <!--Function to work the send OTP and the spinner properly-->
     <script>
 function sendOTP() {
     const email = document.getElementById('email').value;
