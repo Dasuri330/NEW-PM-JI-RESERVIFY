@@ -1,0 +1,665 @@
+/* ================= General Styles ================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+}
+
+:root {
+    --primary-bg: #f8c494;
+    --primary-color: #000;
+    --secondary-color: #94c8f8;
+    --hover-color: #fff;
+    --transition-speed: 0.3s;
+}
+
+a,
+a:hover {
+    text-decoration: none;
+}
+
+.social-icon {
+    color: #ffffff;
+    transition: color 0.1s ease-in-out;
+    margin-right: 20px;
+}
+
+.social-icon:hover {
+    color: #f8c494;
+}
+
+
+/* ================= Top Header Styles ================= */
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    background-color: var(--primary-bg);
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+/* Top Header Right Section */
+.top-header-right {
+    display: flex;
+    align-items: center;
+}
+
+.top-header-left {
+    display: flex;
+    align-items: center;
+}
+
+/* Login/Register Button */
+.login-register {
+    text-decoration: none;
+    color: var(--secondary-color);
+    -webkit-text-stroke: 0.2px #fff;
+    font-size: 1rem;
+    margin-left: 20px;
+    padding: 5px 10px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 5px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.login-register:hover {
+    background-color: var(--hover-color);
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+/* Company Name & Logo */
+.company-logo {
+    height: 30px;
+    margin-right: 10px;
+}
+
+.company-name {
+    font-size: 1.2rem;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    animation: glow 2s ease-in-out infinite alternate;
+    -webkit-text-stroke: 0.2px #fff;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    }
+
+    to {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+    }
+}
+
+/* ================= Navigation Bar Styles ================= */
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+header .navbar {
+    background: var(--secondary-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    padding: 10px 30px;
+    font-family: "Poppins", sans-serif;
+    line-height: 0.5;
+    max-width: 100%;
+}
+
+navbar.navbar-expand-lg {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.navbar.navbar-expand-lg {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+/* Social Icons*/
+.navbar-social {
+    display: flex;
+    align-items: center;
+}
+
+/* Navigation Links on the Right */
+.navbar-collapse {
+    justify-content: flex-end;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    margin-left: 20px;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color var(--transition-speed);
+}
+
+.nav-link:hover {
+    color: var(--primary-bg);
+}
+
+@media (max-width: 768px) {
+    .navbar-collapse {
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    .nav-item {
+        margin: 10px 0;
+    }
+}
+
+/* ================= Hero Section Styles ================= */
+
+.hero-section {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+    background-color: #fff;
+    padding-top: 30px;
+}
+
+.hero-logo {
+    max-width: 200px;
+    margin-bottom: 10px;
+}
+
+/* Hero Content Overlay */
+.hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 600px;
+    color: var(--hover-color);
+    text-align: left;
+    top: 50%;
+    transform: translateY(-50%);
+    padding-left: 70px;
+}
+
+.hero-title {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.hero-tagline {
+    font-size: 1rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.hero-button {
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 5px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.hero-button:hover {
+    background-color: var(--hover-color);
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+/* ================= Carousel Styles ================= */
+
+/* Carousel Background */
+.carousel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.carousel::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 2;
+}
+
+.carousel-inner {
+    display: flex;
+    height: 100%;
+    transition: transform 0.6s ease-in-out;
+}
+
+.carousel-item {
+    flex: 0 0 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.carousel-item.active {
+    opacity: 1;
+    position: relative;
+    z-index: 2;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Carousel Controls (optional) */
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    color: var(--hover-color);
+    padding: 10px;
+    border-radius: 50%;
+    z-index: 3;
+    cursor: pointer;
+}
+
+.carousel-control.prev {
+    left: 10px;
+}
+
+.carousel-control.next {
+    right: 10px;
+}
+
+/* ================= Contact Us Styles ================= */
+
+.message-icon {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #f4a36c;
+    border: none;
+    border-radius: 50px;
+    padding: 15px 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-family: "Poppins", sans-serif;
+    cursor: pointer;
+    font-size: 24px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 1000;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.message-icon i {
+    font-size: 24px;
+    color: #fff;
+}
+
+.message-icon span {
+    font-size: 16px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.message-icon:hover {
+    background-color: #d48a5c;
+    transform: scale(1.1);
+}
+
+/* ================= Footer Styles ================= */
+
+/* Footer Section Container */
+.footer-section {
+    background-color: var(--primary-bg);
+    color: var(--primary-color);
+    padding: 40px 20px;
+    font-family: "Poppins", sans-serif;
+}
+
+/* Main Footer Wrapper */
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Brand Column */
+.footer-brand {
+    flex: 1 1 300px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Client Logo */
+.client-logo {
+    max-width: 150px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    transition: transform var(--transition-speed);
+}
+
+.client-logo:hover {
+    transform: scale(1.05);
+}
+
+/* Brand Name */
+.brand-name {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+/* Services List */
+.services {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-weight: 300;
+}
+
+/* Locations Column */
+.footer-locations {
+    flex: 1 1 300px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Region Title */
+.region-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.location-box {
+    background-color: var(--secondary-color);
+    padding: 20px;
+    border-radius: 5px;
+    color: var(--primary-color);
+    max-width: 250px;
+    margin: 0 auto;
+    transition: transform var(--transition-speed), border-color var(--transition-speed);
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.location-box:hover {
+    transform: translateY(-5px);
+    border-color: var(--hover-color);
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-brand,
+    .footer-locations {
+        flex: 1 1 100%;
+        text-align: center;
+    }
+}
+
+/* ================= Client Logo Section ================= */
+
+.client-logo-container {
+    text-align: center;
+}
+
+.client-logo {
+    max-width: 200px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.3));
+}
+
+.client-logo:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-brand,
+    .footer-locations,
+    .client-logo-container {
+        flex: 1 1 100%;
+        text-align: center;
+    }
+
+    .location-box {
+        margin: 0 auto 20px;
+    }
+}
+
+/* ================= Login Modal Styles ================= */
+
+/* Modal Dialog */
+.modal-dialog {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 60px);
+    width: 400px;
+}
+
+/* Modal Content */
+.login-modal-content {
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    background-color: #fff;
+}
+
+/* Modal Header */
+.modal-header {
+    background-color: #fff;
+    border-bottom: none;
+}
+
+.modal-header .modal-title {
+    color: #000;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.modal-header .close {
+    font-size: 1.5rem;
+    color: #000;
+    opacity: 1;
+}
+
+/* Modal Body */
+.modal-body {
+    background-color: #fff;
+    padding: 30px 25px;
+    padding-top: 0;
+}
+
+/* Login Form */
+.modal-body form {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* Form Heading */
+.modal-body form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+/* Input Box */
+.input-box {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px 40px 10px 10px;
+    /* extra right padding for icon(s) */
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    color: #000;
+    font-family: 'Poppins', sans-serif;
+}
+
+.input-box input:focus {
+    outline: none;
+    border-color: #ccc;
+}
+
+/* Input Icon */
+.input-box i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #000;
+}
+
+/* Email icon positioned at the right end */
+.input-box:not(.password-box) i {
+    right: 10px;
+}
+
+.input-box.password-box {
+    position: relative;
+}
+
+/* Password Box: Position both lock icon and toggle icon */
+.password-box i.bxs-lock-alt {
+    right: 35px;
+    position: absolute;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}
+
+.field-error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* Button */
+.btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-bg);
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-family: 'Poppins', sans-serif;
+}
+
+.btn:hover {
+    background-color: #e3caab;
+}
+
+/* Register Link */
+.register-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.register-link p {
+    margin: 10px 0;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.register-link a {
+    text-decoration: none;
+    color: var(--secondary-color, #f10078);
+    transition: text-decoration 0.3s;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+/* Error Message */
+.error-message {
+    margin-top: 10px;
+    text-align: center;
+    color: red !important;
+    font-size: 10px;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+}

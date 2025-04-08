@@ -1,0 +1,90 @@
+/* ================= Login Modal Custom Styles ================= */
+
+/* Override Bootstrap modal content styles */
+.modal-content {
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Modal header */
+.modal-header {
+    border-bottom: none;
+    padding: 20px 30px;
+}
+
+.modal-header .modal-title {
+    color: black;
+    font-size: 1.5rem;
+    margin: 0 auto;
+}
+
+.modal-header .close {
+    font-size: 1.5rem;
+    color: black;
+    opacity: 1;
+}
+
+/* Modal body */
+.modal-body {
+    padding: 40px 30px;
+}
+
+/* Form styles inside the modal */
+#loginForm {
+    width: 100%;
+}
+
+#loginForm .form-group {
+    margin-bottom: 20px;
+}
+
+#loginForm label {
+    font-size: 0.9rem;
+    color: black;
+    margin-bottom: 5px;
+    display: block;
+}
+
+#loginForm .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+    color: black;
+}
+
+#loginForm .form-control:focus {
+    outline: none;
+    border-color: #ccc;
+}
+
+/* Login button styles */
+#loginForm .btn-primary {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f4a36c;
+    color: black;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    font-family: 'Poppins', sans-serif;
+}
+
+#loginForm .btn-primary:hover {
+    background-color: #e3caab;
+}
+
+/* Error message styling */
+#loginError {
+    margin-top: 10px;
+    text-align: center;
+    color: red !important;
+    font-size: 10px;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+}

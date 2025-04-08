@@ -1,0 +1,484 @@
+/* ================= General Styles ================= */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: var(--primary-bg);
+}
+
+:root {
+    --primary-bg: #f8c494;
+    --primary-color: #000;
+    --secondary-color: #94c8f8;
+    --hover-color: #fff;
+    --transition-speed: 0.3s;
+    --card-bg: #E0F7FA;
+}
+
+a,
+a:hover {
+    text-decoration: none;
+}
+
+.social-icon {
+    color: #ffffff;
+    transition: color 0.1s ease-in-out;
+    margin-right: 20px;
+}
+
+.social-icon:hover {
+    color: #f8c494;
+}
+
+/* ================= Top Header Styles ================= */
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    background-color: var(--primary-bg);
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+.top-header-left,
+.top-header-right {
+    display: flex;
+    align-items: center;
+}
+
+.login-register {
+    text-decoration: none;
+    color: var(--secondary-color);
+    -webkit-text-stroke: 0.2px #fff;
+    font-size: 1rem;
+    margin-left: 20px;
+    padding: 5px 10px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 5px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.login-register:hover {
+    background-color: var(--hover-color);
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.company-logo {
+    height: 30px;
+    margin-right: 10px;
+}
+
+.company-name {
+    font-size: 1.2rem;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    animation: glow 2s ease-in-out infinite alternate;
+    -webkit-text-stroke: 0.2px #fff;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    }
+
+    to {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+    }
+}
+
+/* ================= Top Header - Profile & Bookings ================= */
+.top-header-right .profile-dropdown .profile-link {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    padding: 5px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.top-header-right .profile-dropdown .profile-link:hover {
+    transform: scale(1.1);
+    color: var(--hover-color);
+}
+
+.top-header-right .profile-dropdown .dropdown-menu {
+    min-width: 150px;
+    border-radius: 5px;
+}
+
+.top-header-right .profile-dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.top-header-right .profile-dropdown .dropdown-item {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    color: var(--primary-color);
+    transition: background-color 0.3s ease;
+}
+
+.top-header-right .profile-dropdown .dropdown-item:hover {
+    background-color: var(--primary-bg);
+    color: var(--secondary-color);
+}
+
+.bookings-link {
+    margin-right: 20px;
+    color: var(--secondary-color);
+    -webkit-text-stroke: 0.2px #fff;
+}
+
+/* ================= Navigation Bar Styles ================= */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+header .navbar {
+    background: var(--secondary-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    padding: 10px 30px;
+    font-family: "Poppins", sans-serif;
+    line-height: 0.5;
+    max-width: 100%;
+}
+
+.navbar.navbar-expand-lg {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+    padding: 0 30px;
+}
+
+.navbar-social {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-collapse {
+    justify-content: flex-end;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    margin-left: 20px;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color var(--transition-speed);
+}
+
+.nav-link:hover {
+    color: var(--primary-bg);
+}
+
+@media (max-width: 768px) {
+    .navbar-collapse {
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    .nav-item {
+        margin: 10px 0;
+    }
+}
+
+/* ================= Booking Form Styles ================= */
+.reservation-container {
+    max-width: 800px;
+    margin: 110px auto 80px;
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    font-family: "Poppins", sans-serif;
+}
+
+.reservation-title {
+    text-align: left;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+}
+
+.reservation-form .form-group {
+    margin-bottom: 20px;
+}
+
+.reservation-form label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Input and select field styling */
+.reservation-form .form-control {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.reservation-form .form-control:focus {
+    border-color: var(--secondary-color);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(148, 200, 248, 0.2);
+}
+
+select.form-control {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 0 0 0 8px !important;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23333' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><polygon points='0,0 20,0 10,10'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 10px;
+}
+
+/* ================= Custom Radio Button Styling ================= */
+.radio-inputs-19 {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 0.5rem;
+    background-color: var(--hover-color);
+    box-sizing: border-box;
+    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+    font-size: 14px;
+}
+
+.radio-inputs-19 label {
+    flex: 1 1 auto;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.radio-inputs-19 label input {
+    display: none;
+}
+
+.radio-inputs-19 label .name {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.5rem;
+    border: none;
+    padding: 0.5rem 0;
+    color: rgba(51, 65, 85, 1);
+    transition: all 0.15s ease-in-out;
+}
+
+.radio-inputs-19 label input:checked+.name {
+    background-color: var(--secondary-color);
+    font-weight: 600;
+}
+
+/* ================= Date Field Styling ================= */
+#reservationDate {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px 5px;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: 100% !important;
+    transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+#reservationDate:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 3px rgba(148, 200, 248, 0.2);
+    outline: none;
+}
+
+/* ================= Review Booking Card Styling ================= */
+.review-card {
+    background: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.review-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.review-item:last-child {
+    border-bottom: none;
+}
+
+.review-item .label {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.review-item .value {
+    color: var(--primary-color);
+}
+
+/* ================= Submit Button Styling ================= */
+.btn-reserve,
+.next-btn {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: var(--secondary-color);
+    color: var(--hover-color);
+    transition: background-color 0.3s ease;
+}
+
+.btn-reserve:hover,
+.next-btn:hover {
+    background-color: var(--primary-bg);
+}
+
+/* ================= Navigation Button (Prev) Styling ================= */
+.prev-btn {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #ccc;
+    color: var(--primary-color);
+    transition: background-color 0.3s ease;
+}
+
+.prev-btn:hover {
+    background-color: #bbb;
+}
+
+/* ================= Form Navigation & Form Steps ================= */
+.form-navigation {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.form-step {
+    display: none;
+}
+
+.form-step.active {
+    display: block;
+}
+
+/* ================= Progress Indicator Styles ================= */
+.progress-indicator {
+    margin-bottom: 20px;
+}
+
+.progress-indicator ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+}
+
+.progress-indicator .step {
+    text-align: center;
+    flex-grow: 1;
+    position: relative;
+}
+
+.progress-indicator .step:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: -50%;
+    width: 100%;
+    height: 2px;
+    background-color: #ccc;
+    transform: translateY(-50%);
+    z-index: -1;
+}
+
+.progress-indicator .step.active .step-number {
+    background-color: var(--secondary-color);
+    color: var(--hover-color);
+}
+
+.step-number {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    background: #ccc;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.step-description {
+    display: block;
+    font-size: 0.9rem;
+}
+
+/* ------------------ Interactive Calendar Styles ------------------ */
+
+.ui-datepicker td.green a {
+    background-color: #c8e6c9 !important;
+    color: #2e7d32 !important;
+}
+
+.ui-datepicker td.yellow a {
+    background-color: #fff9c4 !important;
+    color: #f57f17 !important;
+}
+
+.ui-datepicker td.red a {
+    background-color: #ffcdd2 !important;
+    color: #c62828 !important;
+}
+
+/* ================= File Upload Styling for Payment Screenshot ================= */
+
+#paymentScreenshot {
+        padding: 0.200rem 0.20rem;
+}
