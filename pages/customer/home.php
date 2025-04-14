@@ -18,7 +18,7 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
   <title>PM&JI Reservify</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-  <link rel="stylesheet" href="styles/home.css">
+  <link rel="stylesheet" href="/NEW-PM-JI-RESERVIFY/styles/home.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -94,13 +94,13 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
     <div class="carousel">
       <div class="carousel-inner">
         <div class="carousel-item active">
-          <img src="assets/carousel/sample1.jpg" alt="Image 1">
+          <img src="/NEW-PM-JI-RESERVIFY/assets/carousel/sample1.jpg" alt="Image 1">
         </div>
         <div class="carousel-item">
-          <img src="assets/carousel/sample2.jpg" alt="Image 2">
+          <img src="/NEW-PM-JI-RESERVIFY/assets/carousel/sample2.jpg" alt="Image 2">
         </div>
         <div class="carousel-item">
-          <img src="assets/carousel/sample3.jpg" alt="Image 3">
+          <img src="/NEW-PM-JI-RESERVIFY/assets/carousel/sample3.jpg" alt="Image 3">
         </div>
       </div>
       <span class="carousel-control prev">&#10094;</span>

@@ -420,7 +420,7 @@ session_start();
                     data: $(this).serialize(),
                     success: function (response) {
                         if (response.trim() === 'success') {
-                            window.location.href = 'home.php';
+                            window.location.href = '/NEW-PM-JI-RESERVIFY/pages/customer/home.php';
                         } else if (response.trim() === 'unverified') {
                             $('#loginError').text('Your account is not verified yet. Please check your email.');
                         } else {
