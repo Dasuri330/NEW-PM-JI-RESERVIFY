@@ -2,6 +2,10 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
+html {
+    scroll-behavior: smooth;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -14,25 +18,26 @@ body {
 
 :root {
     --primary-bg: #f8c494;
+    --secondary-bg: #94c8f8;
     --primary-color: #000;
-    --secondary-color: #94c8f8;
-    --hover-color: #fff;
+    --secondary-color: #fff;
+    --hover-color: #E0F7FA;
     --transition-speed: 0.3s;
 }
 
 a,
 a:hover {
-    text-decoration: none;
+    color: var(--hover-color);
 }
 
 .social-icon {
-    color: #ffffff;
+    color: var(--secondary-color);
     transition: color 0.1s ease-in-out;
     margin-right: 20px;
 }
 
 .social-icon:hover {
-    color: #f8c494;
+    color: var(--hover-color);
 }
 
 
@@ -44,13 +49,13 @@ a:hover {
     align-items: center;
     padding: 10px 30px;
     background-color: var(--primary-bg);
-    color: var(--secondary-color);
+    color: var(--secondary-bg);
     font-weight: bold;
 }
 
 .top-header-right .profile-dropdown .profile-link {
     font-size: 1.2rem;
-    color: var(--secondary-color);
+    color: var(--secondary-bg);
     padding: 5px;
     transition: transform 0.3s ease, color 0.3s ease;
 }
@@ -72,8 +77,7 @@ a:hover {
 }
 
 .top-header-right .profile-dropdown .dropdown-item:hover {
-    background-color: var(--primary-bg);
-    color: var(--secondary-color);
+    background-color: var(--hover-color);
 }
 
 .top-header-right {
@@ -89,11 +93,11 @@ a:hover {
 /* Login/Register Button */
 .login-register {
     text-decoration: none;
-    color: var(--secondary-color);
+    color: var(--secondary-bg);
     font-size: 1rem;
     margin-left: 20px;
     padding: 5px 10px;
-    border: 1px solid var(--secondary-color);
+    border: 1px solid var(--secondary-bg);
     border-radius: 5px;
     transition: background 0.3s, color 0.3s;
 }
@@ -102,8 +106,8 @@ a:hover {
     background-color: var(--hover-color);
     transform: scale(1.05);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    color: var(--secondary-color);
-    border-color: var(--secondary-color);
+    color: var(--secondary-bg);
+    border-color: var(--secondary-bg);
 }
 
 /* Company Name & Logo */
@@ -130,8 +134,8 @@ a:hover {
 
 .bookings-link {
     margin-right: 20px;
-    color: var(--secondary-color);
-    -webkit-text-stroke: 0.2px #fff;
+    color: var(--secondary-bg);
+    font-size: 1.2rem;
 }
 
 /* ================= Navigation Bar Styles ================= */
@@ -145,7 +149,7 @@ header {
 }
 
 header .navbar {
-    background: var(--secondary-color);
+    background: var(--secondary-bg);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     padding: 10px 30px;
     font-family: "Poppins", sans-serif;
@@ -198,14 +202,14 @@ navbar.navbar-expand-lg {
 }
 
 .nav-link {
-    color: #fff;
+    color: var(--secondary-color);
     text-decoration: none;
     font-size: 16px;
     transition: color var(--transition-speed);
 }
 
 .nav-link:hover {
-    color: var(--primary-bg);
+    color: var(--hover-color);
 }
 
 @media (max-width: 768px) {

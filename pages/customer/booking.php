@@ -13,7 +13,8 @@ if (!isset($_SESSION['user_email'])) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Reserve Your Service - PM&JI Reservify</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="booking.css">
+
+  <link rel="stylesheet" href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.css">
   <link rel="stylesheet" href="/NEW-PM-JI-RESERVIFY/pages/customer/components/top_header.css">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -26,8 +27,7 @@ if (!isset($_SESSION['user_email'])) {
 
 <body>
   <?php include $_SERVER['DOCUMENT_ROOT'] . '/NEW-PM-JI-RESERVIFY/pages/customer/components/top_header.php'; ?>
-
-
+  
   <!-- Booking Form Container -->
   <div class="reservation-container">
     <h1 class="reservation-title">Booking</h1>
