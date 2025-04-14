@@ -70,16 +70,16 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link" href="/NEW-PM-JI-RESERVIFY/home.php">Home</a>
+              <a class="nav-link" href="/NEW-PM-JI-RESERVIFY/pages/customer/home.php">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/NEW-PM-JI-RESERVIFY/about.php">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#services-section">Services</a>
+              <a class="nav-link" href="/NEW-PM-JI-RESERVIFY/pages/customer/home.php#services-section">Services</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#footer-section">Contact</a>
+              <a class="nav-link" href="/NEW-PM-JI-RESERVIFY/pages/customer/home.php#footer-section">Contact</a>
             </li>
           </ul>
         </div>
