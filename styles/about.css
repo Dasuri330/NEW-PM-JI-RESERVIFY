@@ -1,0 +1,291 @@
+/* ================= General Styles ================= */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: url("/NEW-PM-JI-RESERVIFY/assets/bg/bg2.jpg");
+    font-family: "Poppins", sans-serif;
+}
+
+/* ================= Color Variables ================= */
+:root {
+    --primary-bg: #f8c494;
+    --primary-color: #000;
+    --secondary-color: #94c8f8;
+    --hover-color: #fff;
+    --transition-speed: 0.3s;
+    --card-bg: #E0F7FA;
+}
+
+/* ================= Anchor and Social Icon Styles ================= */
+a,
+a:hover {
+    text-decoration: none;
+}
+
+.social-icon {
+    color: #ffffff;
+    transition: color 0.1s ease-in-out;
+    margin-right: 20px;
+}
+
+.social-icon:hover {
+    color: #f8c494;
+}
+
+/* ================= Top Header Styles ================= */
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    background-color: var(--primary-bg);
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+.top-header-left {
+    display: flex;
+    align-items: center;
+}
+
+.company-logo {
+    height: 30px;
+    margin-right: 10px;
+}
+
+.company-name {
+    font-size: 1.2rem;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    animation: glow 2s ease-in-out infinite alternate;
+    -webkit-text-stroke: 0.2px #fff;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    }
+
+    to {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+    }
+}
+
+/* ================= Top Header - Profile & Bookings ================= */
+.top-header-right {
+    display: flex;
+    align-items: center;
+}
+
+.profile-dropdown .profile-link {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    padding: 5px;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.profile-dropdown .profile-link:hover {
+    transform: scale(1.1);
+    color: var(--hover-color);
+}
+
+.bookings-link {
+    margin-right: 20px;
+    color: var(--secondary-color);
+    -webkit-text-stroke: 0.2px #fff;
+}
+
+/* Login/Register Button */
+.login-register {
+    text-decoration: none;
+    color: var(--secondary-color);
+    -webkit-text-stroke: 0.2px #fff;
+    font-size: 1rem;
+    margin-left: 20px;
+    padding: 5px 10px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 5px;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* ================= Navigation Bar Styles ================= */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.navbar {
+    background: var(--secondary-color);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    padding: 10px 30px;
+    font-family: "Poppins", sans-serif;
+    line-height: 0.5;
+    max-width: 100%;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+    padding: 0 30px;
+}
+
+.navbar-social {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-collapse {
+    justify-content: flex-end;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    margin-left: 20px;
+}
+
+.nav-link {
+    color: #fff;
+    font-size: 16px;
+    transition: color var(--transition-speed);
+}
+
+.nav-link:hover {
+    color: var(--primary-bg);
+}
+
+/* ================= Side Panel Styles ================= */
+
+.side-panel {
+    background-color: var(--primary-bg);
+    border: 1px solid var(--primary-color);
+    border-radius: 4px;
+    padding: 40px 20px 20px 20px;
+    margin-bottom: 30px;
+}
+
+.side-panel .menu-title {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: var(--secondary-color);
+    font-weight: 600;
+}
+
+.side-panel ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.side-panel ul li {
+    margin-bottom: 10px;
+}
+
+.side-panel ul li a {
+    color: var(--primary-color);
+    font-size: 16px;
+    display: block;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.side-panel ul li a:hover,
+.side-panel ul li a.active {
+    background-color: var(--secondary-color);
+    color: #fff;
+}
+
+/* ================= Main Content Styles ================= */
+
+.portfolio-item img {
+    border: 2px solid black;
+}
+
+
+/* ================= Footer Styles ================= */
+
+.footer-section {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding: 40px 20px;
+    font-family: "Poppins", sans-serif;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-brand {
+    flex: 1 1 300px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.client-logo {
+    max-width: 150px;
+    margin-bottom: 20px;
+    transition: transform var(--transition-speed);
+}
+
+.brand-name {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+.services {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-weight: 300;
+}
+
+.footer-locations {
+    flex: 1 1 300px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.region-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.location-box {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: 5px;
+    color: var(--primary-color);
+    max-width: 250px;
+    margin: 0 auto;
+    transition: transform var(--transition-speed), border-color var(--transition-speed);
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.location-box:hover {
+    transform: translateY(-5px);
+    border-color: var(--hover-color);
+}

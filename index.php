@@ -1,4 +1,3 @@
-<!--To start a session-->
 <?php
 session_start();
 ?>
@@ -23,7 +22,7 @@ session_start();
     <header>
         <div class="top-header">
             <div class="top-header-left">
-                <img src="assets/logo/PM&JI-logo.png" alt="PM&JI Reservify" class="company-logo" />
+                <img src="/NEW-PM-JI-RESERVIFY/assets/logo/PM&JI-logo.png" alt="PM&JI Reservify" class="company-logo" />
                 <span class="company-name">PM&JI Reservify</span>
             </div>
             <div class="top-header-right">
@@ -36,11 +35,8 @@ session_start();
             <div class="container">
                 <!-- Social Icons on Left -->
                 <div class="navbar-social">
-                    <a href="https://www.facebook.com/kastilyosabucal" target="_blank" rel="noopener noreferrer">
+                    <a href="https://www.facebook.com/pmandjipictures" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-facebook-f social-icon"></i>
-                    </a>
-                    <a href="https://www.instagram.com/kastilyosabucal/" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-instagram social-icon"></i>
                     </a>
                     <a href="mailto:photoapp@example.com">
                         <i class="fas fa-envelope social-icon"></i>
@@ -52,10 +48,10 @@ session_start();
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link" href="index.php">Home</a>
+                            <a class="nav-link" href="/NEW-PM-JI-RESERVIFY/index.php">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#about-section">About</a>
+                            <a class="nav-link" href="/NEW-PM-JI-RESERVIFY/about.php">About</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#services-section">Services</a>
@@ -74,15 +70,14 @@ session_start();
         <div class="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="assets/carousel/sample1.jpg" alt="Image 1">
+                    <img src="/NEW-PM-JI-RESERVIFY/assets/carousel/sample1.jpg" alt="Image 1">
                 </div>
                 <div class="carousel-item">
-                    <img src="assets/carousel/sample2.jpg" alt="Image 2">
+                    <img src="/NEW-PM-JI-RESERVIFY/assets/carousel/sample2.jpg" alt="Image 2">
                 </div>
                 <div class="carousel-item">
-                    <img src="assets/carousel/sample3.jpg" alt="Image 3">
+                    <img src="/NEW-PM-JI-RESERVIFY/assets/carousel/sample3.jpg" alt="Image 3">
                 </div>
-
             </div>
             <span class="carousel-control prev">&#10094;</span>
             <span class="carousel-control next">&#10095;</span>
@@ -96,7 +91,198 @@ session_start();
                 Capture memories in style! 📸 Our Photo Booth Rental offers professional prints for Christenings,
                 Birthdays & more. Let's make your occasion unforgettable!
             </p>
-            <a href="signup.html" class="hero-button">Book now!</a>
+            <a href="#" class="hero-button" data-toggle="modal" data-target="#loginModal">Book now!</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services-section" class="py-5">
+        <div>
+            <h2 class="section-title text-center mb-5">Our Services</h2>
+        </div>
+
+        <div class="container">
+            <div class="row">
+
+                <!-- Baptism Service Card -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="service-card card h-100">
+                        <div class="card-body">
+                            <div class="service-icon">
+                                <i class="fas fa-church"></i>
+                            </div>
+                            <h5 class="card-title">Baptism</h5>
+                            <p class="card-text">
+                                Capture precious moment with professional coverage.
+                            </p>
+                            <ul class="pricing-list">
+                                <li><strong>2 Hours:</strong> ₱4,500 <span>(50% down: ₱2,250)</span></li>
+                                <li><strong>4 Hours:</strong> ₱4,600 <span>(50% down: ₱2,300)</span></li>
+                            </ul>
+                            <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
+                                Drive.</p>
+                            <a href="#" class="btn btn-primary service-cta" data-toggle="modal"
+                                data-target="#loginModal">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reunion Service Card -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="service-card card h-100">
+                        <div class="card-body">
+                            <div class="service-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h5 class="card-title">Reunion</h5>
+                            <p class="card-text">
+                                Relive old memories with a full event coverage.
+                            </p>
+                            <ul class="pricing-list">
+                                <li><strong>2 Hours:</strong> ₱5,000 <span>(50% down: ₱2,500)</span></li>
+                                <li><strong>4 Hours:</strong> ₱6,500 <span>(50% down: ₱3,250)</span></li>
+                            </ul>
+                            <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
+                                Drive.</p>
+                            <a href="#" class="btn btn-primary service-cta" data-toggle="modal"
+                                data-target="#loginModal">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Birthday Service Card -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="service-card card h-100">
+                        <div class="card-body">
+                            <div class="service-icon">
+                                <i class="fas fa-birthday-cake"></i>
+                            </div>
+                            <h5 class="card-title">Birthday</h5>
+                            <p class="card-text">
+                                Celebrate in style with lively and creative coverage.
+                            </p>
+                            <ul class="pricing-list">
+                                <li><strong>2 Hours:</strong> ₱4,500 <span>(50% down: ₱2,750)</span></li>
+                                <li><strong>4 Hours:</strong> ₱4,000 <span>(50% down: ₱2,000)</span></li>
+                            </ul>
+                            <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
+                                Drive.</p>
+                            <a href="#" class="btn btn-primary service-cta" data-toggle="modal"
+                                data-target="#loginModal">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Company Event Service Card -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="service-card card h-100">
+                        <div class="card-body">
+                            <div class="service-icon">
+                                <i class="fas fa-briefcase"></i>
+                            </div>
+                            <h5 class="card-title">Company Event</h5>
+                            <p class="card-text">
+                                Professional coverage for your corporate gatherings.
+                            </p>
+                            <ul class="pricing-list">
+                                <li><strong>2 Hours:</strong> ₱7,000 <span>(50% down: ₱3,500)</span></li>
+                                <li><strong>4 Hours:</strong> ₱8,000 <span>(50% down: ₱4,000)</span></li>
+                            </ul>
+                            <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
+                                Drive.</p>
+                            <a href="#" class="btn btn-primary service-cta" data-toggle="modal"
+                                data-target="#loginModal">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wedding Service Card -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="service-card card h-100">
+                        <div class="card-body">
+                            <div class="service-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h5 class="card-title">Wedding</h5>
+                            <p class="card-text">
+                                Timeless coverage of your special day with elegance.
+                            </p>
+                            <ul class="pricing-list">
+                                <li><strong>2 Hours:</strong> ₱7,500 <span>(50% down: ₱3,750)</span></li>
+                                <li><strong>4 Hours:</strong> ₱11,000 <span>(50% down: ₱5,500)</span></li>
+                            </ul>
+                            <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
+                                Drive.</p>
+                            <a href="#" class="btn btn-primary service-cta" data-toggle="modal"
+                                data-target="#loginModal">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Other Events Service Card -->
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="service-card card h-100">
+                        <div class="card-body">
+                            <div class="service-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h5 class="card-title">Other Events</h5>
+                            <p class="card-text">
+                                Versatile coverage for any unique event.
+                            </p>
+                            <ul class="pricing-list">
+                                <li><strong>Flat Rate:</strong> ₱10,000 <span>(50% down: ₱5,000)</span></li>
+                            </ul>
+                            <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
+                                Drive.</p>
+                            <a href="#" class="btn btn-primary service-cta" data-toggle="modal"
+                                data-target="#loginModal">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Portfolio / Past Photo Works Section -->
+                <section id="portfolio" class="py-5">
+                    <h2 class="section-title text-center mb-5">Our Past Works</h2>
+                    <div class="container">
+                        <div class="row">
+                            <!-- Portfolio Item 1 -->
+                            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                                <div class="portfolio-item">
+                                    <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work1.jpg" alt="Photo Work 1"
+                                        class="img-fluid portfolio-img" data-toggle="modal"
+                                        data-target="#portfolioModal">
+                                </div>
+                            </div>
+                            <!-- Portfolio Item 2 -->
+                            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                                <div class="portfolio-item">
+                                    <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work2.jpg" alt="Photo Work 2"
+                                        class="img-fluid portfolio-img" data-toggle="modal"
+                                        data-target="#portfolioModal">
+                                </div>
+                            </div>
+                            <!-- Portfolio Item 3 -->
+                            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                                <div class="portfolio-item">
+                                    <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work3.jpg" alt="Photo Work 3"
+                                        class="img-fluid portfolio-img" data-toggle="modal"
+                                        data-target="#portfolioModal">
+                                </div>
+                            </div>
+                            <!-- Portfolio Item 4 -->
+                            <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                                <div class="portfolio-item">
+                                    <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work4.jpg" alt="Photo Work 4"
+                                        class="img-fluid portfolio-img" data-toggle="modal"
+                                        data-target="#portfolioModal">
+                                </div>
+                            </div>
+                            <!-- Add more portfolio items as needed -->
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
     </section>
 
@@ -197,8 +383,9 @@ session_start();
                         <button type="submit" class="btn">Login</button>
                         <div id="loginError" class="error-message"></div>
                         <div class="register-link">
-                            <p>Don't have an account? <a href="#" data-toggle="modal" data-target="#signupModal">Sign
-                                    Up</a>
+                            <p>Don't have an account? <a href="#" data-dismiss="modal" data-toggle="modal"
+                                    data-target="#signupModal">Sign Up</a>
+
                                 <br>
                                 <a href="OTP.php" class="forgot-password">Forgot Password?</a>
                             </p>

@@ -18,6 +18,7 @@ body {
     --secondary-color: #94c8f8;
     --hover-color: #fff;
     --transition-speed: 0.3s;
+    --card-bg: #E0F7FA;
 }
 
 a,
@@ -323,6 +324,110 @@ navbar.navbar-expand-lg {
     right: 10px;
 }
 
+/* ================= Service Section Styles ================= */
+
+#services-section {
+    background-color: var(--primary-bg);
+    padding: 60px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#services-section .section-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 40px;
+}
+
+/* Service Card */
+.service-card {
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: var(--card-bg);
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.service-card .card-body {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 25px;
+    text-align: center;
+}
+
+/* Service Icon */
+.service-icon {
+    font-size: 3rem;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+/* Card Title */
+.service-card .card-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+/* Card Text */
+.service-card .card-text {
+    font-size: 0.8rem;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+/* Pricing List */
+.pricing-list {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.pricing-list li {
+    font-size: 0.95rem;
+    margin-bottom: 5px;
+    color: var(--primary-color);
+}
+
+.pricing-list li span {
+    font-weight: normal;
+    color: #555;
+}
+
+/* Inclusions Text */
+.inclusions {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+/* Call-to-Action Button */
+.service-cta {
+    margin-top: auto;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.service-cta:hover {
+    transform: scale(1.03);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    #services-section .card-body {
+        padding: 20px;
+    }
+}
+
 /* ================= Contact Us Styles ================= */
 
 .message-icon {
@@ -365,7 +470,7 @@ navbar.navbar-expand-lg {
 
 /* Footer Section Container */
 .footer-section {
-    background-color: var(--primary-bg);
+    background-color: var(--secondary-color);
     color: var(--primary-color);
     padding: 40px 20px;
     font-family: "Poppins", sans-serif;
@@ -431,7 +536,7 @@ navbar.navbar-expand-lg {
 }
 
 .location-box {
-    background-color: var(--secondary-color);
+    background-color: var(--primary-bg);
     padding: 20px;
     border-radius: 5px;
     color: var(--primary-color);
@@ -446,7 +551,6 @@ navbar.navbar-expand-lg {
     transform: translateY(-5px);
     border-color: var(--hover-color);
 }
-
 
 /* Responsive Adjustments */
 @media (max-width: 768px) {

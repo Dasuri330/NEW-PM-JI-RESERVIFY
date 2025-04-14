@@ -1,0 +1,104 @@
+/* ================= Admin Login Page Styles ================= */
+
+:root {
+    --primary-bg: #f8c494;
+    --primary-color: #000;
+    --secondary-color: #94c8f8;
+    --hover-color: #fff;
+    --transition-speed: 0.3s;
+    --card-bg: #E0F7FA;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background: var(--primary-bg);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Centering the form container */
+.admin-login-wrapper {
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+/* Form Styles */
+#adminLoginForm {
+    background: var(--card-bg);
+    padding: 30px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+}
+
+/* Heading */
+#adminLoginForm h1 {
+    margin-bottom: 25px;
+    color: var(--primary-color);
+    font-size: 1.8rem;
+}
+
+/* Input Box */
+.admin-input-box {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.admin-input-box input {
+    width: 100%;
+    padding: 10px 40px 10px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    color: var(--primary-color);
+}
+
+.admin-input-box input:focus {
+    outline: none;
+    border-color: #999;
+}
+
+/* Input Icon */
+.admin-input-box i {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: var(--primary-color);
+}
+
+/* Button */
+.admin-btn {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--primary-bg);
+    color: var(--primary-color);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color var(--transition-speed);
+    font-size: 16px;
+}
+
+.admin-btn:hover {
+    background-color: var(--secondary-color);
+    color: var(--hover-color);
+}
+
+/* Error Message */
+.error-message {
+    margin-top: 15px;
+    color: red;
+    font-size: 12px;
+    text-align: center;
+}

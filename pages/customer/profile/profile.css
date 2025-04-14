@@ -1,0 +1,119 @@
+/* ================= Profile Section Styles ================= */
+body {
+    background: url("/NEW-PM-JI-RESERVIFY/assets/bg/bg2.jpg") no-repeat center center fixed;
+}
+
+.profile-container {
+    max-width: 600px;
+    margin: 80px auto 20px;
+    margin-top: 120px;
+    padding: 30px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.profile-details {
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--primary-color);
+}
+
+.profile-details p {
+    background-color: #f9f9f9;
+    padding: 12px 20px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+    transition: background-color var(--transition-speed);
+}
+
+.profile-details p:hover {
+    background-color: #f1f1f1;
+}
+
+.profile-field p strong {
+    margin-right: 8px;
+    color: var(--secondary-color);
+    width: auto;
+}
+
+
+/* ================= Inline Editing Styles ================= */
+
+.profile-field {
+    margin-bottom: 15px;
+}
+
+.profile-field p {
+    position: relative;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 12px 50px 12px 20px;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+    transition: background-color var(--transition-speed);
+}
+
+.profile-field p .edit-btn {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--secondary-color);
+}
+
+.profile-field input.edit-input {
+    width: calc(100% - 150px);
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.profile-field .edit-actions {
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.profile-field .edit-actions button {
+    margin-right: 5px;
+}
+
+.profile-field input.edit-input {
+    flex: 1;
+    width: auto !important;
+    margin-right: 8px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: x-small;
+}
+
+.field-value.editing {
+    border: 1px solid #007BFF;
+    padding: 2px 4px;
+}
+
+
+.profile-field p .edit-actions {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+
+}
+
+.profile-field p .edit-actions i {
+    cursor: pointer;
+    color: var(--secondary-color);
+    font-size: 1.1em;
+    margin-left: 10px;
+}

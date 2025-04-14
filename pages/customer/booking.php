@@ -34,7 +34,7 @@ if (!isset($_SESSION['user_email'])) {
   <header>
     <div class="top-header">
       <div class="top-header-left">
-        <img src="assets/logo/PM&JI-logo.png" alt="PM&JI Reservify" class="company-logo">
+        <img src="../../assets/logo/PM&JI-logo.png" alt="PM&JI Reservify" class="company-logo">
         <span class="company-name">PM&JI Reservify</span>
       </div>
       <div class="top-header-right">
@@ -112,7 +112,7 @@ if (!isset($_SESSION['user_email'])) {
       </ul>
     </div>
 
-    <form action="process_booking.php" method="post" class="reservation-form" id="reservationForm"
+    <form action="process_booking .php" method="post" class="reservation-form" id="reservationForm"
       enctype="multipart/form-data">
       <!-- Step 1: Select Event Type -->
       <div class="form-step active" data-step="1">
@@ -203,7 +203,7 @@ if (!isset($_SESSION['user_email'])) {
           </div>
           <div class="review-item">
             <span class="label">Duration:</span>
-            <span class="value" id="previewDuration"></span> Hours
+            <span class="value" id="previewDuration"></span>
           </div>
           <div class="review-item">
             <span class="label">Date:</span>
@@ -242,7 +242,7 @@ if (!isset($_SESSION['user_email'])) {
 
       <!-- Step 5: Payment -->
       <div class="form-step" data-step="5">
-          <div class="form-group">
+        <div class="form-group">
           <label>Payment Method</label>
           <div class="radio-inputs-19">
             <label for="paymentGCash">
@@ -294,6 +294,31 @@ if (!isset($_SESSION['user_email'])) {
 
     </form>
   </div>
+
+  <!-- Footer -->
+  <footer class="footer-section" id="footer-section">
+    <div class="footer-container">
+      <!-- Left Column: Brand, Logo, & Services -->
+      <div class="footer-brand">
+        <img src="assets/logo/PM&JI-logo.png" alt="PM&JI Reservify Logo" class="client-logo">
+        <h1 class="brand-name">PM&JI Reservify</h1>
+        <ul class="services">
+          <li>Photo Booth</li>
+        </ul>
+      </div>
+
+      <!-- Right Column: Locations -->
+      <div class="footer-locations">
+        <h2 class="region-title">Philippines</h2>
+        <div class="location-box">
+          <h3 class="location-name">NCR</h3>
+          <p>+63 915 613 8722</p>
+          <p>hello@reservify.co</p>
+          <p>Metro Manila, PH</p>
+        </div>
+      </div>
+    </div>
+  </footer>
 
   <script>
     /***********************

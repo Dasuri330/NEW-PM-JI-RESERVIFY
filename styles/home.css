@@ -105,7 +105,6 @@ a:hover {
 
 /* ================= Top Header - Profile & Bookings Link Styles ================= */
 
-/* Profile Dropdown Icon Styling */
 .top-header-right .profile-dropdown .profile-link {
     font-size: 1.2rem;
     color: var(--secondary-color);

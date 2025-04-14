@@ -3,7 +3,7 @@ session_start();
 
 // If the user is not logged in, redirect to index.php or login page
 if (!isset($_SESSION['user_email'])) {
-  header("Location: index.php");
+  header("Location: /NEW-PM-JI-RESERVIFY/index.php");
   exit();
 }
 
@@ -30,7 +30,7 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
   <header>
     <div class="top-header">
       <div class="top-header-left">
-        <img src="assets/logo/PM&JI-logo.png" alt="PM&JI Reservify" class="company-logo" />
+        <img src="/NEW-PM-JI-RESERVIFY/assets/logo/PM&JI-logo.png" alt="PM&JI Reservify" class="company-logo" />
         <span class="company-name">PM&JI Reservify</span>
       </div>
       <div class="top-header-right">
@@ -43,7 +43,7 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
             <i class="fas fa-user"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="profile.php">Profile</a>
+            <a class="dropdown-item" href="/NEW-PM-JI-RESERVIFY/pages/customer/profile/profile.php">Profile</a>
             <a class="dropdown-item" href="inbox.php">Inbox</a>
             <a class="dropdown-item" href="preference.php">Preference</a>
             <div class="dropdown-divider"></div>
@@ -58,13 +58,10 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
       <div class="container">
         <!-- Social Icons on Left -->
         <div class="navbar-social">
-          <a href="https://www.facebook.com/kastilyosabucal" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.facebook.com/pmandjipictures" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-facebook-f social-icon"></i>
           </a>
-          <a href="https://www.instagram.com/kastilyosabucal/" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-instagram social-icon"></i>
-          </a>
-          <a href="mailto:photoapp@example.com">
+          <a href="mailto:hello@reservify.co">
             <i class="fas fa-envelope social-icon"></i>
           </a>
         </div>
@@ -73,10 +70,10 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link" href="home.php">Home</a>
+              <a class="nav-link" href="/NEW-PM-JI-RESERVIFY/home.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="about.php">About</a>
+              <a class="nav-link" href="/NEW-PM-JI-RESERVIFY/about.php">About</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#services-section">Services</a>

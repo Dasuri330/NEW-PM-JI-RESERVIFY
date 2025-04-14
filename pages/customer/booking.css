@@ -480,5 +480,106 @@ select.form-control {
 /* ================= File Upload Styling for Payment Screenshot ================= */
 
 #paymentScreenshot {
-        padding: 0.200rem 0.20rem;
+    padding: 0.200rem 0.20rem;
+}
+
+/* ================= Footer Styles ================= */
+
+/* Footer Section Container */
+.footer-section {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding: 40px 20px;
+    font-family: "Poppins", sans-serif;
+}
+
+/* Main Footer Wrapper */
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Brand Column */
+.footer-brand {
+    flex: 1 1 300px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Client Logo */
+.client-logo {
+    max-width: 150px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    transition: transform var(--transition-speed);
+}
+
+.client-logo:hover {
+    transform: scale(1.05);
+}
+
+/* Brand Name */
+.brand-name {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+
+/* Services List */
+.services {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-weight: 300;
+}
+
+/* Locations Column */
+.footer-locations {
+    flex: 1 1 300px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Region Title */
+.region-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.location-box {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: 5px;
+    color: var(--primary-color);
+    max-width: 250px;
+    margin: 0 auto;
+    transition: transform var(--transition-speed), border-color var(--transition-speed);
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+.location-box:hover {
+    transform: translateY(-5px);
+    border-color: var(--hover-color);
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .footer-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-brand,
+    .footer-locations {
+        flex: 1 1 100%;
+        text-align: center;
+    }
 }
