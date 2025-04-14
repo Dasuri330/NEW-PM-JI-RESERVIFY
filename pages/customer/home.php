@@ -73,7 +73,7 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
               <a class="nav-link" href="/NEW-PM-JI-RESERVIFY/pages/customer/home.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/NEW-PM-JI-RESERVIFY/about.php">About</a>
+              <a class="nav-link" href="/NEW-PM-JI-RESERVIFY/pages/customer/about.php">About</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/NEW-PM-JI-RESERVIFY/pages/customer/home.php#services-section">Services</a>
@@ -260,28 +260,28 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
               <!-- Portfolio Item 1 -->
               <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                 <div class="portfolio-item">
-                  <img src="assets/portfolio/work1.jpg" alt="Photo Work 1" class="img-fluid portfolio-img"
+                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work1.jpg" alt="Photo Work 1" class="img-fluid portfolio-img"
                     data-toggle="modal" data-target="#portfolioModal">
                 </div>
               </div>
               <!-- Portfolio Item 2 -->
               <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                 <div class="portfolio-item">
-                  <img src="assets/portfolio/work2.jpg" alt="Photo Work 2" class="img-fluid portfolio-img"
+                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work2.jpg" alt="Photo Work 2" class="img-fluid portfolio-img"
                     data-toggle="modal" data-target="#portfolioModal">
                 </div>
               </div>
               <!-- Portfolio Item 3 -->
               <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                 <div class="portfolio-item">
-                  <img src="assets/portfolio/work3.jpg" alt="Photo Work 3" class="img-fluid portfolio-img"
+                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work3.jpg" alt="Photo Work 3" class="img-fluid portfolio-img"
                     data-toggle="modal" data-target="#portfolioModal">
                 </div>
               </div>
               <!-- Portfolio Item 4 -->
               <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                 <div class="portfolio-item">
-                  <img src="assets/portfolio/work4.jpg" alt="Photo Work 4" class="img-fluid portfolio-img"
+                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work4.jpg" alt="Photo Work 4" class="img-fluid portfolio-img"
                     data-toggle="modal" data-target="#portfolioModal">
                 </div>
               </div>
@@ -314,7 +314,7 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
     <div class="footer-container">
       <!-- Left Column: Brand, Logo, & Services -->
       <div class="footer-brand">
-        <img src="assets/logo/PM&JI-logo.png" alt="PM&JI Reservify Logo" class="client-logo">
+        <img src="/NEW-PM-JI-RESERVIFY/assets/logo/PM&JI-logo.png" alt="PM&JI Reservify Logo" class="client-logo">
         <h1 class="brand-name">PM&JI Reservify</h1>
         <ul class="services">
           <li>Photo Booth</li>
