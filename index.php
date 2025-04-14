@@ -54,10 +54,10 @@ session_start();
                             <a class="nav-link" href="/NEW-PM-JI-RESERVIFY/about.php">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#services-section">Services</a>
+                            <a class="nav-link" href="/NEW-PM-JI-RESERVIFY/index.php#services-section">Services</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#contact-section">Contact</a>
+                            <a class="nav-link" href="/NEW-PM-JI-RESERVIFY/index.php#footer-section">Contact</a>
                         </li>
                     </ul>
                 </div>
@@ -333,7 +333,7 @@ session_start();
         });
     </script>
 
-    <footer class="footer-section">
+    <footer class="footer-section" id="footer-section">
         <div class="footer-container">
             <!-- Left Column: Brand, Logo, & Services -->
             <div class="footer-brand">
@@ -349,7 +349,7 @@ session_start();
                 <h2 class="region-title">Philippines</h2>
                 <div class="location-box">
                     <h3 class="location-name">NCR</h3>
-                    <p>+63 900 000 0000</p>
+                    <p>+63 915 613 8722</p>
                     <p>hello@reservify.co</p>
                     <p>Metro Manila, PH</p>
                 </div>

@@ -51,10 +51,10 @@
                             <a class="nav-link" href="/NEW-PM-JI-RESERVIFY/about.php">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#services-section">Services</a>
+                            <a class="nav-link" href="/NEW-PM-JI-RESERVIFY/index.php#services-section">Services</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#contact-section">Contact</a>
+                            <a class="nav-link" href="/NEW-PM-JI-RESERVIFY/index.php#footer-section">Contact</a>
                         </li>
                     </ul>
                 </div>
