@@ -42,7 +42,11 @@
                 These Terms and Conditions are governed by and construed in accordance with the laws of the jurisdiction in which PM&JI operates, without regard to its conflict of law principles.
             </p>
             <p><strong>9. Contact Information</strong><br>
-                If you have any questions about these Terms and Conditions, please contact us at pmjireservify@gmail.com.
+                If you have any questions about these Terms and Conditions, please contact us at pmjireservify@gmail.com, or contact us in our phone number 0915 613 8722.
+            </p>
+            <p><strong>10. Availability of Services </strong><br>
+                PM&JI Reservify services are available in NCR: Manila, Parañaque, Makati, Pasay, Caloocan, Valenzuela, Navotas, Muntinlupa, Malabon, Mandaluyong, Marikina, Taguig, Pasig, Quezon City, Las Piñas,
+                San Juan. And neighboring provinces such as San Jose Del Monte Bulacan and Sta. Maria Bulacan. If your location is not listed above, we will charge an additional 2,000 pesos.
             </p>
             <p class="contact-info">By registering, you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions.</p>
         </div>
