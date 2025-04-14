@@ -33,9 +33,6 @@
                 <a href="https://www.facebook.com/pmandjipictures" target="_blank" rel="noopener noreferrer">
                     <i class="fab fa-facebook-f social-icon"></i>
                 </a>
-                <a href="https://www.instagram.com/kastilyosabucal/" target="_blank" rel="noopener noreferrer">
-                    <i class="fab fa-instagram social-icon"></i>
-                </a>
                 <a href="mailto:photoapp@example.com">
                     <i class="fas fa-envelope social-icon"></i>
                 </a>

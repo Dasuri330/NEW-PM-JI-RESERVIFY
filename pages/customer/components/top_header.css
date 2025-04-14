@@ -90,7 +90,6 @@ a:hover {
 .login-register {
     text-decoration: none;
     color: var(--secondary-color);
-    -webkit-text-stroke: 0.2px #fff;
     font-size: 1rem;
     margin-left: 20px;
     padding: 5px 10px;
@@ -114,10 +113,9 @@ a:hover {
 }
 
 .company-name {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
     animation: glow 2s ease-in-out infinite alternate;
-    -webkit-text-stroke: 0.2px #fff;
 }
 
 @keyframes glow {

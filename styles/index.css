@@ -65,9 +65,8 @@ a:hover {
 
 /* Login/Register Button */
 .login-register {
-    text-decoration: none;
+    text-decoration: bold;
     color: var(--secondary-color);
-    -webkit-text-stroke: 0.2px #fff;
     font-size: 1rem;
     margin-left: 20px;
     padding: 5px 10px;
@@ -91,10 +90,9 @@ a:hover {
 }
 
 .company-name {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
     animation: glow 2s ease-in-out infinite alternate;
-    -webkit-text-stroke: 0.2px #fff;
 }
 
 @keyframes glow {
@@ -438,7 +436,7 @@ navbar.navbar-expand-lg {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #f4a36c;
+    background-color: var(--primary-bg);
     border: none;
     border-radius: 50px;
     padding: 15px 20px;
@@ -466,7 +464,7 @@ navbar.navbar-expand-lg {
 }
 
 .message-icon:hover {
-    background-color: #d48a5c;
+    background-color: var(--hover-color);
     transform: scale(1.1);
 }
 
@@ -728,7 +726,7 @@ navbar.navbar-expand-lg {
     border: none;
     border-radius: 5px;
     background-color: var(--primary-bg);
-    color: #fff;
+    color: var(--primary-color);
     font-weight: 500;
     cursor: pointer;
     transition: background-color 0.3s;
