@@ -138,6 +138,10 @@ a:hover {
     font-size: 1.2rem;
 }
 
+.profile-link :hover {
+    color: var(--hover-color);
+}
+
 /* ================= Navigation Bar Styles ================= */
 
 header {

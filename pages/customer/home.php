@@ -18,7 +18,8 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
   <title>PM&JI Reservify</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-  <link rel="stylesheet" href="/NEW-PM-JI-RESERVIFY/styles/home.css">
+  <link rel="stylesheet" href="/NEW-PM-JI-RESERVIFY/pages/customer/components/top_header.css">
+  <link rel="stylesheet" href="/NEW-PM-JI-RESERVIFY/pages/customer/home.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -26,67 +27,8 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
 </head>
 
 <body>
-  <!-- Header -->
-  <header>
-    <div class="top-header">
-      <div class="top-header-left">
-        <img src="/NEW-PM-JI-RESERVIFY/assets/logo/PM&JI-logo.png" alt="PM&JI Reservify" class="company-logo" />
-        <span class="company-name">PM&JI Reservify</span>
-      </div>
-      <div class="top-header-right">
-        <!-- My Bookings Link -->
-        <a href="mybookings.php" class="bookings-link" title="My Bookings">My Bookings</a>
-        <!-- Profile Dropdown -->
-        <div class="dropdown profile-dropdown">
-          <a href="#" class="profile-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-            title="My Profile">
-            <i class="fas fa-user"></i>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="/NEW-PM-JI-RESERVIFY/pages/customer/profile/profile.php">Profile</a>
-            <a class="dropdown-item" href="inbox.php">Inbox</a>
-            <a class="dropdown-item" href="preference.php">Preference</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="logout.php">Logout</a>
-          </div>
-        </div>
-      </div>
+  <?php include $_SERVER['DOCUMENT_ROOT'] . '/NEW-PM-JI-RESERVIFY/pages/customer/components/top_header.php'; ?>
 
-    </div>
-
-    <nav class="navbar navbar-expand-lg">
-      <div class="container">
-        <!-- Social Icons on Left -->
-        <div class="navbar-social">
-          <a href="https://www.facebook.com/pmandjipictures" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-facebook-f social-icon"></i>
-          </a>
-          <a href="mailto:hello@reservify.co">
-            <i class="fas fa-envelope social-icon"></i>
-          </a>
-        </div>
-
-        <!-- Navigation Links on Right -->
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="/NEW-PM-JI-RESERVIFY/pages/customer/home.php">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/NEW-PM-JI-RESERVIFY/pages/customer/about.php">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/NEW-PM-JI-RESERVIFY/pages/customer/home.php#services-section">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/NEW-PM-JI-RESERVIFY/pages/customer/home.php#footer-section">Contact</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
-  <!-- End Header -->
 
   <!-- Hero Section -->
   <section class="hero-section">
@@ -260,29 +202,29 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
               <!-- Portfolio Item 1 -->
               <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                 <div class="portfolio-item">
-                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work1.jpg" alt="Photo Work 1" class="img-fluid portfolio-img"
-                    data-toggle="modal" data-target="#portfolioModal">
+                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work1.jpg" alt="Photo Work 1"
+                    class="img-fluid portfolio-img" data-toggle="modal" data-target="#portfolioModal">
                 </div>
               </div>
               <!-- Portfolio Item 2 -->
               <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                 <div class="portfolio-item">
-                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work2.jpg" alt="Photo Work 2" class="img-fluid portfolio-img"
-                    data-toggle="modal" data-target="#portfolioModal">
+                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work2.jpg" alt="Photo Work 2"
+                    class="img-fluid portfolio-img" data-toggle="modal" data-target="#portfolioModal">
                 </div>
               </div>
               <!-- Portfolio Item 3 -->
               <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                 <div class="portfolio-item">
-                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work3.jpg" alt="Photo Work 3" class="img-fluid portfolio-img"
-                    data-toggle="modal" data-target="#portfolioModal">
+                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work3.jpg" alt="Photo Work 3"
+                    class="img-fluid portfolio-img" data-toggle="modal" data-target="#portfolioModal">
                 </div>
               </div>
               <!-- Portfolio Item 4 -->
               <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
                 <div class="portfolio-item">
-                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work4.jpg" alt="Photo Work 4" class="img-fluid portfolio-img"
-                    data-toggle="modal" data-target="#portfolioModal">
+                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work4.jpg" alt="Photo Work 4"
+                    class="img-fluid portfolio-img" data-toggle="modal" data-target="#portfolioModal">
                 </div>
               </div>
               <!-- Add more portfolio items as needed -->
