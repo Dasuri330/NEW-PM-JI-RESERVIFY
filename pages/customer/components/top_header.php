@@ -7,7 +7,7 @@
         </div>
         <div class="top-header-right">
             <!-- My Bookings Link -->
-            <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php" class="bookings-link" title="My Bookings">My Bookings</a>
+            <a href="/NEW-PM-JI-RESERVIFY/pages/customer/mybookings.php" class="bookings-link" title="My Bookings">My Bookings</a>
             <!-- Profile Dropdown -->
             <div class="dropdown profile-dropdown">
                 <a href="#" class="profile-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
