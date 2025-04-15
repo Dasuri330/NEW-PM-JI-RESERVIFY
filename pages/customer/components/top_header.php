@@ -15,7 +15,7 @@
                     <i class="fas fa-user"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="/NEW-PM-JI-RESERVIFY/pages/customer/profile.php">Profile</a>
+                    <a class="dropdown-item" href="/NEW-PM-JI-RESERVIFY/pages/customer/profile/profile.php">Profile</a>
                     <a class="dropdown-item" href="inbox.php">Inbox</a>
                     <a class="dropdown-item" href="preference.php">Preference</a>
                     <div class="dropdown-divider"></div>

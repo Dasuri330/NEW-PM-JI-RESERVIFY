@@ -3,12 +3,21 @@ body {
     background: url("/NEW-PM-JI-RESERVIFY/assets/bg/bg2.jpg") no-repeat center center fixed;
 }
 
+:root {
+    --primary-bg: #f8c494;
+    --secondary-bg: #94c8f8;
+    --primary-color: #000;
+    --secondary-color: #fff;
+    --hover-color: #E0F7FA;
+    --transition-speed: 0.3s;
+}
+
 .profile-container {
     max-width: 600px;
     margin: 80px auto 20px;
     margin-top: 120px;
     padding: 30px;
-    background-color: #ffffff;
+    background-color: var(--secondary-bg);
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -43,7 +52,7 @@ body {
 
 .profile-field p strong {
     margin-right: 8px;
-    color: var(--secondary-color);
+    color: var(--primary-color);
     width: auto;
 }
 
@@ -70,7 +79,7 @@ body {
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
-    color: var(--secondary-color);
+    color: var(--secondary-bg);
 }
 
 .profile-field input.edit-input {
@@ -113,7 +122,7 @@ body {
 
 .profile-field p .edit-actions i {
     cursor: pointer;
-    color: var(--secondary-color);
-    font-size: 1.1em;
+    color: var(--secondary-bg);
+    font-size: 1.6em;
     margin-left: 10px;
 }
