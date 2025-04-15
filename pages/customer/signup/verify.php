@@ -44,7 +44,7 @@ if ($user) {
     $updateStmt->execute([':email' => $email]);
 
     // Redirect to home.php after successful verification
-    header("Location: ../../../home.php");
+    header("Location: /NEW-PM-JI/pages/customer/home.php?verified=1");
     exit;
 } else {
     echo "⚠️ Invalid or expired verification link, or your account is already verified.";

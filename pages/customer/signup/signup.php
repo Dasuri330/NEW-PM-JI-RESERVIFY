@@ -2,7 +2,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require __DIR__ . '/../../../vendor/autoload.php';
+require $_SERVER['DOCUMENT_ROOT'] . '/NEW-PM-JI-RESERVIFY/vendor/autoload.php';
 
 $host = 'localhost';
 $db = 'db_pmji';
@@ -12,85 +12,99 @@ $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 $options = [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    PDO::ATTR_EMULATE_PREPARES => false,
+  PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+  PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+  PDO::ATTR_EMULATE_PREPARES => false,
 ];
 
 try {
-    $pdo = new PDO($dsn, $user, $pass, $options);
+  $pdo = new PDO($dsn, $user, $pass, $options);
 } catch (PDOException $e) {
-    die('Database connection failed: ' . $e->getMessage());
+  die('Database connection failed: ' . $e->getMessage());
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $firstName = trim($_POST['firstName']);
-    $middleName = trim($_POST['middleName']);
-    $lastName = trim($_POST['lastName']);
-    $email = filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL);
-    $password = $_POST['Password'];
-    $confirmPassword = $_POST['confirmPassword'];
+  $firstName = trim($_POST['firstName']);
+  $middleName = trim($_POST['middleName']);
+  $lastName = trim($_POST['lastName']);
+  $email = filter_var(trim($_POST['email']), FILTER_VALIDATE_EMAIL);
+  $contact = trim($_POST['contact']);
+  $password = $_POST['Password'];
+  $confirmPassword = $_POST['confirmPassword'];
 
-    // Basic validation
-    if (!$firstName || !$lastName || !$email || !$password || !$confirmPassword) {
-        die('Please fill in all required fields.');
-    }
+  // Basic validation
+  if (!$firstName || !$lastName || !$email || !$contact || !$password || !$confirmPassword) {
+    die('Please fill in all required fields.');
+  }
 
-    if ($password !== $confirmPassword) {
-        die('Passwords do not match.');
-    }
+  if ($password !== $confirmPassword) {
+    die('Passwords do not match.');
+  }
 
-    // Hash password and generate verification token
-    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    $verificationToken = bin2hex(random_bytes(16));
-    $tokenCreatedAt = date("Y-m-d H:i:s");
+  // Enforce minimum password length of 8 characters
+  if (strlen($password) < 8) {
+    die('Password must be at least 8 characters long.');
+  }
 
-    $sql = "INSERT INTO tbl_users (first_name, middle_name, last_name, email, password, verification_token, token_created_at)
-            VALUES (:firstName, :middleName, :lastName, :email, :password, :verificationToken, :tokenCreatedAt)";
-    $stmt = $pdo->prepare($sql);
+  // Additional validation: check if contact number only contains digits and proper length
+  if (!preg_match('/^\d{10,15}$/', $contact)) {
+    die('Please enter a valid contact number with 10 to 15 digits.');
+  }
 
+  // Hash password and generate verification token
+  $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+  $verificationToken = bin2hex(random_bytes(16));
+  $tokenCreatedAt = date("Y-m-d H:i:s");
+
+  // Make sure the tbl_users table has a column for contact, e.g., "contact"
+  $sql = "INSERT INTO tbl_users 
+            (first_name, middle_name, last_name, email, contact_no, password, verification_token, token_created_at)
+            VALUES (:firstName, :middleName, :lastName, :email, :contact_no, :password, :verificationToken, :tokenCreatedAt)";
+  $stmt = $pdo->prepare($sql);
+
+  try {
+    $stmt->execute([
+      ':firstName' => $firstName,
+      ':middleName' => $middleName,
+      ':lastName' => $lastName,
+      ':email' => $email,
+      ':contact_no' => $contact,
+      ':password' => $hashedPassword,
+      ':verificationToken' => $verificationToken,
+      ':tokenCreatedAt' => $tokenCreatedAt,
+    ]);
+
+    // Set up PHPMailer for SMTP
+    $mail = new PHPMailer(true);
     try {
-        $stmt->execute([
-            ':firstName' => $firstName,
-            ':middleName' => $middleName,
-            ':lastName' => $lastName,
-            ':email' => $email,
-            ':password' => $hashedPassword,
-            ':verificationToken' => $verificationToken,
-            ':tokenCreatedAt' => $tokenCreatedAt,
-        ]);
+      $mail->isSMTP();
+      $mail->Host = 'smtp.gmail.com';
+      $mail->SMTPAuth = true;
+      $mail->Username = 'skypemain01@gmail.com';
+      $mail->Password = 'nxkt whiw tlft udhl';
+      $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+      $mail->Port = 587;
 
-        // Set up PHPMailer for SMTP
-        $mail = new PHPMailer(true);
-        try {
-            $mail->isSMTP();
-            $mail->Host = 'smtp.gmail.com';
-            $mail->SMTPAuth = true;
-            $mail->Username = 'skypemain01@gmail.com';
-            $mail->Password = 'nxkt whiw tlft udhl';
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-            $mail->Port = 587;
+      $mail->setFrom('skypemain01@gmail.com', 'PMJI Support');
+      $mail->addAddress($email, $firstName . ' ' . $lastName);
+      $mail->isHTML(true);
+      $mail->Subject = 'Verify your email address';
 
-            $mail->setFrom('skypemain01@gmail.com', 'PMJI Support');
-            $mail->addAddress($email, $firstName . ' ' . $lastName);
-            $mail->isHTML(true);
-            $mail->Subject = 'Verify your email address';
+      // construct verification link (adjust the URL as needed for local or production)
+      $verificationLink = "http://localhost/NEW-PM-JI-RESERVIFY/pages/customer/signup/verify.php?email="
+        . urlencode($email) . "&token=" . $verificationToken;
 
-            // construct verification link (adjust the URL as needed for local or production)
-            $verificationLink = "http://localhost/NEW-PM-JI-RESERVIFY/pages/customer/signup/verify.php?email="
-                . urlencode($email) . "&token=" . $verificationToken;
-
-            $mail->Body = "
+      $mail->Body = "
                 <h3>Hello {$firstName},</h3>
                 <p>Thank you for signing up. Click the link below to Activate your account:</p>
                 <a href='{$verificationLink}'>Activate Account</a>
                 <p>If you did not register with PM&JI Reversify you can safely ignore this message.</p>
             ";
 
-            $mail->send();
+      $mail->send();
 
-            // On success, display a professional confirmation page.
-            echo <<<HTML
+      // On success, display a professional confirmation page.
+      echo <<<HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -196,8 +210,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </html>
 HTML;
 
-        } catch (Exception $e) {
-            echo <<<HTML
+    } catch (Exception $e) {
+      echo <<<HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -256,12 +270,12 @@ HTML;
 </body>
 </html>
 HTML;
-        }
-    } catch (PDOException $e) {
-        if ($e->getCode() == 23000) {
-            die('This email address is already registered.');
-        }
-        die('Error: ' . $e->getMessage());
     }
+  } catch (PDOException $e) {
+    if ($e->getCode() == 23000) {
+      die('This email address is already registered.');
+    }
+    die('Error: ' . $e->getMessage());
+  }
 }
 ?>
