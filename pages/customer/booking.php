@@ -15,6 +15,7 @@ if (!isset($_SESSION['user_email'])) {
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
   <link rel="stylesheet" href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.css">
+  <link rel="stylesheet" href="/NEW-PM-JI-RESERVIFY/pages/customer/components/footer.css">
   <link rel="stylesheet" href="/NEW-PM-JI-RESERVIFY/pages/customer/components/top_header.css">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
@@ -27,7 +28,7 @@ if (!isset($_SESSION['user_email'])) {
 
 <body>
   <?php include $_SERVER['DOCUMENT_ROOT'] . '/NEW-PM-JI-RESERVIFY/pages/customer/components/top_header.php'; ?>
-  
+
   <!-- Booking Form Container -->
   <div class="reservation-container">
     <h1 class="reservation-title">Booking</h1>
@@ -87,6 +88,50 @@ if (!isset($_SESSION['user_email'])) {
               </label>
             </div>
           </div>
+        </div>
+
+        <!-- Package Selection as Cards -->
+        <div class="form-group packages-selection">
+          <label>Select Packages:</label>
+          <div class="card-deck">
+            <!-- Package A -->
+            <label class="card package-card">
+              <input class="form-check-input" type="checkbox" name="packages[]" value="PackageA" id="package_a">
+              <img src="/NEW-PM-JI-RESERVIFY/assets/packages/package_a.png" class="card-img-top package-img"
+                alt="Package A">
+              <div class="card-body">
+                <h5 class="card-title">Package A</h5>
+                <span>Select Package A</span>
+              </div>
+            </label>
+
+            <!-- Package B -->
+            <label class="card package-card">
+              <input class="form-check-input" type="checkbox" name="packages[]" value="PackageB" id="package_b">
+              <img src="/NEW-PM-JI-RESERVIFY/assets/packages/package_b.png" class="card-img-top package-img"
+                alt="Package B">
+              <div class="card-body">
+                <h5 class="card-title">Package B</h5>
+                <span>Select Package B</span>
+              </div>
+            </label>
+
+            <!-- Package C -->
+            <label class="card package-card">
+              <input class="form-check-input" type="checkbox" name="packages[]" value="PackageC" id="package_c">
+              <img src="/NEW-PM-JI-RESERVIFY/assets/packages/package_c.png" class="card-img-top package-img"
+                alt="Package C">
+              <div class="card-body">
+                <h5 class="card-title">Package C</h5>
+                <span>Select Package C</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- New Pricing Display -->
+        <div class="form-group">
+          <p id="priceDisplay">Estimated Price: ₱0.00</p>
         </div>
         <div class="form-navigation">
           <button type="button" class="next-btn btn btn-primary">Next</button>
@@ -179,6 +224,10 @@ if (!isset($_SESSION['user_email'])) {
             <span class="label">Estimated Price:</span>
             <span class="value" id="previewPrice"></span>
           </div>
+          <div class="review-item">
+            <span class="label">Selected Packages:</span>
+            <span class="value" id="previewPackages"></span>
+          </div>
         </div>
         <div class="form-navigation">
           <button type="button" class="prev-btn btn btn-secondary">Previous</button>
@@ -241,30 +290,7 @@ if (!isset($_SESSION['user_email'])) {
     </form>
   </div>
 
-  <!-- Footer -->
-  <footer class="footer-section" id="footer-section">
-    <div class="footer-container">
-      <!-- Left Column: Brand, Logo, & Services -->
-      <div class="footer-brand">
-        <img src="assets/logo/PM&JI-logo.png" alt="PM&JI Reservify Logo" class="client-logo">
-        <h1 class="brand-name">PM&JI Reservify</h1>
-        <ul class="services">
-          <li>Photo Booth</li>
-        </ul>
-      </div>
-
-      <!-- Right Column: Locations -->
-      <div class="footer-locations">
-        <h2 class="region-title">Philippines</h2>
-        <div class="location-box">
-          <h3 class="location-name">NCR</h3>
-          <p>+63 915 613 8722</p>
-          <p>hello@reservify.co</p>
-          <p>Metro Manila, PH</p>
-        </div>
-      </div>
-    </div>
-  </footer>
+  <?php include $_SERVER['DOCUMENT_ROOT'] . '/NEW-PM-JI-RESERVIFY/pages/customer/components/footer.php'; ?>
 
   <script>
     /***********************
@@ -294,6 +320,7 @@ if (!isset($_SESSION['user_email'])) {
     /***********************
      * Price Calculation & Preview
      ***********************/
+    // Define your event prices.
     const eventPrices = {
       'Baptism': 1500,
       'Birthday': 2000,
@@ -304,37 +331,76 @@ if (!isset($_SESSION['user_email'])) {
 
     function updatePrice() {
       const eventType = document.getElementById('eventType').value;
-      const duration = document.querySelector('input[name="duration"]:checked');
+      const durationEl = document.querySelector('input[name="duration"]:checked');
+      // Get both pricing display elements. One for Step 4 and one for Step 1.
       const pricePreview = document.getElementById('previewPrice');
-      if (eventType && duration) {
+      const priceDisplay = document.getElementById('priceDisplay');
+
+      if (eventType && durationEl) {
         const basePrice = eventPrices[eventType] || 0;
-        const durationHours = parseInt(duration.value);
+        const durationHours = parseInt(durationEl.value);
+        // For example, if the base price is for 2 hours; adjust as needed.
         const totalPrice = basePrice * (durationHours / 2);
+
+        // Update the preview element (if it exists)
         if (pricePreview) {
           pricePreview.textContent = `₱${totalPrice.toLocaleString()}.00`;
         }
+        // Update the new price display element in Step 1.
+        if (priceDisplay) {
+          priceDisplay.textContent = `Estimated Price: ₱${totalPrice.toLocaleString()}.00`;
+        }
       } else {
-        if (pricePreview) { pricePreview.textContent = "₱0.00"; }
+        if (pricePreview) {
+          pricePreview.textContent = "₱0.00";
+        }
+        if (priceDisplay) {
+          priceDisplay.textContent = "Estimated Price: ₱0.00";
+        }
       }
     }
 
+    // Add event listeners so that the price updates when the user changes event type or duration.
+    document.getElementById('eventType').addEventListener('change', updatePrice);
+    document.querySelectorAll('input[name="duration"]').forEach(input => {
+      input.addEventListener('change', updatePrice);
+    });
+
+    // Initialize the price when the page loads.
+    updatePrice();
+
+
     function updatePreview() {
       document.getElementById('previewEventType').textContent = document.getElementById('eventType').value;
+
       const selectedDuration = document.querySelector('input[name="duration"]:checked');
-      document.getElementById('previewDuration').textContent = selectedDuration ? selectedDuration.value : '';
+      document.getElementById('previewDuration').textContent = selectedDuration ? selectedDuration.value + " Hours" : '';
+
       document.getElementById('previewDate').textContent = document.getElementById('reservationDate').value;
       document.getElementById('previewTimeSlot').textContent = document.getElementById('timeSlot').value;
       document.getElementById('previewStreetAddress').textContent = document.getElementById('streetAddress').value;
       document.getElementById('previewBarangay').textContent = document.getElementById('barangay').value;
       document.getElementById('previewCity').textContent = document.getElementById('city').value;
       document.getElementById('previewProvince').textContent = document.getElementById('province').value;
-      updatePrice();
-    }
 
-    document.getElementById('eventType').addEventListener('change', updatePrice);
-    document.querySelectorAll('input[name="duration"]').forEach(input => {
-      input.addEventListener('change', updatePrice);
-    });
+      updatePrice();
+
+      // Retrieve all selected package checkboxes
+      const packageCheckboxes = document.querySelectorAll('input[name="packages[]"]:checked');
+      const packageNames = [];
+
+      packageCheckboxes.forEach(checkbox => {
+        // Find the closest package card and extract the package name from the .card-title element.
+        const card = checkbox.closest('.package-card');
+        const packageTitle = card ? card.querySelector('.card-title').textContent : '';
+        if (packageTitle) {
+          packageNames.push(packageTitle);
+        }
+      });
+
+      // Display the list of selected packages (or a default message if none selected)
+      document.getElementById('previewPackages').textContent = packageNames.length > 0 ? packageNames.join(', ') : 'None selected';
+    }
 
     /***********************
      * Multi-Step Form Navigation
@@ -386,7 +452,7 @@ if (!isset($_SESSION['user_email'])) {
       });
     });
 
-    // Initialize the first step and price.
+    // initialize the first step and price.
     updateProgressIndicator(1);
     updatePrice();
 
@@ -399,9 +465,9 @@ if (!isset($_SESSION['user_email'])) {
       const qrImage = document.getElementById('qrImage');
 
       if (paymentMethod === "GCash") {
-        qrImage.src = "assets/qr/sample-qr.png";
+        qrImage.src = "/NEW-PM-JI-RESERVIFY/assets/qr/sample-qr.png";
       } else if (paymentMethod === "Paymaya") {
-        qrImage.src = "assets/qr/sample-qr1.png";
+        qrImage.src = "/NEW-PM-JI-RESERVIFY/assets/qr/sample-qr1.png";
       }
       qrContainer.style.display = "block";
     }
