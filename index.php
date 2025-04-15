@@ -491,7 +491,12 @@ session_start();
                         </div>
                         <div class="form-group checkbox-group">
                             <input type="checkbox" id="terms" name="terms" required>
-                            <label for="terms">I agree to the Terms &amp; Conditions</label>
+                            <label for="terms">
+                                I agree to the
+                                <a href="/NEW-PM-JI-RESERVIFY/TermsConditions.php" target="_blank">
+                                    Terms &amp; Conditions
+                                </a>
+                            </label>
                             <div class="field-error" id="termsError"></div>
                         </div>
                         <button type="submit" class="btn">Sign Up</button>

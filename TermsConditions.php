@@ -8,9 +8,6 @@
     <link rel="stylesheet" href="termsandcondi.css">
 </head>
 <body>
-    <div class="back-button" onclick="goBack()">
-        <img src="images/back button.png" alt="Back Button">
-    </div>
     <div class="container">
         <h1>Terms & Conditions</h1>
         <div class="content">
