@@ -85,7 +85,7 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
                 <li><strong>4 Hours:</strong> ₱4,600 <span>(50% down: ₱2,300)</span></li>
               </ul>
               <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google Drive.</p>
-              <a href="reservation.php" class="btn btn-primary service-cta">Book Now</a>
+              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php" class="btn btn-primary service-cta">Book Now</a>
             </div>
           </div>
         </div>
@@ -106,7 +106,7 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
                 <li><strong>4 Hours:</strong> ₱6,500 <span>(50% down: ₱3,250)</span></li>
               </ul>
               <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google Drive.</p>
-              <a href="reservation.php" class="btn btn-primary service-cta">Book Now</a>
+              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php" class="btn btn-primary service-cta">Book Now</a>
             </div>
           </div>
         </div>
@@ -127,7 +127,7 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
                 <li><strong>4 Hours:</strong> ₱4,000 <span>(50% down: ₱2,000)</span></li>
               </ul>
               <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google Drive.</p>
-              <a href="reservation.php" class="btn btn-primary service-cta">Book Now</a>
+              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php" class="btn btn-primary service-cta">Book Now</a>
             </div>
           </div>
         </div>
@@ -148,7 +148,7 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
                 <li><strong>4 Hours:</strong> ₱8,000 <span>(50% down: ₱4,000)</span></li>
               </ul>
               <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google Drive.</p>
-              <a href="reservation.php" class="btn btn-primary service-cta">Book Now</a>
+              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php" class="btn btn-primary service-cta">Book Now</a>
             </div>
           </div>
         </div>
@@ -169,7 +169,7 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
                 <li><strong>4 Hours:</strong> ₱11,000 <span>(50% down: ₱5,500)</span></li>
               </ul>
               <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google Drive.</p>
-              <a href="reservation.php" class="btn btn-primary service-cta">Book Now</a>
+              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php" class="btn btn-primary service-cta">Book Now</a>
             </div>
           </div>
         </div>
@@ -189,7 +189,7 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
                 <li><strong>Flat Rate:</strong> ₱10,000 <span>(50% down: ₱5,000)</span></li>
               </ul>
               <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google Drive.</p>
-              <a href="reservation.php" class="btn btn-primary service-cta">Book Now</a>
+              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php" class="btn btn-primary service-cta">Book Now</a>
             </div>
           </div>
         </div>
