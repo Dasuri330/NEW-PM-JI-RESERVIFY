@@ -74,6 +74,12 @@ if (!isset($_SESSION['user_email'])) {
             <option value="Other">Other</option>
           </select>
         </div>
+
+        <!-- Pricing Display -->
+        <div class="form-group">
+          <p id="priceDisplay">Price: ₱0.00</p>
+        </div>
+
         <div class="form-group">
           <label>Duration</label>
           <div class="radio-wrapper-19">
@@ -129,10 +135,6 @@ if (!isset($_SESSION['user_email'])) {
           </div>
         </div>
 
-        <!-- New Pricing Display -->
-        <div class="form-group">
-          <p id="priceDisplay">Estimated Price: ₱0.00</p>
-        </div>
         <div class="form-navigation">
           <button type="button" class="next-btn btn btn-primary">Next</button>
         </div>
