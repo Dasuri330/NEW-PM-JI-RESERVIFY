@@ -98,7 +98,75 @@ session_start();
     <!-- Services Section -->
     <section id="services-section" class="py-5">
         <div>
-            <h2 class="section-title text-center mb-5">Our Services</h2>
+            <h2 class="section-title text-center mb-5">
+                <i class="fas fa-cogs"></i> Our Services
+            </h2>
+        </div>
+
+        <!-- Modified Service Inclusions & Horizontal Testimonials Row -->
+        <div class="container mb-4">
+            <div class="row">
+                <!-- Service Inclusions Column (left side) -->
+                <div class="col-md-7">
+                    <div class="service-inclusions">
+                        <h5><i class="fas fa-concierge-bell"></i> Service Inclusions:</h5>
+                        <ul>
+                            <li>📸 Unlimited Shots</li>
+                            <li>🖼️ Personalized Photo Layout</li>
+                            <li>💎 High-Quality Photo (4 Frames)</li>
+                            <li>🎨 Custom Layouts (According to Event Theme)</li>
+                            <li>☁️ Soft Copy of All Photos (via Google Drive)</li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Horizontal Testimonials Column (right side) -->
+                <div class="col-md-5">
+                    <h5>What Our Clients Say</h5>
+                    <div class="testimonials-container">
+                        <!-- Testimonial Card 1 -->
+                        <div class="testimonial-card">
+                            <div class="testimonial-header">
+                                <img src="/NEW-PM-JI-RESERVIFY/assets/profile/profile1.png" alt="Profile 1"
+                                    class="profile-pic">
+                                <div class="user-info">
+                                    <span class="username">Jamie D.</span>
+                                    <div class="rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <blockquote>
+                                "Excellent service and exceptional quality – highly recommend!"
+                            </blockquote>
+                        </div>
+                        <!-- Testimonial Card 2 -->
+                        <div class="testimonial-card">
+                            <div class="testimonial-header">
+                                <img src="/NEW-PM-JI-RESERVIFY/assets/profile/profile2.png" alt="Profile 2"
+                                    class="profile-pic">
+                                <div class="user-info">
+                                    <span class="username">Alex T.</span>
+                                    <div class="rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <blockquote>
+                                "Professional, timely, and creative. Our event was unforgettable!"
+                            </blockquote>
+                        </div>
+                        <!-- Add additional testimonial cards as needed -->
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="container">
@@ -278,14 +346,13 @@ session_start();
                                         data-target="#portfolioModal">
                                 </div>
                             </div>
-                            <!-- Add more portfolio items as needed -->
+                            <!-- Additional portfolio items as needed -->
                         </div>
                     </div>
                 </section>
             </div>
         </div>
     </section>
-
 
     <a href="connect_with_us.php" class="message-link">
         <div class="message-icon">

@@ -403,12 +403,27 @@ if (!isset($_SESSION['user_email'])) {
     }
 
     /***********************
-     * Multi-Step Form Navigation
-     ***********************/
+ * Multi-Step Form Navigation
+ ***********************/
     const formSteps = document.querySelectorAll('.form-step');
     const nextButtons = document.querySelectorAll('.next-btn');
     const prevButtons = document.querySelectorAll('.prev-btn');
     const progressSteps = document.querySelectorAll('.progress-indicator .step');
+
+    // Helper function to validate all required fields in current step.
+    function validateStep(stepElement) {
+      // Get all input, select, and textarea elements in the current step.
+      const inputs = stepElement.querySelectorAll('input, select, textarea');
+      for (let input of inputs) {
+        // If an input field is invalid according to HTML5 validations...
+        if (!input.checkValidity()) {
+          // Show the built-in validation message.
+          input.reportValidity();
+          return false;
+        }
+      }
+      return true;
+    }
 
     function updateProgressIndicator(stepNumber) {
       progressSteps.forEach(step => {
@@ -424,17 +439,28 @@ if (!isset($_SESSION['user_email'])) {
     nextButtons.forEach(button => {
       button.addEventListener('click', () => {
         const currentStep = button.closest('.form-step');
+        // Validate all required fields in the current step.
+        if (!validateStep(currentStep)) {
+          // Do not continue to the next step if validation fails.
+          return;
+        }
+
         let currentStepNum = parseInt(currentStep.getAttribute('data-step'));
+        // Remove active class from the current step.
         currentStep.classList.remove('active');
 
-        // If moving to the review step (step 4), update the preview.
+        // Special: When moving to the review step (step 4), update the preview.
         if (currentStepNum + 1 === 4) {
           updatePreview();
         }
+
+        // find the next step and add active class.
         const nextStep = document.querySelector(`.form-step[data-step="${currentStepNum + 1}"]`);
         if (nextStep) {
           nextStep.classList.add('active');
           updateProgressIndicator(currentStepNum + 1);
+          // scroll smoothly to the top of the page.
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       });
     });
@@ -448,13 +474,16 @@ if (!isset($_SESSION['user_email'])) {
         if (prevStep) {
           prevStep.classList.add('active');
           updateProgressIndicator(currentStepNum - 1);
+          // scroll to the top upon navigating back.
+          window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       });
     });
 
-    // initialize the first step and price.
+    // Initialize the first step and price.
     updateProgressIndicator(1);
     updatePrice();
+
 
     /***********************
      * Update QR Code Based on Payment Method

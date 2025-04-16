@@ -9,7 +9,7 @@
 
 body {
     font-family: "Poppins", sans-serif;
-    background-color: var(--primary-bg);
+    background: url("/NEW-PM-JI-RESERVIFY/assets/bg/bg2.jpg") no-repeat center;
 }
 
 :root {
