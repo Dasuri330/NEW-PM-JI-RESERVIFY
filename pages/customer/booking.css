@@ -10,7 +10,10 @@
 body {
     font-family: "Poppins", sans-serif;
     background: url("/NEW-PM-JI-RESERVIFY/assets/bg/bg2.jpg") no-repeat center;
+    background-size: cover;
+    min-height: 100vh;
 }
+
 
 :root {
     --primary-bg: #f8c494;
@@ -37,8 +40,10 @@ a:hover {
 }
 
 /* ================= Booking Form Styles ================= */
+
 .reservation-container {
     max-width: 800px;
+    min-height: 75vh;
     margin: 110px auto 80px;
     background-color: var(--card-bg);
     padding: 40px;
@@ -47,16 +52,15 @@ a:hover {
     font-family: "Poppins", sans-serif;
 }
 
-.reservation-title {
-    text-align: left;
-    font-size: 2.5rem;
-    font-weight: 600;
-    color: var(--primary-color);
-    margin-bottom: 30px;
+.header-container {
+    display: flex;
+    align-items: center;
+    gap: 50px;
 }
 
-.reservation-form .form-group {
-    margin-bottom: 20px;
+.reservation-title {
+    margin: 0;
+    margin-bottom: 0;
 }
 
 .reservation-form label {
@@ -230,15 +234,14 @@ select.form-control {
 }
 
 /* ================= Progress Indicator Styles ================= */
-.progress-indicator {
-    margin-bottom: 20px;
-}
 
 .progress-indicator ul {
     list-style: none;
     display: flex;
     justify-content: space-between;
     padding: 0;
+    justify-content: space-between;
+    gap: 20px;
 }
 
 .progress-indicator .step {
@@ -277,7 +280,7 @@ select.form-control {
 
 .step-description {
     display: block;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 /* ------------------ Interactive Calendar Styles ------------------ */

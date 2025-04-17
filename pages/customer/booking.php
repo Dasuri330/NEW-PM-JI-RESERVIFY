@@ -31,35 +31,36 @@ if (!isset($_SESSION['user_email'])) {
 
   <!-- Booking Form Container -->
   <div class="reservation-container">
-    <h1 class="reservation-title">Booking</h1>
-
-    <!-- Progress Indicator -->
-    <div class="progress-indicator">
-      <ul>
-        <li class="step active" data-step="1">
-          <span class="step-number">1</span>
-          <span class="step-description">Event Type</span>
-        </li>
-        <li class="step" data-step="2">
-          <span class="step-number">2</span>
-          <span class="step-description">Date &amp; Time</span>
-        </li>
-        <li class="step" data-step="3">
-          <span class="step-number">3</span>
-          <span class="step-description">Set Location</span>
-        </li>
-        <li class="step" data-step="4">
-          <span class="step-number">4</span>
-          <span class="step-description">Review Details</span>
-        </li>
-        <li class="step" data-step="5">
-          <span class="step-number">5</span>
-          <span class="step-description">Payment</span>
-        </li>
-      </ul>
+    <div class="header-container">
+      <h1 class="reservation-title">Booking</h1>
+      <!-- Progress Indicator -->
+      <div class="progress-indicator">
+        <ul>
+          <li class="step active" data-step="1">
+            <span class="step-number">1</span>
+            <span class="step-description">Event Type</span>
+          </li>
+          <li class="step" data-step="2">
+            <span class="step-number">2</span>
+            <span class="step-description">Date &amp; Time</span>
+          </li>
+          <li class="step" data-step="3">
+            <span class="step-number">3</span>
+            <span class="step-description">Set Location</span>
+          </li>
+          <li class="step" data-step="4">
+            <span class="step-number">4</span>
+            <span class="step-description">Review Details</span>
+          </li>
+          <li class="step" data-step="5">
+            <span class="step-number">5</span>
+            <span class="step-description">Payment</span>
+          </li>
+        </ul>
+      </div>
     </div>
 
-    <form action="process_booking .php" method="post" class="reservation-form" id="reservationForm"
+    <form action="process_booking.php" method="post" class="reservation-form" id="reservationForm"
       enctype="multipart/form-data">
       <!-- Step 1: Select Event Type -->
       <div class="form-step active" data-step="1">
@@ -144,7 +145,7 @@ if (!isset($_SESSION['user_email'])) {
       <div class="form-step" data-step="2">
         <div class="form-group">
           <label for="reservationDate">Date</label>
-          <input type="text" id="reservationDate" name="reservation_date" readonly required>
+          <input type="text" id="reservationDate" name="reservation_date" readonly required placeholder="Select a date">
         </div>
         <div class="form-group">
           <label for="timeSlot">Time Slot</label>
