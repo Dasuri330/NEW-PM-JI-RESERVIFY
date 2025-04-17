@@ -4,6 +4,40 @@ if (!isset($_SESSION['user_email'])) {
   header("Location: /NEW-PM-JI-RESERVIFY/index.php");
   exit();
 }
+
+$mysqli = new mysqli('127.0.0.1', 'root', '', 'db_pmji');
+if ($mysqli->connect_error) {
+  die('DB Connection Error: ' . $mysqli->connect_error);
+}
+
+/* ================= Calendar (Step 2: Booking Process) ================= */
+
+$sql = "
+  SELECT
+    reservation_date,
+    COUNT(*) AS cnt
+  FROM tbl_bookings
+  GROUP BY reservation_date
+";
+$result = $mysqli->query($sql);
+
+$availability = [];
+while ($row = $result->fetch_assoc()) {
+  $date = $row['reservation_date'];
+  $count = (int) $row['cnt'];
+
+  // 3. map counts → colors (tweak thresholds to your business rules)
+  if ($count >= 3) {
+    $availability[$date] = 'red';    // fully booked
+  } else if ($count == 2) {
+    $availability[$date] = 'yellow'; // partially booked
+  } else {
+    $availability[$date] = 'green';  // available
+  }
+}
+
+$mysqli->close();
+?>
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,9 +54,6 @@ if (!isset($_SESSION['user_email'])) {
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
 
 </head>
 
@@ -169,19 +200,23 @@ if (!isset($_SESSION['user_email'])) {
           <input type="text" class="form-control" name="street_address" id="streetAddress"
             placeholder="e.g., 123 Main St" required>
         </div>
+
+        <!-- City/Municipality Dropdown -->
         <div class="form-group">
-          <label for="barangay">Barangay</label>
-          <input type="text" class="form-control" name="barangay" id="barangay" placeholder="e.g., Barangay 1" required>
+          <label for="citySelect">City / Municipality</label>
+          <select id="citySelect" name="city" class="form-control" required disabled>
+            <option value="">Loading…</option>
+          </select>
         </div>
+
+        <!-- Barangay Dropdown -->
         <div class="form-group">
-          <label for="city">City</label>
-          <input type="text" class="form-control" name="city" id="city" placeholder="e.g., Manila" required>
+          <label for="barangaySelect">Barangay</label>
+          <select id="barangaySelect" name="barangay" class="form-control" required disabled>
+            <option value="">Select a city first</option>
+          </select>
         </div>
-        <div class="form-group">
-          <label for="province">Province</label>
-          <input type="text" class="form-control" name="province" id="province" placeholder="e.g., Metro Manila"
-            required>
-        </div>
+
         <div class="form-navigation">
           <button type="button" class="prev-btn btn btn-secondary">Previous</button>
           <button type="button" class="next-btn btn btn-primary">Next</button>
@@ -210,18 +245,14 @@ if (!isset($_SESSION['user_email'])) {
           <div class="review-item">
             <span class="label">Street Address:</span>
             <span class="value" id="previewStreetAddress"></span>
-          </div>
-          <div class="review-item">
-            <span class="label">Barangay:</span>
-            <span class="value" id="previewBarangay"></span>
-          </div>
+          </div>  
           <div class="review-item">
             <span class="label">City:</span>
             <span class="value" id="previewCity"></span>
           </div>
           <div class="review-item">
-            <span class="label">Province:</span>
-            <span class="value" id="previewProvince"></span>
+            <span class="label">Barangay:</span>
+            <span class="value" id="previewBarangay"></span>
           </div>
           <div class="review-item">
             <span class="label">Estimated Price:</span>
@@ -295,15 +326,18 @@ if (!isset($_SESSION['user_email'])) {
 
   <?php include $_SERVER['DOCUMENT_ROOT'] . '/NEW-PM-JI-RESERVIFY/pages/customer/components/footer.php'; ?>
 
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+  <!-- location-select API-->
+  <script src="/NEW-PM-JI-RESERVIFY/pages/customer/API/location-select.js"></script>
+
   <script>
     /***********************
      * Calendar Availability
      ***********************/
-    var availability = {
-      "2025-04-15": "red",    // Fully booked
-      "2025-04-16": "yellow", // Partially booked
-      "2025-04-17": "green"   // No bookings yet
-    };
+    var availability = <?= json_encode($availability, JSON_UNESCAPED_SLASHES) ?>;
 
     $(function () {
       $("#reservationDate").datepicker({
@@ -382,10 +416,8 @@ if (!isset($_SESSION['user_email'])) {
       document.getElementById('previewDate').textContent = document.getElementById('reservationDate').value;
       document.getElementById('previewTimeSlot').textContent = document.getElementById('timeSlot').value;
       document.getElementById('previewStreetAddress').textContent = document.getElementById('streetAddress').value;
-      document.getElementById('previewBarangay').textContent = document.getElementById('barangay').value;
-      document.getElementById('previewCity').textContent = document.getElementById('city').value;
-      document.getElementById('previewProvince').textContent = document.getElementById('province').value;
-
+      document.getElementById('previewCity').textContent = document.getElementById('citySelect').selectedOptions[0].text;
+      document.getElementById('previewBarangay').textContent = document.getElementById('barangaySelect').selectedOptions[0].text;
       updatePrice();
 
       // Retrieve all selected package checkboxes
