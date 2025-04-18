@@ -203,7 +203,7 @@ $mysqli->close();
 
         <!-- City/Municipality Dropdown -->
         <div class="form-group">
-          <label for="citySelect">City / Municipality</label>
+          <label for="citySelect">City</label>
           <select id="citySelect" name="city" class="form-control" required disabled>
             <option value="">Loading…</option>
           </select>
@@ -221,6 +221,11 @@ $mysqli->close();
           <button type="button" class="prev-btn btn btn-secondary">Previous</button>
           <button type="button" class="next-btn btn btn-primary">Next</button>
         </div>
+
+        <!-- Note -->
+        <p class="text-muted mt-3">
+          <small>Note: Currently, we operate within the NCR (National Capital Region) area, but were working on expanding to more areas soon!📍🗺</small>
+        </p>
       </div>
 
       <!-- Step 4: Review Booking -->
@@ -245,7 +250,7 @@ $mysqli->close();
           <div class="review-item">
             <span class="label">Street Address:</span>
             <span class="value" id="previewStreetAddress"></span>
-          </div>  
+          </div>
           <div class="review-item">
             <span class="label">City:</span>
             <span class="value" id="previewCity"></span>
