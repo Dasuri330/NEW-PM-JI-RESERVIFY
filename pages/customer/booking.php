@@ -117,12 +117,12 @@ $mysqli->close();
           <div class="radio-wrapper-19">
             <div class="radio-inputs-19">
               <label for="duration2hr">
-                <input id="duration2hr" type="radio" name="duration" value="2" required checked>
-                <span class="name">2 Hours</span>
+                <input id="duration2hr" type="radio" name="duration" value="3" required checked>
+                <span class="name">3 Hours</span>
               </label>
               <label for="duration4hr">
-                <input id="duration4hr" type="radio" name="duration" value="4">
-                <span class="name">4 Hours</span>
+                <input id="duration4hr" type="radio" name="duration" value="5">
+                <span class="name">5 Hours</span>
               </label>
             </div>
           </div>
@@ -130,38 +130,52 @@ $mysqli->close();
 
         <!-- Package Selection as Cards -->
         <div class="form-group packages-selection">
-          <label>Select Packages:</label>
+          <label style="margin-bottom: 8px">Select Packages:</label>
           <div class="card-deck">
-            <!-- Package A -->
+            <!-- Package 1: Photo Standee Frame -->
             <label class="card package-card">
-              <input class="form-check-input" type="checkbox" name="packages[]" value="PackageA" id="package_a">
-              <img src="/NEW-PM-JI-RESERVIFY/assets/packages/package_a.png" class="card-img-top package-img"
-                alt="Package A">
+              <input class="form-check-input" type="radio" name="package" value="PhotoStandeeFrame" id="package_1"
+                required>
+              <img src="/NEW-PM-JI-RESERVIFY/assets/packages/photo_standee_frame.png" class="card-img-top package-img"
+                alt="Photo Standee Frame">
               <div class="card-body">
-                <h5 class="card-title">Package A</h5>
-                <span>Select Package A</span>
+                <h5 class="card-title">Photo Standee</h5>
+                <p class="card-text">
+                  - Customized Layout<br>
+                  - 1 Standee Frame<br>
+                  - 3 Ref Magnets (Single Shot)
+                </p>
               </div>
             </label>
 
-            <!-- Package B -->
+            <!-- Package 2: Polaroid Frame -->
             <label class="card package-card">
-              <input class="form-check-input" type="checkbox" name="packages[]" value="PackageB" id="package_b">
-              <img src="/NEW-PM-JI-RESERVIFY/assets/packages/package_b.png" class="card-img-top package-img"
-                alt="Package B">
+              <input class="form-check-input" type="radio" name="package" value="PolaroidFrame" id="package_2" required>
+              <img src="/NEW-PM-JI-RESERVIFY/assets/packages/polaroid_frame.png" class="card-img-top package-img"
+                alt="Polaroid Frame">
               <div class="card-body">
-                <h5 class="card-title">Package B</h5>
-                <span>Select Package B</span>
+                <h5 class="card-title">Polaroid Frame</h5>
+                <p class="card-text">
+                  - Customized Layout<br>
+                  - 1 Polaroid Frame<br>
+                  - 3 Ref Magnets (Single Shot)
+                </p>
               </div>
             </label>
 
-            <!-- Package C -->
+            <!-- Package 3: 2x6 Photo Strip Frame -->
             <label class="card package-card">
-              <input class="form-check-input" type="checkbox" name="packages[]" value="PackageC" id="package_c">
-              <img src="/NEW-PM-JI-RESERVIFY/assets/packages/package_c.png" class="card-img-top package-img"
-                alt="Package C">
+              <input class="form-check-input" type="radio" name="package" value="PhotoStripFrame" id="package_3"
+                required>
+              <img src="/NEW-PM-JI-RESERVIFY/assets/packages/photo_strip_frame.png" class="card-img-top package-img"
+                alt="2x6 Photo Strip Frame">
               <div class="card-body">
-                <h5 class="card-title">Package C</h5>
-                <span>Select Package C</span>
+                <h5 class="card-title">2x6 Photo Strip</h5>
+                <p class="card-text">
+                  - Customized Layout<br>
+                  - 2x6 Photo Strip Frame<br>
+                  - 3 Ref Magnets (Single Shot)
+                </p>
               </div>
             </label>
           </div>
@@ -224,7 +238,8 @@ $mysqli->close();
 
         <!-- Note -->
         <p class="text-muted mt-3">
-          <small>Note: Currently, we operate within the NCR (National Capital Region) area, but were working on expanding to more areas soon!📍🗺</small>
+          <small>Note: Currently, we operate within the NCR (National Capital Region) area, but were working on
+            expanding to more areas soon!📍🗺</small>
         </p>
       </div>
 
@@ -260,7 +275,7 @@ $mysqli->close();
             <span class="value" id="previewBarangay"></span>
           </div>
           <div class="review-item">
-            <span class="label">Estimated Price:</span>
+            <span class="label">Price:</span>
             <span class="value" id="previewPrice"></span>
           </div>
           <div class="review-item">
@@ -390,14 +405,14 @@ $mysqli->close();
         }
         // Update the new price display element in Step 1.
         if (priceDisplay) {
-          priceDisplay.textContent = `Estimated Price: ₱${totalPrice.toLocaleString()}.00`;
+          priceDisplay.textContent = `Price: ₱${totalPrice.toLocaleString()}.00`;
         }
       } else {
         if (pricePreview) {
           pricePreview.textContent = "₱0.00";
         }
         if (priceDisplay) {
-          priceDisplay.textContent = "Estimated Price: ₱0.00";
+          priceDisplay.textContent = "Price: ₱0.00";
         }
       }
     }
@@ -425,125 +440,118 @@ $mysqli->close();
       document.getElementById('previewBarangay').textContent = document.getElementById('barangaySelect').selectedOptions[0].text;
       updatePrice();
 
-      // Retrieve all selected package checkboxes
-      const packageCheckboxes = document.querySelectorAll('input[name="packages[]"]:checked');
-      const packageNames = [];
+      // Retrieve the selected package radio button
+      const selectedPackage = document.querySelector('input[name="package"]:checked');
+      const packageName = selectedPackage
+        ? selectedPackage.closest('.package-card').querySelector('.card-title').textContent
+        : 'None selected';
 
-      packageCheckboxes.forEach(checkbox => {
-        // Find the closest package card and extract the package name from the .card-title element.
-        const card = checkbox.closest('.package-card');
-        const packageTitle = card ? card.querySelector('.card-title').textContent : '';
-        if (packageTitle) {
-          packageNames.push(packageTitle);
-        }
-      });
-
-      // Display the list of selected packages (or a default message if none selected)
-      document.getElementById('previewPackages').textContent = packageNames.length > 0 ? packageNames.join(', ') : 'None selected';
+      // Display the selected package
+      document.getElementById('previewPackages').textContent = packageName;
     }
 
-    /***********************
- * Multi-Step Form Navigation
- ***********************/
-    const formSteps = document.querySelectorAll('.form-step');
-    const nextButtons = document.querySelectorAll('.next-btn');
-    const prevButtons = document.querySelectorAll('.prev-btn');
-    const progressSteps = document.querySelectorAll('.progress-indicator .step');
+      /***********************
+   * Multi-Step Form Navigation
+   ***********************/
+      const formSteps = document.querySelectorAll('.form-step');
+      const nextButtons = document.querySelectorAll('.next-btn');
+      const prevButtons = document.querySelectorAll('.prev-btn');
+      const progressSteps = document.querySelectorAll('.progress-indicator .step');
 
-    // Helper function to validate all required fields in current step.
-    function validateStep(stepElement) {
-      // Get all input, select, and textarea elements in the current step.
-      const inputs = stepElement.querySelectorAll('input, select, textarea');
-      for (let input of inputs) {
-        // If an input field is invalid according to HTML5 validations...
-        if (!input.checkValidity()) {
-          // Show the built-in validation message.
-          input.reportValidity();
-          return false;
+      // Helper function to validate all required fields in current step.
+      function validateStep(stepElement) {
+        // Get all input, select, and textarea elements in the current step.
+        const inputs = stepElement.querySelectorAll('input, select, textarea');
+        for (let input of inputs) {
+          // If an input field is invalid according to HTML5 validations...
+          if (!input.checkValidity()) {
+            // Show the built-in validation message.
+            input.reportValidity();
+            return false;
+          }
         }
+        return true;
       }
-      return true;
-    }
 
-    function updateProgressIndicator(stepNumber) {
-      progressSteps.forEach(step => {
-        const stepData = parseInt(step.getAttribute('data-step'));
-        if (stepData === stepNumber) {
-          step.classList.add('active');
-        } else {
-          step.classList.remove('active');
-        }
-      });
-    }
-
-    nextButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const currentStep = button.closest('.form-step');
-        // Validate all required fields in the current step.
-        if (!validateStep(currentStep)) {
-          // Do not continue to the next step if validation fails.
-          return;
-        }
-
-        let currentStepNum = parseInt(currentStep.getAttribute('data-step'));
-        // Remove active class from the current step.
-        currentStep.classList.remove('active');
-
-        // Special: When moving to the review step (step 4), update the preview.
-        if (currentStepNum + 1 === 4) {
-          updatePreview();
-        }
-
-        // find the next step and add active class.
-        const nextStep = document.querySelector(`.form-step[data-step="${currentStepNum + 1}"]`);
-        if (nextStep) {
-          nextStep.classList.add('active');
-          updateProgressIndicator(currentStepNum + 1);
-          // scroll smoothly to the top of the page.
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-      });
-    });
-
-    prevButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const currentStep = button.closest('.form-step');
-        let currentStepNum = parseInt(currentStep.getAttribute('data-step'));
-        currentStep.classList.remove('active');
-        const prevStep = document.querySelector(`.form-step[data-step="${currentStepNum - 1}"]`);
-        if (prevStep) {
-          prevStep.classList.add('active');
-          updateProgressIndicator(currentStepNum - 1);
-          // scroll to the top upon navigating back.
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-      });
-    });
-
-    // Initialize the first step and price.
-    updateProgressIndicator(1);
-    updatePrice();
-
-
-    /***********************
-     * Update QR Code Based on Payment Method
-     ***********************/
-    function updateQRCode() {
-      const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
-      const qrContainer = document.getElementById('qrContainer');
-      const qrImage = document.getElementById('qrImage');
-
-      if (paymentMethod === "GCash") {
-        qrImage.src = "/NEW-PM-JI-RESERVIFY/assets/qr/sample-qr.png";
-      } else if (paymentMethod === "Paymaya") {
-        qrImage.src = "/NEW-PM-JI-RESERVIFY/assets/qr/sample-qr1.png";
+      function updateProgressIndicator(stepNumber) {
+        progressSteps.forEach(step => {
+          const stepData = parseInt(step.getAttribute('data-step'));
+          if (stepData === stepNumber) {
+            step.classList.add('active');
+          } else {
+            step.classList.remove('active');
+          }
+        });
       }
-      qrContainer.style.display = "block";
-    }
 
-    document.querySelectorAll('input[name="payment_method"]').forEach(input => {
-      input.addEventListener('change', updateQRCode);
-    });
+      nextButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const currentStep = button.closest('.form-step');
+          // Validate all required fields in the current step.
+          if (!validateStep(currentStep)) {
+            // Do not continue to the next step if validation fails.
+            return;
+          }
+
+          let currentStepNum = parseInt(currentStep.getAttribute('data-step'));
+          // Remove active class from the current step.
+          currentStep.classList.remove('active');
+
+          // Special: When moving to the review step (step 4), update the preview.
+          if (currentStepNum + 1 === 4) {
+            updatePreview();
+          }
+
+          // find the next step and add active class.
+          const nextStep = document.querySelector(`.form-step[data-step="${currentStepNum + 1}"]`);
+          if (nextStep) {
+            nextStep.classList.add('active');
+            updateProgressIndicator(currentStepNum + 1);
+            // scroll smoothly to the top of the page.
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        });
+      });
+
+      prevButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const currentStep = button.closest('.form-step');
+          let currentStepNum = parseInt(currentStep.getAttribute('data-step'));
+          currentStep.classList.remove('active');
+          const prevStep = document.querySelector(`.form-step[data-step="${currentStepNum - 1}"]`);
+          if (prevStep) {
+            prevStep.classList.add('active');
+            updateProgressIndicator(currentStepNum - 1);
+            // scroll to the top upon navigating back.
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        });
+      });
+
+      // Initialize the first step and price.
+      updateProgressIndicator(1);
+      updatePrice();
+
+
+      /***********************
+       * Update QR Code Based on Payment Method
+       ***********************/
+      function updateQRCode() {
+        const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+        const qrContainer = document.getElementById('qrContainer');
+        const qrImage = document.getElementById('qrImage');
+
+        if (paymentMethod === "GCash") {
+          qrImage.src = "/NEW-PM-JI-RESERVIFY/assets/qr/sample-qr.png";
+        } else if (paymentMethod === "Paymaya") {
+          qrImage.src = "/NEW-PM-JI-RESERVIFY/assets/qr/sample-qr1.png";
+        }
+        qrContainer.style.display = "block";
+      }
+
+      document.querySelectorAll('input[name="payment_method"]').forEach(input => {
+        input.addEventListener('change', updateQRCode);
+      });
   </script>
 </body>
 

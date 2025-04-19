@@ -155,6 +155,7 @@ select.form-control {
 }
 
 /* ================= Review Booking Card Styling ================= */
+
 .review-card {
     background: #fff;
     padding: 20px;
@@ -307,6 +308,7 @@ select.form-control {
 }
 
 /* ================= Packages Cards Styles ================= */
+
 .card-deck {
     display: flex;
     flex-wrap: wrap;
@@ -324,8 +326,14 @@ select.form-control {
     cursor: pointer;
 }
 
-.package-card:has(input[type="checkbox"]:checked) {
-    border-color: #007bff;
+.package-card input[type="radio"]:checked {
+    outline: 2px solid #007bff;
+}
+
+.package-card input[type="radio"]:checked~.card-body {
+    border: 2px solid #007bff;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.5);
+    transform: scale(1.05);
 }
 
 .package-card:hover {
@@ -346,4 +354,10 @@ select.form-control {
     opacity: 0;
     position: absolute;
     pointer-events: none;
+}
+
+.card-text {
+    text-align: left;
+    font-size: 0.65rem;
+    color: #6c757d;
 }
