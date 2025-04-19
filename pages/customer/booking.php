@@ -26,13 +26,11 @@ while ($row = $result->fetch_assoc()) {
   $date = $row['reservation_date'];
   $count = (int) $row['cnt'];
 
-  // 3. map counts → colors (tweak thresholds to your business rules)
-  if ($count >= 3) {
-    $availability[$date] = 'red';    // fully booked
-  } else if ($count == 2) {
-    $availability[$date] = 'yellow'; // partially booked
+  // Mark as red if there is at least one booking, otherwise green
+  if ($count >= 1) {
+    $availability[$date] = 'red';    // Fully booked
   } else {
-    $availability[$date] = 'green';  // available
+    $availability[$date] = 'green';  // Available
   }
 }
 
@@ -192,6 +190,10 @@ $mysqli->close();
           <label for="reservationDate">Date</label>
           <input type="text" id="reservationDate" name="reservation_date" readonly required placeholder="Select a date">
         </div>
+        <div id="calendarLegend" class="calendar-legend">
+          <p><span class="legend-box gray"></span> Unavailable</p>
+          <p><span class="legend-box green"></span> Available</p>
+        </div>
         <div class="form-group">
           <label for="timeSlot">Time Slot</label>
           <select class="form-control select-custom" name="time_slot" id="timeSlot" required>
@@ -201,6 +203,9 @@ $mysqli->close();
             <option value="Evening (6PM - 10PM)">Evening (6PM - 10PM)</option>
           </select>
         </div>
+        <p class="text-muted mt-3">
+          <small>Note: Bookings must be made at least 1 day prior to the event date! 🎉</small>
+        </p>
         <div class="form-navigation">
           <button type="button" class="prev-btn btn btn-secondary">Previous</button>
           <button type="button" class="next-btn btn btn-primary">Next</button>
@@ -362,14 +367,22 @@ $mysqli->close();
     $(function () {
       $("#reservationDate").datepicker({
         dateFormat: "yy-mm-dd",
+        minDate: 1, // Disable today and past dates, allow only dates starting from tomorrow
         beforeShowDay: function (date) {
           var dateString = $.datepicker.formatDate("yy-mm-dd", date);
           var status = availability[dateString];
+
           if (!status) {
-            return [true, "", "No bookings yet"];
+            // Default: Green (available) for dates not in the availability array
+            return [true, "green", "Available"];
           }
-          var tooltip = "Availability: " + status;
-          return [true, status, tooltip];
+
+          if (status === "red") {
+            // Red (fully booked)
+            return [false, "red", "Fully booked"];
+          }
+
+          return [true, "green", "Available"];
         }
       });
     });
@@ -450,108 +463,108 @@ $mysqli->close();
       document.getElementById('previewPackages').textContent = packageName;
     }
 
-      /***********************
-   * Multi-Step Form Navigation
-   ***********************/
-      const formSteps = document.querySelectorAll('.form-step');
-      const nextButtons = document.querySelectorAll('.next-btn');
-      const prevButtons = document.querySelectorAll('.prev-btn');
-      const progressSteps = document.querySelectorAll('.progress-indicator .step');
+    /***********************
+ * Multi-Step Form Navigation
+ ***********************/
+    const formSteps = document.querySelectorAll('.form-step');
+    const nextButtons = document.querySelectorAll('.next-btn');
+    const prevButtons = document.querySelectorAll('.prev-btn');
+    const progressSteps = document.querySelectorAll('.progress-indicator .step');
 
-      // Helper function to validate all required fields in current step.
-      function validateStep(stepElement) {
-        // Get all input, select, and textarea elements in the current step.
-        const inputs = stepElement.querySelectorAll('input, select, textarea');
-        for (let input of inputs) {
-          // If an input field is invalid according to HTML5 validations...
-          if (!input.checkValidity()) {
-            // Show the built-in validation message.
-            input.reportValidity();
-            return false;
-          }
+    // Helper function to validate all required fields in current step.
+    function validateStep(stepElement) {
+      // Get all input, select, and textarea elements in the current step.
+      const inputs = stepElement.querySelectorAll('input, select, textarea');
+      for (let input of inputs) {
+        // If an input field is invalid according to HTML5 validations...
+        if (!input.checkValidity()) {
+          // Show the built-in validation message.
+          input.reportValidity();
+          return false;
         }
-        return true;
       }
+      return true;
+    }
 
-      function updateProgressIndicator(stepNumber) {
-        progressSteps.forEach(step => {
-          const stepData = parseInt(step.getAttribute('data-step'));
-          if (stepData === stepNumber) {
-            step.classList.add('active');
-          } else {
-            step.classList.remove('active');
-          }
-        });
-      }
-
-      nextButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          const currentStep = button.closest('.form-step');
-          // Validate all required fields in the current step.
-          if (!validateStep(currentStep)) {
-            // Do not continue to the next step if validation fails.
-            return;
-          }
-
-          let currentStepNum = parseInt(currentStep.getAttribute('data-step'));
-          // Remove active class from the current step.
-          currentStep.classList.remove('active');
-
-          // Special: When moving to the review step (step 4), update the preview.
-          if (currentStepNum + 1 === 4) {
-            updatePreview();
-          }
-
-          // find the next step and add active class.
-          const nextStep = document.querySelector(`.form-step[data-step="${currentStepNum + 1}"]`);
-          if (nextStep) {
-            nextStep.classList.add('active');
-            updateProgressIndicator(currentStepNum + 1);
-            // scroll smoothly to the top of the page.
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }
-        });
-      });
-
-      prevButtons.forEach(button => {
-        button.addEventListener('click', () => {
-          const currentStep = button.closest('.form-step');
-          let currentStepNum = parseInt(currentStep.getAttribute('data-step'));
-          currentStep.classList.remove('active');
-          const prevStep = document.querySelector(`.form-step[data-step="${currentStepNum - 1}"]`);
-          if (prevStep) {
-            prevStep.classList.add('active');
-            updateProgressIndicator(currentStepNum - 1);
-            // scroll to the top upon navigating back.
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }
-        });
-      });
-
-      // Initialize the first step and price.
-      updateProgressIndicator(1);
-      updatePrice();
-
-
-      /***********************
-       * Update QR Code Based on Payment Method
-       ***********************/
-      function updateQRCode() {
-        const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
-        const qrContainer = document.getElementById('qrContainer');
-        const qrImage = document.getElementById('qrImage');
-
-        if (paymentMethod === "GCash") {
-          qrImage.src = "/NEW-PM-JI-RESERVIFY/assets/qr/sample-qr.png";
-        } else if (paymentMethod === "Paymaya") {
-          qrImage.src = "/NEW-PM-JI-RESERVIFY/assets/qr/sample-qr1.png";
+    function updateProgressIndicator(stepNumber) {
+      progressSteps.forEach(step => {
+        const stepData = parseInt(step.getAttribute('data-step'));
+        if (stepData === stepNumber) {
+          step.classList.add('active');
+        } else {
+          step.classList.remove('active');
         }
-        qrContainer.style.display = "block";
-      }
-
-      document.querySelectorAll('input[name="payment_method"]').forEach(input => {
-        input.addEventListener('change', updateQRCode);
       });
+    }
+
+    nextButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const currentStep = button.closest('.form-step');
+        // Validate all required fields in the current step.
+        if (!validateStep(currentStep)) {
+          // Do not continue to the next step if validation fails.
+          return;
+        }
+
+        let currentStepNum = parseInt(currentStep.getAttribute('data-step'));
+        // Remove active class from the current step.
+        currentStep.classList.remove('active');
+
+        // Special: When moving to the review step (step 4), update the preview.
+        if (currentStepNum + 1 === 4) {
+          updatePreview();
+        }
+
+        // find the next step and add active class.
+        const nextStep = document.querySelector(`.form-step[data-step="${currentStepNum + 1}"]`);
+        if (nextStep) {
+          nextStep.classList.add('active');
+          updateProgressIndicator(currentStepNum + 1);
+          // scroll smoothly to the top of the page.
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+    });
+
+    prevButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const currentStep = button.closest('.form-step');
+        let currentStepNum = parseInt(currentStep.getAttribute('data-step'));
+        currentStep.classList.remove('active');
+        const prevStep = document.querySelector(`.form-step[data-step="${currentStepNum - 1}"]`);
+        if (prevStep) {
+          prevStep.classList.add('active');
+          updateProgressIndicator(currentStepNum - 1);
+          // scroll to the top upon navigating back.
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Initialize the first step and price.
+    updateProgressIndicator(1);
+    updatePrice();
+
+
+    /***********************
+     * Update QR Code Based on Payment Method
+     ***********************/
+    function updateQRCode() {
+      const paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+      const qrContainer = document.getElementById('qrContainer');
+      const qrImage = document.getElementById('qrImage');
+
+      if (paymentMethod === "GCash") {
+        qrImage.src = "/NEW-PM-JI-RESERVIFY/assets/qr/sample-qr.png";
+      } else if (paymentMethod === "Paymaya") {
+        qrImage.src = "/NEW-PM-JI-RESERVIFY/assets/qr/sample-qr1.png";
+      }
+      qrContainer.style.display = "block";
+    }
+
+    document.querySelectorAll('input[name="payment_method"]').forEach(input => {
+      input.addEventListener('change', updateQRCode);
+    });
   </script>
 </body>
 
