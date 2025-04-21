@@ -243,7 +243,7 @@ $mysqli->close();
 
         <!-- Note -->
         <p class="text-muted mt-3">
-          <small>Note: Currently, we operate within the NCR (National Capital Region) area, but were working on
+          <small>Note: Currently, we operate within the NCR (National Capital Region) area.<br> We are working on
             expanding to more areas soon!📍🗺</small>
         </p>
       </div>
@@ -309,13 +309,10 @@ $mysqli->close();
             </label>
           </div>
         </div>
-        <!-- Container to display QR Code based on Payment Method -->
-        <div class="form-group" id="qrContainer" style="display:none;">
-          <label>Scan QR Code:</label>
-          <div id="qrCode">
-            <!-- QR code image will be set dynamically -->
-            <img src="" alt="QR Code" id="qrImage" style="max-width: 200px;">
-          </div>
+        <!-- Payment Preview -->
+        <div class="form-group">
+          <label>Payment Preview</label>
+          <p id="paymentPreview" class="text-muted">₱0.00</p>
         </div>
         <div class="form-group">
           <label>Payment Type</label>
@@ -334,6 +331,7 @@ $mysqli->close();
           <label for="referenceNumber">Reference Number</label>
           <input type="text" class="form-control" name="reference_number" id="referenceNumber"
             placeholder="Enter reference number" required>
+          <small id="referenceNumberError" class="text-danger"></small>
         </div>
         <div class="form-group">
           <label for="paymentScreenshot">Upload Payment Screenshot</label>
@@ -564,6 +562,81 @@ $mysqli->close();
 
     document.querySelectorAll('input[name="payment_method"]').forEach(input => {
       input.addEventListener('change', updateQRCode);
+    });
+
+    function updatePaymentPreview() {
+      const paymentPreview = document.getElementById('paymentPreview');
+      const paymentType = document.querySelector('input[name="payment_type"]:checked');
+      const eventType = document.getElementById('eventType').value;
+      const durationEl = document.querySelector('input[name="duration"]:checked');
+
+      if (!eventType || !durationEl) {
+        paymentPreview.textContent = "₱0.00";
+        return;
+      }
+
+      const basePrice = eventPrices[eventType] || 0;
+      const durationHours = parseInt(durationEl.value);
+      const totalPrice = basePrice * (durationHours / 2);
+
+      if (paymentType && paymentType.value === "Down Payment") {
+        const downPaymentAmount = totalPrice * 0.5; // 50% for down payment
+        paymentPreview.textContent = `₱${downPaymentAmount.toLocaleString()}.00 (Down Payment)`;
+      } else if (paymentType && paymentType.value === "Full Payment") {
+        paymentPreview.textContent = `₱${totalPrice.toLocaleString()}.00 (Full Payment)`;
+      } else {
+        paymentPreview.textContent = "₱0.00";
+      }
+    }
+
+    // Add event listeners to update the payment preview when the payment type changes
+    document.querySelectorAll('input[name="payment_type"]').forEach(input => {
+      input.addEventListener('change', updatePaymentPreview);
+    });
+
+    // Ensure the payment preview updates when the page loads
+    updatePaymentPreview();
+
+    function validateReferenceNumber() {
+      const paymentMethod = document.querySelector('input[name="payment_method"]:checked');
+      const referenceNumberInput = document.getElementById('referenceNumber');
+      const referenceNumber = referenceNumberInput.value.trim();
+      const errorMessage = document.getElementById('referenceNumberError');
+
+      if (!paymentMethod) {
+        errorMessage.textContent = "Please select a payment method.";
+        return false;
+      }
+
+      if (paymentMethod.value === "GCash") {
+        // Validate GCash Reference Number: Numeric, 10–12 digits
+        const gcashRegex = /^\d{10,12}$/;
+        if (!gcashRegex.test(referenceNumber)) {
+          errorMessage.textContent = "Invalid GCash Reference Number. It must be 10–12 digits.";
+          return false;
+        }
+      } else if (paymentMethod.value === "Paymaya") {
+        // Validate PayMaya Reference Number: UUIDv4 format
+        const paymayaRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+        if (!paymayaRegex.test(referenceNumber)) {
+          errorMessage.textContent = "Invalid PayMaya Reference Number. It must follow the UUIDv4 format.";
+          return false;
+        }
+      }
+
+      // Clear error message if validation passes
+      errorMessage.textContent = "";
+      return true;
+    }
+
+    // Add event listener to validate the Reference Number field on blur
+    document.getElementById('referenceNumber').addEventListener('blur', validateReferenceNumber);
+
+    // Add validation check before form submission
+    document.getElementById('reservationForm').addEventListener('submit', function (e) {
+      if (!validateReferenceNumber()) {
+        e.preventDefault(); // Prevent form submission if validation fails
+      }
     });
   </script>
 </body>
