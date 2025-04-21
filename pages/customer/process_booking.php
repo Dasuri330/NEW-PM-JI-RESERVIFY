@@ -45,10 +45,10 @@ $time_slot = $_POST['time_slot'];
 $street_address = $_POST['street_address'];
 $barangay = $_POST['barangay'];
 $city = $_POST['city'];
-$province = $_POST['province'];
 $reference_number = $_POST['reference_number'];
 $payment_method = $_POST['payment_method'];
 $payment_type = $_POST['payment_type'];
+$reference_id = strtoupper(uniqid("REF-"));
 
 // Process file upload for the payment screenshot
 $uploadDir = "uploads/";
@@ -77,7 +77,7 @@ if (isset($_FILES['payment_screenshot']) && $_FILES['payment_screenshot']['error
 
 // Prepare the insert query for tbl_bookings
 $query = "INSERT INTO tbl_bookings 
-            (user_id, event_type, duration, reservation_date, time_slot, street_address, barangay, city, province, reference_number, payment_method, payment_type, payment_screenshot)
+            (user_id, reference_id, event_type, duration, reservation_date, time_slot, street_address, barangay, city, reference_number, payment_method, payment_type, payment_screenshot)
           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($query);
 
@@ -86,8 +86,9 @@ if ($stmt === false) {
 }
 
 $stmt->bind_param(
-    "isissssssssss",
+    "ississsssssss",
     $user_id,
+    $reference_id,
     $event_type,
     $duration,
     $reservation_date,
@@ -95,21 +96,66 @@ $stmt->bind_param(
     $street_address,
     $barangay,
     $city,
-    $province,
     $reference_number,
     $payment_method,
     $payment_type,
     $newFileName  // Save file name to be referenced later
 );
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+// Include PHPMailer
+require $_SERVER['DOCUMENT_ROOT'] . '/NEW-PM-JI-RESERVIFY/vendor/autoload.php';
+
 if ($stmt->execute()) {
-    // Successful insertion, redirect to a confirmation or payments page.
-    header("Location: booking_success.php");
+    $_SESSION['booking_reference_id'] = $reference_id;
+
+    // Send confirmation email
+    $mail = new PHPMailer(true);
+
+    try {
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'skypemain01@gmail.com';
+        $mail->Password = 'nxkt whiw tlft udhl';
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+
+        // Recipients
+        $mail->setFrom('skypemain01@gmail.com', 'PM&JI Reservify');
+        $mail->addAddress($user_email);
+
+        // Content
+        $mail->isHTML(true);
+        $mail->Subject = 'Booking Confirmation - PM&JI Reservify';
+        $mail->Body = "
+            <h2>Booking Confirmed!</h2>
+            <p>Thank you for booking with PM&JI Reservify. Your booking has been successfully processed.</p>
+            <h4>Booking Details:</h4>
+            <ul>
+                <li><strong>Reference ID:</strong> $reference_id</li>
+                <li><strong>Event Type:</strong> $event_type</li>
+                <li><strong>Date:</strong> $reservation_date</li>
+                <li><strong>Time Slot:</strong> $time_slot</li>
+                <li><strong>Location:</strong> $street_address, $barangay, $city</li>
+                <li><strong>Payment Type:</strong> $payment_type</li>
+            </ul>
+            <p>If you have any concerns, please contact us and provide your Reference ID.</p>
+        ";
+
+        // Send the email
+        $mail->send();
+    } catch (Exception $e) {
+        // Log the error or display a message
+        error_log("Email could not be sent. Error: {$mail->ErrorInfo}");
+    }
+
+    // Redirect to the success page
+    header("Location: /NEW-PM-JI-RESERVIFY/pages/customer/booking_success.php");
     exit();
 } else {
     echo "Error: " . $stmt->error;
 }
-
-$stmt->close();
-$conn->close();
-?>

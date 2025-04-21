@@ -71,7 +71,6 @@ a:hover {
     display: block;
 }
 
-/* Input and select field styling */
 .reservation-form .form-control {
     width: 100%;
     padding: 10px 12px;
@@ -138,6 +137,7 @@ select.form-control {
 }
 
 /* ================= Date Field Styling ================= */
+
 #reservationDate {
     background-color: #fff;
     border: 1px solid #ccc;

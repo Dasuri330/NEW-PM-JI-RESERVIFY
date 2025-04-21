@@ -612,7 +612,7 @@ $mysqli->close();
         // Validate GCash Reference Number: Numeric, 10–12 digits
         const gcashRegex = /^\d{10,12}$/;
         if (!gcashRegex.test(referenceNumber)) {
-          errorMessage.textContent = "Invalid GCash Reference Number. It must be 10–12 digits.";
+          errorMessage.textContent = "Invalid GCash Reference Number.";
           return false;
         }
       } else if (paymentMethod.value === "Paymaya") {
