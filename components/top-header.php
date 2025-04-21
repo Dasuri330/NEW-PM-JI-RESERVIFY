@@ -68,7 +68,7 @@
                         <i class='bx bxs-lock-alt'></i>
                         <i class="toggle-password fas fa-eye"></i>
                     </div>
-                    <button type="submit" class="btn">Login</button>
+                    <button type="submit" class="btn-login">Login</button>
                     <div id="loginError" class="error-message"></div>
                     <div class="register-link">
                         <p>Don't have an account? <a href="#" data-dismiss="modal" data-toggle="modal"
@@ -149,7 +149,7 @@
                         </label>
                         <div class="field-error" id="termsError"></div>
                     </div>
-                    <button type="submit" class="btn">Sign Up</button>
+                    <button type="submit" class="btn-login">Sign Up</button>
                 </form>
             </div>
         </div>
