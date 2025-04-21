@@ -543,7 +543,6 @@ $mysqli->close();
     updateProgressIndicator(1);
     updatePrice();
 
-
     /***********************
      * Update QR Code Based on Payment Method
      ***********************/

@@ -1,0 +1,324 @@
+/* ================= General Styles ================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+}
+
+:root {
+    --primary-bg: #f8c494;
+    --secondary-bg: #94c8f8;
+    --primary-color: #000;
+    --secondary-color: #fff;
+    --hover-color: #E0F7FA;
+    --transition-speed: 0.3s;
+    --card-bg: #E0F7FA;
+}
+
+.social-icon {
+    color: #ffffff;
+    transition: color 0.1s ease-in-out;
+    margin-right: 20px;
+}
+
+.social-icon:hover {
+    color: var(--hover-color);
+}
+
+/* ================= Top Header Styles ================= */
+
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+    background-color: var(--primary-bg);
+    color: var(--secondary-bg);
+    font-weight: bold;
+}
+
+.top-header-right {
+    display: flex;
+    align-items: center;
+}
+
+.top-header-left {
+    display: flex;
+    align-items: center;
+}
+
+/* Login/Register Button */
+.login-register {
+    text-decoration: bold;
+    color: var(--secondary-bg);
+    background-color: var(--secondary-color);
+    font-size: 1rem;
+    margin-left: 20px;
+    padding: 5px 10px;
+    border: 1px solid var(--secondary-bg);
+    border-radius: 5px;
+    transition: background 0.3s, color 0.3s;
+}
+
+.login-register:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    color: var(--secondary-bg);
+    border-color: var(--secondary-bg);
+}
+
+.company-logo {
+    height: 30px;
+    margin-right: 10px;
+}
+
+.company-name {
+    font-size: 1.4rem;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    animation: glow 2s ease-in-out infinite alternate;
+}
+
+/* ================= Navigation Bar Styles ================= */
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+header .navbar {
+    background: var(--secondary-bg);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    padding: 10px 30px;
+    font-family: "Poppins", sans-serif;
+    line-height: 0.5;
+    max-width: 100%;
+}
+
+navbar.navbar-expand-lg {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+}
+
+.navbar.navbar-expand-lg {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 100%;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+.navbar-social {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-collapse {
+    justify-content: flex-end;
+}
+
+.navbar-nav {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    margin-left: 20px;
+}
+
+.nav-link {
+    color: var(--secondary-color);
+    text-decoration: none;
+    font-size: 16px;
+    transition: color var(--transition-speed);
+}
+
+.nav-link:hover {
+    color: var(--hover-color);
+}
+
+@media (max-width: 768px) {
+    .navbar-collapse {
+        width: 100%;
+        text-align: center;
+    }
+
+    .navbar-nav {
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    .nav-item {
+        margin: 10px 0;
+    }
+}
+
+/* ================= Login Modal Styles ================= */
+
+/* Modal Dialog */
+.modal-dialog {
+    display: flex;
+    align-items: center;
+    min-height: calc(100% - 60px);
+    width: 400px;
+}
+
+/* Modal Content */
+.login-modal-content {
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    background-color: #fff;
+}
+
+/* Modal Header */
+.modal-header {
+    background-color: #fff;
+    border-bottom: none;
+}
+
+.modal-header .modal-title {
+    color: #000;
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.modal-header .close {
+    font-size: 1.5rem;
+    color: #000;
+    opacity: 1;
+}
+
+/* Modal Body */
+.modal-body {
+    background-color: #fff;
+    padding: 30px 25px;
+    padding-top: 0;
+}
+
+/* Login Form */
+.modal-body form {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+/* Form Heading */
+.modal-body form h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #000;
+}
+
+/* Input Box */
+.input-box {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-box input {
+    width: 100%;
+    padding: 10px 40px 10px 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    color: #000;
+    font-family: 'Poppins', sans-serif;
+}
+
+.input-box input:focus {
+    outline: none;
+    border-color: #ccc;
+}
+
+/* Input Icon */
+.input-box i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #000;
+}
+
+/* Email icon positioned at the right end */
+.input-box:not(.password-box) i {
+    right: 10px;
+}
+
+.input-box.password-box {
+    position: relative;
+}
+
+/* Password Box: Position both lock icon and toggle icon */
+.password-box i.bxs-lock-alt {
+    right: 35px;
+    position: absolute;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+}
+
+.field-error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+/* Register Link */
+.register-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.register-link p {
+    margin: 10px 0;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.register-link a {
+    text-decoration: none;
+    color: var(--secondary-bg, #f10078);
+    transition: text-decoration 0.3s;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+/* Error Message */
+.error-message {
+    margin-top: 10px;
+    text-align: center;
+    color: red !important;
+    font-size: 10px;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+}

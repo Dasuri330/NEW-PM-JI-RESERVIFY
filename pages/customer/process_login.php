@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo 'unverified';
             exit();
         }
-        // Set session variables for use in home.php
+        // set session variables for use in home.php
         $_SESSION['id'] = $userData['id'];
         $_SESSION['user_email'] = $userData['email'];
         $_SESSION['first_name'] = $userData['first_name'] ?? '';
