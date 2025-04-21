@@ -184,7 +184,7 @@ session_start();
                                 Capture precious moment with professional coverage.
                             </p>
                             <ul class="pricing-list">
-                                <li><strong>2 Hours:</strong> ₱4,500 <span>(50% down: ₱2,250)</span></li>
+                                <li><strong>3 Hours:</strong> ₱4,500 <span>(50% down: ₱2,250)</span></li>
                                 <li><strong>4 Hours:</strong> ₱4,600 <span>(50% down: ₱2,300)</span></li>
                             </ul>
                             <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
@@ -207,7 +207,7 @@ session_start();
                                 Relive old memories with a full event coverage.
                             </p>
                             <ul class="pricing-list">
-                                <li><strong>2 Hours:</strong> ₱5,000 <span>(50% down: ₱2,500)</span></li>
+                                <li><strong>3 Hours:</strong> ₱5,000 <span>(50% down: ₱2,500)</span></li>
                                 <li><strong>4 Hours:</strong> ₱6,500 <span>(50% down: ₱3,250)</span></li>
                             </ul>
                             <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
@@ -230,8 +230,8 @@ session_start();
                                 Celebrate in style with lively and creative coverage.
                             </p>
                             <ul class="pricing-list">
-                                <li><strong>2 Hours:</strong> ₱4,500 <span>(50% down: ₱2,750)</span></li>
-                                <li><strong>4 Hours:</strong> ₱4,000 <span>(50% down: ₱2,000)</span></li>
+                                <li><strong>3 Hours:</strong> ₱4,000<span>(50% down: ₱2,000)</span></li>
+                                <li><strong>4 Hours:</strong> ₱4,500 <span>(50% down: ₱2,750)</span></li>
                             </ul>
                             <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
                                 Drive.</p>
@@ -253,7 +253,7 @@ session_start();
                                 Professional coverage for your corporate gatherings.
                             </p>
                             <ul class="pricing-list">
-                                <li><strong>2 Hours:</strong> ₱7,000 <span>(50% down: ₱3,500)</span></li>
+                                <li><strong>3 Hours:</strong> ₱7,000 <span>(50% down: ₱3,500)</span></li>
                                 <li><strong>4 Hours:</strong> ₱8,000 <span>(50% down: ₱4,000)</span></li>
                             </ul>
                             <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
@@ -276,7 +276,7 @@ session_start();
                                 Timeless coverage of your special day with elegance.
                             </p>
                             <ul class="pricing-list">
-                                <li><strong>2 Hours:</strong> ₱7,500 <span>(50% down: ₱3,750)</span></li>
+                                <li><strong>3 Hours:</strong> ₱7,500 <span>(50% down: ₱3,750)</span></li>
                                 <li><strong>4 Hours:</strong> ₱11,000 <span>(50% down: ₱5,500)</span></li>
                             </ul>
                             <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
@@ -417,8 +417,8 @@ session_start();
                 <div class="location-box">
                     <h3 class="location-name">NCR</h3>
                     <p>+63 915 613 8722</p>
-                    <p>hello@reservify.co</p>
-                    <p>Metro Manila, PH</p>
+                    <p>reservifypm&ji@gmail.com</p>
+                    <p>Phase 5Y Bagong Silang Caloocan Metro Manila, PH</p>
                 </div>
             </div>
         </div>
