@@ -144,8 +144,8 @@ session_start();
                                 Capture precious moment with professional coverage.
                             </p>
                             <ul class="pricing-list">
-                                <li><strong>3 Hours:</strong> ₱3,500 <span>(50% down: ₱1,750)</span></li>
-                                <li><strong>5 Hours:</strong> ₱5,000 <span>(50% down: ₱2,500)</span></li>
+                                <li><strong>3 Hours:</strong> ₱4,500 <span>(50% down: ₱2,250)</span></li>
+                                <li><strong>4 Hours:</strong> ₱4,600 <span>(50% down: ₱2,300)</span></li>
                             </ul>
                             <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
                                 Drive.</p>
@@ -167,8 +167,8 @@ session_start();
                                 Celebrate in style with lively and creative coverage.
                             </p>
                             <ul class="pricing-list">
-                                <li><strong>3 Hours:</strong> ₱3,500<span>(50% down: ₱1,750)</span></li>
-                                <li><strong>5 Hours:</strong> ₱5,000 <span>(50% down: ₱2,500)</span></li>
+                                <li><strong>3 Hours:</strong> ₱4,000<span>(50% down: ₱2,000)</span></li>
+                                <li><strong>4 Hours:</strong> ₱4,500 <span>(50% down: ₱2,750)</span></li>
                             </ul>
                             <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
                                 Drive.</p>
@@ -191,7 +191,7 @@ session_start();
                             </p>
                             <ul class="pricing-list">
                                 <li><strong>3 Hours:</strong> ₱7,000 <span>(50% down: ₱3,500)</span></li>
-                                <li><strong>5 Hours:</strong> ₱8,000 <span>(50% down: ₱4,000)</span></li>
+                                <li><strong>4 Hours:</strong> ₱8,000 <span>(50% down: ₱4,000)</span></li>
                             </ul>
                             <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
                                 Drive.</p>
@@ -213,8 +213,8 @@ session_start();
                                 Relive old memories with a full event coverage.
                             </p>
                             <ul class="pricing-list">
-                                <li><strong>3 Hours:</strong> ₱4,500 <span>(50% down: ₱2,250)</span></li>
-                                <li><strong>5 Hours:</strong> ₱6,500 <span>(50% down: ₱3,250)</span></li>
+                                <li><strong>3 Hours:</strong> ₱5,000 <span>(50% down: ₱2,500)</span></li>
+                                <li><strong>4 Hours:</strong> ₱6,500 <span>(50% down: ₱3,250)</span></li>
                             </ul>
                             <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
                                 Drive.</p>
@@ -259,7 +259,7 @@ session_start();
                                 Versatile coverage for any unique event.
                             </p>
                             <ul class="pricing-list">
-                                <li><strong>Flat Rate:</strong> ₱10,000 <span>(50% down: ₱5,000)</span></li>
+                                
                             </ul>
                             <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
                                 Drive.</p>
