@@ -298,6 +298,8 @@ body {
     }
 }
 
+/* ================= Testimonial Styles ================= */
+
 /* Horizontal Testimonials Container */
 .testimonials-container {
     display: flex;
@@ -440,6 +442,8 @@ body {
         margin: 0 auto 20px;
     }
 }
+
+/* ================= Portfolio Items Styles ================= */
 
 /* Portfolio Item Hover Effects */
 .portfolio-item {

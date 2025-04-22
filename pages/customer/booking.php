@@ -5,6 +5,9 @@ if (!isset($_SESSION['user_email'])) {
   exit();
 }
 
+// gets the pre-selected event type from the query parameter
+$preselectedEvent = isset($_GET['event']) ? htmlspecialchars($_GET['event']) : '';
+
 $mysqli = new mysqli('127.0.0.1', 'root', '', 'db_pmji');
 if ($mysqli->connect_error) {
   die('DB Connection Error: ' . $mysqli->connect_error);
@@ -96,12 +99,13 @@ $mysqli->close();
         <div class="form-group">
           <label for="eventType">Event Type</label>
           <select class="form-control" name="event_type" id="eventType" required>
-            <option value="" disabled selected>Select event type</option>
-            <option value="Baptism">Baptism</option>
-            <option value="Birthday">Birthday</option>
-            <option value="Wedding">Wedding</option>
-            <option value="Corporate Event">Corporate Event</option>
-            <option value="Other">Other</option>
+            <option value="" disabled <?= $preselectedEvent === '' ? 'selected' : '' ?>>Select event type</option>
+            <option value="Baptism" <?= $preselectedEvent === 'Baptism' ? 'selected' : '' ?>>Baptism</option>
+            <option value="Birthday" <?= $preselectedEvent === 'Birthday' ? 'selected' : '' ?>>Birthday</option>
+            <option value="Wedding" <?= $preselectedEvent === 'Wedding' ? 'selected' : '' ?>>Wedding</option>
+            <option value="Cormpany" <?= $preselectedEvent === 'Company Event' ? 'selected' : '' ?>>Corporate
+              Event</option>
+            <option value="Other" <?= $preselectedEvent === 'Other' ? 'selected' : '' ?>>Other</option>
           </select>
         </div>
 

@@ -270,7 +270,6 @@ session_start();
                 </div>
 
                 <!-- Portfolio / Past Photo Works Section -->
-                <!-- Portfolio / Past Photo Works Section -->
                 <section id="portfolio" class="py-5">
                     <h2 class="section-title text-center mb-5">Our Past Works</h2>
                     <div class="container">
