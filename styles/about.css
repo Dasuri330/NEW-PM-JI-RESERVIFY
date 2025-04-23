@@ -85,3 +85,35 @@ body {
 .mb-4 {
     padding: 20px;
 }
+
+/* ================= Accordion Content Styles ================= */
+
+#faqAccordion .card {
+    overflow: hidden;
+}
+
+#faqAccordion .card-body {
+    word-wrap: break-word;
+}
+
+#faqAccordion .btn-link {
+    text-align: left;
+    width: 100%;
+}
+
+#faqAccordion .collapse {
+    width: 100%;
+}
+
+#faqAccordion .collapse {
+    display: block;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease;
+}
+
+#faqAccordion .collapse.show {
+    visibility: visible;
+    height: auto;
+}

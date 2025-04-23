@@ -14,6 +14,12 @@
   --header-height: 55px;
 }
 
+a.btn.btn-link {
+  padding: 0 !important;
+  position: relative;
+  top: -2px;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -141,6 +147,7 @@ body {
 }
 
 /* ================= Dashboard Container Styles ================= */
+
 .dashboard-container {
   display: flex;
   flex: 1;

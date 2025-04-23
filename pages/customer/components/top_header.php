@@ -19,7 +19,7 @@
                     <a class="dropdown-item" href="inbox.php">Inbox</a>
                     <a class="dropdown-item" href="preference.php">Preference</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="logout.php">Logout</a>
+                    <a class="dropdown-item" href="/NEW-PM-JI-RESERVIFY/pages/customer/logout.php">Logout</a>
                 </div>
             </div>
         </div>
