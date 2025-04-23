@@ -108,8 +108,7 @@ $historyBookings = $stmtHistory->fetchAll();
                             <table class="table table-bordered align-middle">
                                 <thead class="table-light">
                                     <tr>
-                                        <th>ID</th>
-                                        <th>User ID</th>
+                                        <th>Customer Email</th>
                                         <th>Event Type</th>
                                         <th>Reservation Date</th>
                                         <th>Time Slot</th>
@@ -119,15 +118,24 @@ $historyBookings = $stmtHistory->fetchAll();
                                 <tbody>
                                     <?php if (count($pendingBookings) > 0): ?>
                                         <?php foreach ($pendingBookings as $booking): ?>
+                                            <?php
+                                            // fetch the customer's email based on the user_id
+                                            $stmtUser = $pdo->prepare("SELECT email FROM tbl_users WHERE id = ?");
+                                            $stmtUser->execute([$booking['user_id']]);
+                                            $userEmail = $stmtUser->fetchColumn();
+                                            ?>
                                             <tr>
-                                                <td><?php echo htmlspecialchars($booking['id']); ?></td>
-                                                <td><?php echo htmlspecialchars($booking['user_id']); ?></td>
+                                                <td>
+                                                    <a href="/NEW-PM-JI-RESERVIFY/pages/admin/dashboard/customers/profile.php?user_id=<?php echo htmlspecialchars($booking['user_id']); ?>">
+                                                        <?php echo htmlspecialchars($userEmail); ?>
+                                                    </a>
+                                                </td>
                                                 <td><?php echo htmlspecialchars($booking['event_type']); ?></td>
                                                 <td><?php echo htmlspecialchars($booking['reservation_date']); ?></td>
                                                 <td><?php echo htmlspecialchars($booking['time_slot']); ?></td>
                                                 <td>
                                                     <!-- Combined Approve Button -->
-                                                    <form action="approve_combined.php" method="POST" class="d-inline">
+                                                    <form action="approve_booking.php" method="POST" class="d-inline">
                                                         <input type="hidden" name="booking_id" value="<?php echo $booking['id']; ?>">
                                                         <button type="submit" class="btn btn-success btn-sm mx-1" title="Verify Down Payment & Approve Booking">
                                                             <i class="fas fa-check-double"></i>
@@ -142,11 +150,11 @@ $historyBookings = $stmtHistory->fetchAll();
                                                 </td>
                                             </tr>
                                             <tr class="collapse" id="details-<?php echo $booking['id']; ?>">
-                                                <td colspan="6">
+                                                <td colspan="5">
                                                     <div class="p-3 bg-light">
                                                         <strong>Duration:</strong>
                                                         <?php echo htmlspecialchars($booking['duration']); ?> hours<br>
-                                                        <strong>Address:</strong>
+                                                        <strong>Event Location:</strong>
                                                         <?php echo htmlspecialchars($booking['street_address'] . ', ' . $booking['barangay'] . ', ' . $booking['city'] . ', ' . $booking['province']); ?><br>
                                                         <strong>Reference Number:</strong>
                                                         <?php echo htmlspecialchars($booking['reference_number']); ?><br>
@@ -168,7 +176,7 @@ $historyBookings = $stmtHistory->fetchAll();
                                         <?php endforeach; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="6" class="text-center">No pending bookings found.</td>
+                                            <td colspan="5" class="text-center">No pending bookings found.</td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>

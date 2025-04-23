@@ -290,7 +290,7 @@ $mysqli->close();
             <span class="value" id="previewPrice"></span>
           </div>
           <div class="review-item">
-            <span class="label">Selected Packages:</span>
+            <span class="label">Selected Package:</span>
             <span class="value" id="previewPackages"></span>
           </div>
         </div>
