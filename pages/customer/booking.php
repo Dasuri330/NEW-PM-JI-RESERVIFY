@@ -1,4 +1,3 @@
-booking.php
 
 <?php
 session_start();
