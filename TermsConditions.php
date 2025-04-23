@@ -43,7 +43,7 @@
             </p>
             <p><strong>10. Availability of Services </strong><br>
                 PM&JI Reservify services are available in NCR: Manila, Parañaque, Makati, Pasay, Caloocan, Valenzuela, Navotas, Muntinlupa, Malabon, Mandaluyong, Marikina, Taguig, Pasig, Quezon City, Las Piñas,
-                and San Juan
+                and San Juan. 
             </p>
             <p class="contact-info">By registering, you acknowledge that you have read, understood, and agree to be bound by these Terms and Conditions.</p>
         </div>
