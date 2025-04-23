@@ -1,17 +1,30 @@
 <?php
 session_start();
+
+// Redirect kung hindi naka-login
 if (!isset($_SESSION['user_email'])) {
+  // I-save ang event type sa session kung may parameter
+  if (isset($_GET['event'])) {
+    $_SESSION['selected_event'] = $_GET['event'];
+  }
   header("Location: /NEW-PM-JI-RESERVIFY/index.php");
   exit();
 }
 
-// gets the pre-selected event type from the query parameter
-$preselectedEvent = isset($_GET['event']) ? htmlspecialchars($_GET['event']) : '';
+// Kunin ang event type mula sa URL o session
+$selectedEvent = "";
+if (isset($_GET['event'])) {
+  $selectedEvent = htmlspecialchars($_GET['event']);
+  $_SESSION['selected_event'] = $selectedEvent; // Save to session for consistency
+} elseif (isset($_SESSION['selected_event'])) {
+  $selectedEvent = htmlspecialchars($_SESSION['selected_event']);
+}
 
 $mysqli = new mysqli('127.0.0.1', 'root', '', 'db_pmji');
 if ($mysqli->connect_error) {
   die('DB Connection Error: ' . $mysqli->connect_error);
 }
+
 
 /* ================= Calendar (Step 2: Booking Process) ================= */
 
@@ -29,9 +42,11 @@ while ($row = $result->fetch_assoc()) {
   $date = $row['reservation_date'];
   $count = (int) $row['cnt'];
 
-  // Mark as red if there is at least one booking, otherwise green
-  if ($count >= 1) {
+  // Mark as red if fully booked, yellow if partially booked, otherwise green
+  if ($count >= 5) { // Assuming 5 bookings mean fully booked
     $availability[$date] = 'red';    // Fully booked
+  } elseif ($count > 0 && $count < 5) { // Assuming less than 5 bookings mean partially booked
+    $availability[$date] = 'yellow'; // Partially booked
   } else {
     $availability[$date] = 'green';  // Available
   }
@@ -48,7 +63,7 @@ $mysqli->close();
   <title>Reserve Your Service - PM&JI Reservify</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-  <link rel="stylesheet" href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.css">
+  <link rel="stylesheet" href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.css?v=1.1">
   <link rel="stylesheet" href="/NEW-PM-JI-RESERVIFY/pages/customer/components/footer.css">
   <link rel="stylesheet" href="/NEW-PM-JI-RESERVIFY/pages/customer/components/top_header.css">
 
@@ -96,16 +111,14 @@ $mysqli->close();
       <!-- Step 1: Select Event Type -->
       <div class="form-step active" data-step="1">
         <div class="form-group">
-          <label for="eventType">Event</label>
-          <select class="form-control" name="event_type" id="eventType" required>
-            <option value="" disabled <?= empty($selectedEvent) ? 'selected' : '' ?>>select event type</option>
-            <option value="" disabled <?= $preselectedEvent === '' ? 'selected' : '' ?>>Select event type</option>
-            <option value="Baptism" <?= $preselectedEvent === 'Baptism' ? 'selected' : '' ?>>Baptism</option>
-            <option value="Birthday" <?= $preselectedEvent === 'Birthday' ? 'selected' : '' ?>>Birthday</option>
-            <option value="Wedding" <?= $preselectedEvent === 'Wedding' ? 'selected' : '' ?>>Wedding</option>
-            <option value="Cormpany" <?= $preselectedEvent === 'Company Event' ? 'selected' : '' ?>>Corporate Event</option>
-            <option value="Other" <?= $preselectedEvent === 'Other' ? 'selected' : '' ?>>Other</option>
-            </option>
+          <label for="eventType">Event Type</label>
+                    <select class="form-control" name="event_type" id="eventType" required>
+            <option value="" disabled <?= empty($selectedEvent) ? 'selected' : '' ?>>Select event type</option>
+            <option value="Baptism" <?= ($selectedEvent === 'Baptism') ? 'selected' : '' ?>>Baptism</option>
+            <option value="Reunion" <?= ($selectedEvent === 'Reunion') ? 'selected' : '' ?>>Reunion</option>
+            <option value="Birthday" <?= ($selectedEvent === 'Birthday') ? 'selected' : '' ?>>Birthday</option>
+            <option value="Wedding" <?= ($selectedEvent === 'Wedding') ? 'selected' : '' ?>>Wedding</option>
+            <option value="Company Event" <?= ($selectedEvent === 'Company Event') ? 'selected' : '' ?>>Company Event</option>
           </select>
         </div>
 
@@ -145,7 +158,8 @@ $mysqli->close();
                 <p class="card-text">
                   - Customized Layout<br>
                   - 1 Standee Frame<br>
-                  - 3 Ref Magnets (Single Shot)
+                  - 3 Ref Magnets (Single Shot)<br>
+                  - Limited to 4 Shots
                 </p>
               </div>
             </label>
@@ -160,6 +174,7 @@ $mysqli->close();
                 <p class="card-text">
                   - Customized Layout<br>
                   - 1 Polaroid Frame<br>
+                  - Unlimited Shots<br>
                   - 3 Ref Magnets (Single Shot)
                 </p>
               </div>
@@ -176,6 +191,7 @@ $mysqli->close();
                 <p class="card-text">
                   - Customized Layout<br>
                   - 2x6 Photo Strip Frame<br>
+                  - Unlimited Shotes<br>
                   - 3 Ref Magnets (Single Shot)
                 </p>
               </div>
@@ -195,17 +211,21 @@ $mysqli->close();
           <label for="reservationDate">Date</label>
           <input type="text" id="reservationDate" name="reservation_date" readonly required placeholder="Select a date">
         </div>
-        <div id="calendarLegend" class="calendar-legend">
+
+      <div id="calendarLegend" class="calendar-legend">
           <p><span class="legend-box gray"></span> Unavailable</p>
+          <p><span class="legend-box yellow"></span> Partially Booked</p>
           <p><span class="legend-box green"></span> Available</p>
-        </div>
-        <div class="form-group">
+      </div>
+
+      <div class="form-group">
           <label for="timeSlot">Time Slot</label>
           <select class="form-control select-custom" name="time_slot" id="timeSlot" required>
             <option value="" disabled selected>Select a time slot</option>
-            <option value="Morning (8AM - 12PM)">Morning (8AM - 12PM)</option>
-            <option value="Afternoon (1PM - 5PM)">Afternoon (1PM - 5PM)</option>
-            <option value="Evening (6PM - 10PM)">Evening (6PM - 10PM)</option>
+            <option value="Morning (10:00 AM - 1:00 PM)">Morning (10:00 AM - 1:00 PM)</option>
+            <option value="Afternoon (1:00 PM - 4:00 PM)">Afternoon (1:00 PM - 4:00 PM)</option>
+            <option value="Afternoon (4:00 PM - 7:00 PM)">Afternoon (4:00 PM - 7:00 PM)</option>
+            <option value="Evening (7:00 PM - 10:00 PM)">Evening (7:00 PM - 10:00 PM)</option>
           </select>
         </div>
         <p class="text-muted mt-3">
@@ -248,8 +268,7 @@ $mysqli->close();
 
         <!-- Note -->
         <p class="text-muted mt-3">
-          <small>Note: Photo coverage within Metro Manila and neighboring cities is free of travel charges.
-            For events outside these areas, an additional travel fee of ₱2,000 will apply.📍</small>
+          <small>Note: Photo coverage is within Metro Manila only.📍</small>
         </p>
       </div>
 
@@ -425,7 +444,7 @@ $mysqli->close();
       'Birthday': 4000,
       'Wedding': 7500,
       'Company Event': 7000,
-      'Other': 10000
+  
     };
 
     // 2. Override prices for special durations (dito natin nilagay yung 5‑hour rates)
@@ -608,6 +627,70 @@ $mysqli->close();
     document.querySelectorAll('input[name="payment_method"]').forEach(input => {
       input.addEventListener('change', updateQRCode);
     });
+
+  // For time slot
+  
+    const timeSlotSelect = document.getElementById('timeSlot');
+    const durationInputs = document.querySelectorAll('input[name="duration"]');
+    const eventTypeSelect = document.getElementById('eventType');
+
+    // Available Time Slots Data
+    const timeSlots = {
+      3: [
+        { value: "9:00 AM - 12:00 PM", text: "9:00 AM - 12:00 PM" },
+        { value: "10:00 AM - 1:00 PM", text: "10:00 AM - 1:00 PM" },
+        { value: "1:00 PM - 4:00 PM", text: "1:00 PM - 4:00 PM" },
+        { value: "4:00 PM - 7:00 PM", text: "4:00 PM - 7:00 PM" },
+        { value: "7:00 PM - 10:00 PM", text: "7:00 PM - 10:00 PM" }
+      ],
+      4: [
+        { value: "9:00 AM - 1:00 PM", text: "9:00 AM - 1:00 PM" },
+        { value: "1:00 PM - 5:00 PM", text: "1:00 PM - 5:00 PM" },
+        { value: "5:00 PM - 9:00 PM", text: "5:00 PM - 9:00 PM" }
+      ]
+    };
+
+    // Convert time to minutes for comparison
+    function convertTimeToNumber(time) {
+      const [timePart, modifier] = time.split(" ");
+      let [hours, minutes] = timePart.split(":").map(Number);
+      if (modifier === "PM" && hours !== 12) hours += 12;
+      return hours * 60 + minutes;
+    }
+
+    // Filter slots based on event type
+    function getFilteredSlots(duration, eventType) {
+      const slots = timeSlots[duration] || [];
+      
+      if (eventType === "Baptism") {
+        return slots.filter(slot => {
+          const endTime = slot.text.split(" - ")[1];
+          return convertTimeToNumber(endTime) <= convertTimeToNumber("4:00 PM");
+        });
+      }
+      return slots;
+    }
+
+    // Update time slot options
+    function updateTimeSlots() {
+      const duration = parseInt(document.querySelector('input[name="duration"]:checked')?.value || 3);
+      const eventType = eventTypeSelect.value;
+      
+      timeSlotSelect.innerHTML = '<option value="" disabled selected>Select time slot</option>';
+      
+      getFilteredSlots(duration, eventType).forEach(slot => {
+        const option = new Option(slot.text, slot.value);
+        timeSlotSelect.appendChild(option);
+      });
+    }
+
+    // Event Listeners
+    durationInputs.forEach(input => input.addEventListener('change', updateTimeSlots));
+    eventTypeSelect.addEventListener('change', updateTimeSlots);
+
+    // Initial load
+    updateTimeSlots();
+  
   </script>
 </body>
 
