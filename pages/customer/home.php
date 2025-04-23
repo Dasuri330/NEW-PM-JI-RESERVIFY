@@ -1,5 +1,3 @@
-
-
 <?php
 session_start();
 
@@ -348,7 +346,8 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
       <i class="fa fa-message"></i>
     </div>
   </a>
-  <?php include $_SERVER['DOCUMENT_ROOT'] . '/NEW-PM-JI-RESERVIFY/pages/customer/components/footer.php'; ?>
+
+  <?php include $_SERVER['DOCUMENT_ROOT'] . '/NEW-PM-JI-RESERVIFY/components/footer.html'; ?>
 
   <!-- Carousel Script -->
   <script>
