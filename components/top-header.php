@@ -75,7 +75,7 @@
                                 data-target="#signupModal">Sign Up</a>
 
                             <br>
-                            <a href="OTP.php" class="forgot-password">Forgot Password?</a>
+                            <a href="recover-account.php" class="forgot-password">Forgot Password?</a>
                         </p>
                     </div>
                 </form>

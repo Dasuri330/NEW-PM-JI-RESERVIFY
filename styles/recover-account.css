@@ -1,0 +1,132 @@
+/* ================= General Styles ================= */
+
+:root {
+    --primary-bg: #f8c494;
+    --secondary-bg: #94c8f8;
+    --primary-color: #000;
+    --secondary-color: #fff;
+    --hover-color: #E0F7FA;
+    --transition-speed: 0.3s;
+    --card-bg: #E0F7FA;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    color: var(--primary-color);
+    margin: 0;
+    padding: 0;
+    background: url("/NEW-PM-JI-RESERVIFY/assets/bg/bg4.jpg") center center / cover no-repeat fixed;
+}
+
+.content-section {
+    margin-top: 130px;
+    min-height: 90vh;
+}
+
+.container-content {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Title and Description */
+h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+p {
+    font-size: 1rem;
+    margin-bottom: 30px;
+    color: var(--primary-color);
+}
+
+/* Form Styles */
+form {
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+    display: block;
+}
+
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    background-color: var(--card-bg);
+    color: var(--primary-color);
+    transition: border-color 0.3s ease;
+}
+
+input[type="email"]:focus {
+    border-color: var(--secondary-bg);
+    outline: none;
+}
+
+/* Button Styles */
+button {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--secondary-bg);
+    transform: scale(1.03);
+}
+
+/* Success and Error Messages */
+#recoverSuccess {
+    font-size: 0.9rem;
+    color: green;
+    margin-top: 10px;
+}
+
+#recoverError {
+    font-size: 0.9rem;
+    color: red;
+    margin-top: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container-content {
+        margin: 20px;
+        padding: 15px;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    p {
+        font-size: 0.9rem;
+    }
+
+    button {
+        font-size: 0.9rem;
+    }
+}

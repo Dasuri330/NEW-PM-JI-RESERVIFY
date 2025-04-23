@@ -209,6 +209,7 @@ navbar.navbar-expand-lg {
 }
 
 .modal-header .close {
+    width: fit-content !important;
     font-size: 1.5rem;
     color: #000;
     opacity: 1;
