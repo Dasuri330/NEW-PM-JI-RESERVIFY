@@ -1,3 +1,5 @@
+booking.php
+
 <?php
 session_start();
 
@@ -42,8 +44,8 @@ while ($row = $result->fetch_assoc()) {
   $date = $row['reservation_date'];
   $count = (int) $row['cnt'];
 
-  // Mark as red if there is at least one booking, otherwise green
-  if ($count >= 1) {
+  // Mark as red if fully booked, yellow if partially booked, otherwise green
+  if ($count >= 5) { // Assuming 5 bookings mean fully booked
     $availability[$date] = 'red';    // Fully booked
   } elseif ($count > 0 && $count < 5) { // Assuming less than 5 bookings mean partially booked
     $availability[$date] = 'yellow'; // Partially booked
@@ -111,16 +113,14 @@ $mysqli->close();
       <!-- Step 1: Select Event Type -->
       <div class="form-step active" data-step="1">
         <div class="form-group">
-          <label for="eventType">Event</label>
-          <select class="form-control" name="event_type" id="eventType" required>
-            <option value="" disabled <?= empty($selectedEvent) ? 'selected' : '' ?>>select event type</option>
-            <option value="" disabled <?= $preselectedEvent === '' ? 'selected' : '' ?>>Select event type</option>
-            <option value="Baptism" <?= $preselectedEvent === 'Baptism' ? 'selected' : '' ?>>Baptism</option>
-            <option value="Birthday" <?= $preselectedEvent === 'Birthday' ? 'selected' : '' ?>>Birthday</option>
-            <option value="Wedding" <?= $preselectedEvent === 'Wedding' ? 'selected' : '' ?>>Wedding</option>
-            <option value="Cormpany" <?= $preselectedEvent === 'Company Event' ? 'selected' : '' ?>>Corporate Event</option>
-            <option value="Other" <?= $preselectedEvent === 'Other' ? 'selected' : '' ?>>Other</option>
-            </option>
+          <label for="eventType">Event Type</label>
+                    <select class="form-control" name="event_type" id="eventType" required>
+            <option value="" disabled <?= empty($selectedEvent) ? 'selected' : '' ?>>Select event type</option>
+            <option value="Baptism" <?= ($selectedEvent === 'Baptism') ? 'selected' : '' ?>>Baptism</option>
+            <option value="Reunion" <?= ($selectedEvent === 'Reunion') ? 'selected' : '' ?>>Reunion</option>
+            <option value="Birthday" <?= ($selectedEvent === 'Birthday') ? 'selected' : '' ?>>Birthday</option>
+            <option value="Wedding" <?= ($selectedEvent === 'Wedding') ? 'selected' : '' ?>>Wedding</option>
+            <option value="Company Event" <?= ($selectedEvent === 'Company Event') ? 'selected' : '' ?>>Company Event</option>
           </select>
         </div>
 
@@ -247,22 +247,20 @@ $mysqli->close();
             placeholder="e.g., 123 Main St" required>
         </div>
 
-        <!-- City Dropdown -->
+        <!-- City/Municipality Dropdown -->
         <div class="form-group">
           <label for="citySelect">City</label>
-          <select id="citySelect" name="city" class="form-control" required>
+          <select id="citySelect" name="city" class="form-control" required disabled>
             <option value="">Loading…</option>
           </select>
-          <input type="hidden" name="city_name" id="cityName">
         </div>
 
         <!-- Barangay Dropdown -->
         <div class="form-group">
           <label for="barangaySelect">Barangay</label>
-          <select id="barangaySelect" name="barangay" class="form-control" required>
+          <select id="barangaySelect" name="barangay" class="form-control" required disabled>
             <option value="">Select a city first</option>
           </select>
-          <input type="hidden" name="barangay_name" id="barangayName">
         </div>
 
         <div class="form-navigation">
@@ -312,7 +310,7 @@ $mysqli->close();
             <span class="value" id="previewPrice"></span>
           </div>
           <div class="review-item">
-            <span class="label">Selected Package:</span>
+            <span class="label">Selected Packages:</span>
             <span class="value" id="previewPackages"></span>
           </div>
         </div>
@@ -396,18 +394,6 @@ $mysqli->close();
           });
         });
       });
-
-      document.getElementById('citySelect').addEventListener('change', function () {
-        const selectedOption = this.options[this.selectedIndex];
-        const cityName = selectedOption ? selectedOption.text : '';
-        document.getElementById('cityName').value = cityName;
-      });
-
-      document.getElementById('barangaySelect').addEventListener('change', function () {
-        const selectedOption = this.options[this.selectedIndex];
-        const barangayName = selectedOption ? selectedOption.text : '';
-        document.getElementById('barangayName').value = barangayName;
-      });
     </script>
   </div>
 
@@ -452,8 +438,8 @@ $mysqli->close();
     /***********************
      * Price Calculation & Preview
      ***********************/
-    // defined event prices.
-    // 1. Base for 3 hours (hindi na babaguhin)
+    // Define your event prices.
+    // 1. Base prices mo for 3 hours (hindi na babaguhin)
     const eventPrices = {
       'Baptism': 4500,
       'Reunion': 5000,
@@ -463,7 +449,7 @@ $mysqli->close();
   
     };
 
-    // 2. Base for 4 hours (dito natin nilagay yung 4‑hour rates)
+    // 2. Override prices for special durations (dito natin nilagay yung 5‑hour rates)
     const overridePrices = {
       5: {
         'Baptism': 4600,
@@ -481,6 +467,7 @@ $mysqli->close();
       const priceDisplay = document.getElementById('priceDisplay');
 
       if (!eventType || !durationEl) {
+        // Reset kung incomplete ang selection
         if (pricePreview) pricePreview.textContent = "₱0.00";
         if (priceDisplay) priceDisplay.textContent = "Price: ₱0.00";
         return;
@@ -489,6 +476,7 @@ $mysqli->close();
       const durationHours = parseInt(durationEl.value, 10);
       let totalPrice = 0;
 
+      // 3. Check kung may override price for this duration
       if (
         overridePrices[durationHours] &&
         overridePrices[durationHours][eventType] !== undefined
@@ -525,25 +513,17 @@ $mysqli->close();
       document.getElementById('previewDate').textContent = document.getElementById('reservationDate').value;
       document.getElementById('previewTimeSlot').textContent = document.getElementById('timeSlot').value;
       document.getElementById('previewStreetAddress').textContent = document.getElementById('streetAddress').value;
-      const citySelect = document.getElementById('citySelect');
-      const barangaySelect = document.getElementById('barangaySelect');
-
-      // get the selected city name
-      const selectedCityOption = citySelect.options[citySelect.selectedIndex];
-      document.getElementById('previewCity').textContent = selectedCityOption ? selectedCityOption.text : '';
-
-      // get the selected barangay name
-      const selectedBarangayOption = barangaySelect.options[barangaySelect.selectedIndex];
-      document.getElementById('previewBarangay').textContent = selectedBarangayOption ? selectedBarangayOption.text : '';
+      document.getElementById('previewCity').textContent = document.getElementById('citySelect').selectedOptions[0].text;
+      document.getElementById('previewBarangay').textContent = document.getElementById('barangaySelect').selectedOptions[0].text;
       updatePrice();
 
-      // retrieve the selected package radio button
+      // Retrieve the selected package radio button
       const selectedPackage = document.querySelector('input[name="package"]:checked');
       const packageName = selectedPackage
         ? selectedPackage.closest('.package-card').querySelector('.card-title').textContent
         : 'None selected';
 
-      // display the selected package
+      // Display the selected package
       document.getElementById('previewPackages').textContent = packageName;
     }
 
@@ -555,14 +535,14 @@ $mysqli->close();
     const prevButtons = document.querySelectorAll('.prev-btn');
     const progressSteps = document.querySelectorAll('.progress-indicator .step');
 
-    // helper function to validate all required fields in current step.
+    // Helper function to validate all required fields in current step.
     function validateStep(stepElement) {
-      // get all input, select, and textarea elements in the current step.
+      // Get all input, select, and textarea elements in the current step.
       const inputs = stepElement.querySelectorAll('input, select, textarea');
       for (let input of inputs) {
-        // if an input field is invalid according to HTML5 validations...
+        // If an input field is invalid according to HTML5 validations...
         if (!input.checkValidity()) {
-          // show the built-in validation message.
+          // Show the built-in validation message.
           input.reportValidity();
           return false;
         }
@@ -584,14 +564,14 @@ $mysqli->close();
     nextButtons.forEach(button => {
       button.addEventListener('click', () => {
         const currentStep = button.closest('.form-step');
-        // validate all required fields in the current step.
+        // Validate all required fields in the current step.
         if (!validateStep(currentStep)) {
-          // do not continue to the next step if validation fails.
+          // Do not continue to the next step if validation fails.
           return;
         }
 
         let currentStepNum = parseInt(currentStep.getAttribute('data-step'));
-        // remove active class from the current step.
+        // Remove active class from the current step.
         currentStep.classList.remove('active');
 
         // Special: When moving to the review step (step 4), update the preview.
