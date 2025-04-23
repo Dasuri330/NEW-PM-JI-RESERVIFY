@@ -23,12 +23,12 @@ if (!$user) {
 <head>
     <meta charset="UTF-8">
     <title>Customer Profile | PM&JI Reservify Admin</title>
-    <link rel="stylesheet" href="/NEW-PM-JI-RESERVIFY/styles/about.css">
-    <link rel="stylesheet" href="/NEW-PM-JI-RESERVIFY/components/top-header.css">
-    <link rel="stylesheet" href="/NEW-PM-JI-RESERVIFY/components/footer.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+    <link rel="stylesheet" href="/NEW-PM-JI-RESERVIFY/pages/admin/dashboard/index.css">
     <style>
         .profile-container {
+            margin-top: 120px !important;
             max-width: 600px;
             margin: 40px auto;
             background: #fff;
@@ -63,37 +63,43 @@ if (!$user) {
 </head>
 
 <body>
-    <?php include $_SERVER['DOCUMENT_ROOT'] . '/NEW-PM-JI-RESERVIFY/components/top-header.php'; ?>
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/NEW-PM-JI-RESERVIFY/pages/admin/dashboard/components/admin_header.php'; ?>
 
-    <div class="profile-container">
-        <h1 class="profile-title"><i class="fas fa-user"></i> Customer Profile</h1>
-        <dl class="profile-info">
-            <dt>Full Name:</dt>
-            <dd>
-                <?php
-                echo htmlspecialchars($user['first_name']);
-                if ($user['middle_name'])
-                    echo ' ' . htmlspecialchars($user['middle_name']);
-                echo ' ' . htmlspecialchars($user['last_name']);
-                ?>
-            </dd>
-            <dt>Email:</dt>
-            <dd><?php echo htmlspecialchars($user['email']); ?></dd>
-            <dt>Contact Number:</dt>
-            <dd><?php echo htmlspecialchars($user['contact_no']); ?></dd>
-            <dt>Account Created:</dt>
-            <dd><?php echo htmlspecialchars($user['created_at']); ?></dd>
-            <dt>Status:</dt>
-            <dd>
-                <?php if ($user['is_verified']): ?>
-                    <span class="verified"><i class="fas fa-check-circle"></i> Verified</span>
-                <?php else: ?>
-                    <span class="not-verified"><i class="fas fa-times-circle"></i> Not Verified</span>
-                <?php endif; ?>
-            </dd>
-        </dl>
-        <a href="/NEW-PM-JI-RESERVIFY/pages/admin/dashboard/bookings/index.php" class="btn btn-secondary mt-3"><i
-                class="fas fa-arrow-left"></i> Back to Bookings</a>
+    <div class="dashboard-container">
+
+        <?php include $_SERVER['DOCUMENT_ROOT'] . '/NEW-PM-JI-RESERVIFY/pages/admin/dashboard/components/admin_sidebar.php'; ?>
+
+        <div class="profile-container">
+            <h1 class="profile-title"><i class="fas fa-user"></i> Customer Profile</h1>
+            <dl class="profile-info">
+                <dt>Full Name:</dt>
+                <dd>
+                    <?php
+                    echo htmlspecialchars($user['first_name']);
+                    if ($user['middle_name'])
+                        echo ' ' . htmlspecialchars($user['middle_name']);
+                    echo ' ' . htmlspecialchars($user['last_name']);
+                    ?>
+                </dd>
+                <dt>Email:</dt>
+                <dd><?php echo htmlspecialchars($user['email']); ?></dd>
+                <dt>Contact Number:</dt>
+                <dd><?php echo htmlspecialchars($user['contact_no']); ?></dd>
+                <dt>Account Created:</dt>
+                <dd><?php echo htmlspecialchars($user['created_at']); ?></dd>
+                <dt>Status:</dt>
+                <dd>
+                    <?php if ($user['is_verified']): ?>
+                        <span class="verified"><i class="fas fa-check-circle"></i> Verified</span>
+                    <?php else: ?>
+                        <span class="not-verified"><i class="fas fa-times-circle"></i> Not Verified</span>
+                    <?php endif; ?>
+                </dd>
+            </dl>
+            <a href="/NEW-PM-JI-RESERVIFY/pages/admin/dashboard/bookings/index.php" class="btn btn-secondary mt-3"><i
+                    class="fas fa-arrow-left"></i> Back to Bookings</a>
+        </div>
+
     </div>
 
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/NEW-PM-JI-RESERVIFY/components/footer.html'; ?>

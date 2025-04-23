@@ -66,12 +66,14 @@ $historyBookings = $stmtHistory->fetchAll();
             <div class="container my-4">
                 <?php if (isset($_SESSION['success_message'])): ?>
                     <div class="alert alert-success">
-                        <?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?>
+                        <?php echo $_SESSION['success_message'];
+                        unset($_SESSION['success_message']); ?>
                     </div>
                 <?php endif; ?>
                 <?php if (isset($_SESSION['error_message'])): ?>
                     <div class="alert alert-danger">
-                        <?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?>
+                        <?php echo $_SESSION['error_message'];
+                        unset($_SESSION['error_message']); ?>
                     </div>
                 <?php endif; ?>
             </div>
@@ -106,79 +108,89 @@ $historyBookings = $stmtHistory->fetchAll();
                     <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
                         <div class="table-responsive mt-4">
                             <table class="table table-bordered align-middle">
-                                <thead class="table-light">
+                                <thead>
                                     <tr>
-                                        <th>Customer Email</th>
-                                        <th>Event Type</th>
-                                        <th>Reservation Date</th>
-                                        <th>Time Slot</th>
+                                        <th>Customer</th>
+                                        <th>Reference ID</th>
+                                        <th>Event</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php if (count($pendingBookings) > 0): ?>
-                                        <?php foreach ($pendingBookings as $booking): ?>
-                                            <?php
-                                            // fetch the customer's email based on the user_id
-                                            $stmtUser = $pdo->prepare("SELECT email FROM tbl_users WHERE id = ?");
-                                            $stmtUser->execute([$booking['user_id']]);
-                                            $userEmail = $stmtUser->fetchColumn();
-                                            ?>
-                                            <tr>
-                                                <td>
-                                                    <a href="/NEW-PM-JI-RESERVIFY/pages/admin/dashboard/customers/profile.php?user_id=<?php echo htmlspecialchars($booking['user_id']); ?>">
-                                                        <?php echo htmlspecialchars($userEmail); ?>
-                                                    </a>
-                                                </td>
-                                                <td><?php echo htmlspecialchars($booking['event_type']); ?></td>
-                                                <td><?php echo htmlspecialchars($booking['reservation_date']); ?></td>
-                                                <td><?php echo htmlspecialchars($booking['time_slot']); ?></td>
-                                                <td>
-                                                    <!-- Combined Approve Button -->
-                                                    <form action="approve_booking.php" method="POST" class="d-inline">
-                                                        <input type="hidden" name="booking_id" value="<?php echo $booking['id']; ?>">
-                                                        <button type="submit" class="btn btn-success btn-sm mx-1" title="Verify Down Payment & Approve Booking">
-                                                            <i class="fas fa-check-double"></i>
-                                                        </button>
-                                                    </form>
-                                                    <button class="btn btn-danger btn-sm mx-1" title="Reject"><i class="fas fa-times"></i></button>
-                                                    <button class="btn btn-primary btn-sm mx-1" title="Edit"><i class="fas fa-pen"></i></button>
-                                                    <button class="btn btn-secondary btn-sm mx-1" data-bs-toggle="collapse"
-                                                        data-bs-target="#details-<?php echo $booking['id']; ?>" title="Expand/Collapse">
-                                                        <i class="fas fa-chevron-down"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr class="collapse" id="details-<?php echo $booking['id']; ?>">
-                                                <td colspan="5">
-                                                    <div class="p-3 bg-light">
-                                                        <strong>Duration:</strong>
-                                                        <?php echo htmlspecialchars($booking['duration']); ?> hours<br>
-                                                        <strong>Event Location:</strong>
-                                                        <?php echo htmlspecialchars($booking['street_address'] . ', ' . $booking['barangay'] . ', ' . $booking['city'] . ', ' . $booking['province']); ?><br>
-                                                        <strong>Reference Number:</strong>
-                                                        <?php echo htmlspecialchars($booking['reference_number']); ?><br>
-                                                        <strong>Payment Method:</strong>
-                                                        <?php echo htmlspecialchars($booking['payment_method']); ?><br>
-                                                        <strong>Payment Screenshot:</strong><br>
-                                                        <?php if (!empty($booking['payment_screenshot'])): ?>
-                                                            <a href="/NEW-PM-JI-RESERVIFY/pages/customer/uploads/<?php echo htmlspecialchars($booking['payment_screenshot']); ?>" 
-                                                               download="<?php echo htmlspecialchars($booking['payment_screenshot']); ?>" 
-                                                               class="btn btn-link">
-                                                                Download Payment Screenshot
-                                                            </a>
-                                                        <?php else: ?>
-                                                            <span class="text-danger">No screenshot uploaded.</span>
-                                                        <?php endif; ?>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    <?php else: ?>
+                                    <?php foreach ($pendingBookings as $booking): ?>
+                                        <?php
+                                        $stmtUser = $pdo->prepare("SELECT email FROM tbl_users WHERE id = ?");
+                                        $stmtUser->execute([$booking['user_id']]);
+                                        $userEmail = $stmtUser->fetchColumn();
+                                        ?>
                                         <tr>
-                                            <td colspan="5" class="text-center">No pending bookings found.</td>
+                                            <td>
+                                                <a
+                                                    href="/NEW-PM-JI-RESERVIFY/pages/admin/dashboard/customers/profile.php?user_id=<?php echo htmlspecialchars($booking['user_id']); ?>">
+                                                    <?php echo htmlspecialchars($userEmail); ?>
+                                                </a>
+                                            </td>
+                                            <td><?php echo htmlspecialchars($booking['reference_id']); ?></td>
+                                            <td><?php echo htmlspecialchars($booking['event_type']); ?></td>
+                                            <td><?php echo htmlspecialchars($booking['reservation_date']); ?></td>
+                                            <td><?php echo htmlspecialchars($booking['status']); ?></td>
+                                            <td>
+                                                <form action="approve_booking.php" method="POST" class="d-inline">
+                                                    <input type="hidden" name="booking_id"
+                                                        value="<?php echo $booking['id']; ?>">
+                                                    <button type="submit" class="btn btn-success btn-sm mx-1"
+                                                        title="Approve">
+                                                        <i class="fas fa-check"></i>
+                                                    </button>
+                                                </form>
+                                                <form action="reject_booking.php" method="POST" class="d-inline">
+                                                    <input type="hidden" name="booking_id"
+                                                        value="<?php echo $booking['id']; ?>">
+                                                    <button type="submit" class="btn btn-danger btn-sm mx-1" title="Reject">
+                                                        <i class="fas fa-times"></i>
+                                                    </button>
+                                                </form>
+                                                <a href="edit_booking.php?booking_id=<?php echo $booking['id']; ?>"
+                                                    class="btn btn-primary btn-sm mx-1" title="Edit">
+                                                    <i class="fas fa-pen"></i>
+                                                </a>
+                                                <button class="btn btn-secondary btn-sm mx-1" data-bs-toggle="collapse"
+                                                    data-bs-target="#details-<?php echo $booking['id']; ?>"
+                                                    title="Expand/Collapse">
+                                                    <i class="fas fa-chevron-down"></i>
+                                                </button>
+                                            </td>
                                         </tr>
-                                    <?php endif; ?>
+                                        <tr class="collapse" id="details-<?php echo $booking['id']; ?>">
+                                            <td colspan="6">
+                                                <div class="p-3 bg-light border rounded">
+                                                    <strong>Event Details:</strong><br>
+                                                    Duration: <?php echo htmlspecialchars($booking['duration']); ?>
+                                                    hours<br>
+                                                    Time Slot: <?php echo htmlspecialchars($booking['time_slot']); ?><br>
+                                                    <br><strong>Location:</strong><br>
+                                                    <?php echo htmlspecialchars($booking['street_address'] . ', ' . $booking['barangay'] . ', ' . $booking['city']); ?><br>
+                                                    <br><strong>Payment:</strong><br>
+                                                    Method: <?php echo htmlspecialchars($booking['payment_method']); ?><br>
+                                                    Type: <?php echo htmlspecialchars($booking['payment_type']); ?><br>
+                                                    Status: <?php echo htmlspecialchars($booking['payment_status']); ?><br>
+                                                    Reference #:
+                                                    <?php echo htmlspecialchars($booking['reference_number']); ?><br>
+                                                    Screenshot:
+                                                    <?php if (!empty($booking['payment_screenshot'])): ?>
+                                                        <a href="/NEW-PM-JI-RESERVIFY/pages/customer/uploads/<?php echo htmlspecialchars($booking['payment_screenshot']); ?>"
+                                                            download class="btn btn-link">Download</a>
+                                                    <?php else: ?>
+                                                        <span class="text-danger">No screenshot uploaded.</span>
+                                                    <?php endif; ?><br>
+                                                    <br><strong>Created At:</strong>
+                                                    <?php echo htmlspecialchars($booking['created_at']); ?>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -188,69 +200,89 @@ $historyBookings = $stmtHistory->fetchAll();
                     <div class="tab-pane fade" id="approved" role="tabpanel" aria-labelledby="approved-tab">
                         <div class="table-responsive mt-4">
                             <table class="table table-bordered align-middle">
-                                <thead class="table-light">
+                                <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>User ID</th>
-                                        <th>Event Type</th>
-                                        <th>Reservation Date</th>
-                                        <th>Time Slot</th>
+                                        <th>Customer</th>
+                                        <th>Reference ID</th>
+                                        <th>Event</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Payment Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php if (count($approvedBookings) > 0): ?>
-                                        <?php foreach ($approvedBookings as $booking): ?>
-                                            <tr>
-                                                <td><?php echo htmlspecialchars($booking['id']); ?></td>
-                                                <td><?php echo htmlspecialchars($booking['user_id']); ?></td>
-                                                <td><?php echo htmlspecialchars($booking['event_type']); ?></td>
-                                                <td><?php echo htmlspecialchars($booking['reservation_date']); ?></td>
-                                                <td><?php echo htmlspecialchars($booking['time_slot']); ?></td>
-                                                <td>
-                                                    <button class="btn btn-success btn-sm mx-1" title="Approve"><i
-                                                            class="fas fa-check"></i></button>
-                                                    <button class="btn btn-danger btn-sm mx-1" title="Reject"><i
-                                                            class="fas fa-times"></i></button>
-                                                    <button class="btn btn-primary btn-sm mx-1" title="Edit"><i
-                                                            class="fas fa-pen"></i></button>
-                                                    <button class="btn btn-secondary btn-sm mx-1" data-bs-toggle="collapse"
-                                                        data-bs-target="#details-<?php echo $booking['id']; ?>"
-                                                        title="Expand/Collapse">
-                                                        <i class="fas fa-chevron-down"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr class="collapse" id="details-<?php echo $booking['id']; ?>">
-                                                <td colspan="6">
-                                                    <div class="p-3 bg-light">
-                                                        <strong>Duration:</strong>
-                                                        <?php echo htmlspecialchars($booking['duration']); ?> hours<br>
-                                                        <strong>Address:</strong>
-                                                        <?php echo htmlspecialchars($booking['street_address'] . ', ' . $booking['barangay'] . ', ' . $booking['city'] . ', ' . $booking['province']); ?><br>
-                                                        <strong>Reference Number:</strong>
-                                                        <?php echo htmlspecialchars($booking['reference_number']); ?><br>
-                                                        <strong>Payment Method:</strong>
-                                                        <?php echo htmlspecialchars($booking['payment_method']); ?><br>
-                                                        <strong>Payment Screenshot:</strong><br>
-                                                        <?php if (!empty($booking['payment_screenshot'])): ?>
-                                                            <a href="/NEW-PM-JI-RESERVIFY/pages/customer/uploads/<?php echo htmlspecialchars($booking['payment_screenshot']); ?>" 
-                                                               download="<?php echo htmlspecialchars($booking['payment_screenshot']); ?>" 
-                                                               class="btn btn-link">
-                                                                Download Payment Screenshot
-                                                            </a>
-                                                        <?php else: ?>
-                                                            <span class="text-danger">No screenshot uploaded.</span>
-                                                        <?php endif; ?>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    <?php else: ?>
+                                    <?php foreach ($approvedBookings as $booking): ?>
+                                        <?php
+                                        $stmtUser = $pdo->prepare("SELECT email FROM tbl_users WHERE id = ?");
+                                        $stmtUser->execute([$booking['user_id']]);
+                                        $userEmail = $stmtUser->fetchColumn();
+                                        ?>
                                         <tr>
-                                            <td colspan="6" class="text-center">No approved bookings found.</td>
+                                            <td>
+                                                <a
+                                                    href="/NEW-PM-JI-RESERVIFY/pages/admin/dashboard/customers/profile.php?user_id=<?php echo htmlspecialchars($booking['user_id']); ?>">
+                                                    <?php echo htmlspecialchars($userEmail); ?>
+                                                </a>
+                                            </td>
+                                            <td><?php echo htmlspecialchars($booking['reference_id']); ?></td>
+                                            <td><?php echo htmlspecialchars($booking['event_type']); ?></td>
+                                            <td><?php echo htmlspecialchars($booking['reservation_date']); ?></td>
+                                            <td><?php echo htmlspecialchars($booking['status']); ?></td>
+                                            <td><?php echo htmlspecialchars($booking['payment_status']); ?></td>
+                                            <td>
+                                                <form action="approve_booking.php" method="POST" class="d-inline">
+                                                    <input type="hidden" name="booking_id"
+                                                        value="<?php echo $booking['id']; ?>">
+                                                    <button type="submit" class="btn btn-success btn-sm mx-1"
+                                                        title="Mark as Fully Paid">
+                                                        <i class="fas fa-check-double"></i>
+                                                    </button>
+                                                </form>
+                                                <a href="edit_booking.php?booking_id=<?php echo $booking['id']; ?>"
+                                                    class="btn btn-primary btn-sm mx-1" title="Edit">
+                                                    <i class="fas fa-pen"></i>
+                                                </a>
+                                                <button class="btn btn-secondary btn-sm mx-1" data-bs-toggle="collapse"
+                                                    data-bs-target="#approved-details-<?php echo $booking['id']; ?>"
+                                                    title="Expand/Collapse">
+                                                    <i class="fas fa-chevron-down"></i>
+                                                </button>
+                                            </td>
                                         </tr>
-                                    <?php endif; ?>
+                                        <tr class="collapse" id="approved-details-<?php echo $booking['id']; ?>">
+                                            <td colspan="7">
+                                                <div class="p-3 bg-light border rounded">
+                                                    <strong>Event Details:</strong><br>
+                                                    <span class="ms-3">Duration:</span>
+                                                    <?php echo htmlspecialchars($booking['duration']); ?> hours<br>
+                                                    <span class="ms-3">Time Slot:</span>
+                                                    <?php echo htmlspecialchars($booking['time_slot']); ?><br>
+                                                    <br><strong>Location:</strong><br>
+                                                    <span
+                                                        class="ms-3"><?php echo htmlspecialchars($booking['street_address'] . ', ' . $booking['barangay'] . ', ' . $booking['city'] . ', ' . $booking['province']); ?></span><br>
+                                                    <br><strong>Payment:</strong><br>
+                                                    <span class="ms-3">Method:</span>
+                                                    <?php echo htmlspecialchars($booking['payment_method']); ?><br>
+                                                    <span class="ms-3">Type:</span>
+                                                    <?php echo htmlspecialchars($booking['payment_type']); ?><br>
+                                                    <span class="ms-3">Status:</span>
+                                                    <?php echo htmlspecialchars($booking['payment_status']); ?><br>
+                                                    <span class="ms-3">Reference #:</span>
+                                                    <?php echo htmlspecialchars($booking['reference_number']); ?><br>
+                                                    <span class="ms-3">Screenshot:</span>
+                                                    <?php if (!empty($booking['payment_screenshot'])): ?>
+                                                        <a href="/NEW-PM-JI-RESERVIFY/pages/customer/uploads/<?php echo htmlspecialchars($booking['payment_screenshot']); ?>"
+                                                            download class="btn btn-link">Download</a>
+                                                    <?php else: ?>
+                                                        <span class="text-danger">No screenshot uploaded.</span>
+                                                    <?php endif; ?><br>
+                                                    <br><strong>Created At:</strong>
+                                                    <?php echo htmlspecialchars($booking['created_at']); ?>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
@@ -260,69 +292,81 @@ $historyBookings = $stmtHistory->fetchAll();
                     <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab">
                         <div class="table-responsive mt-4">
                             <table class="table table-bordered align-middle">
-                                <thead class="table-light">
+                                <thead>
                                     <tr>
-                                        <th>ID</th>
-                                        <th>User ID</th>
-                                        <th>Event Type</th>
-                                        <th>Reservation Date</th>
-                                        <th>Time Slot</th>
+                                        <th>Customer</th>
+                                        <th>Reference ID</th>
+                                        <th>Event</th>
+                                        <th>Date</th>
+                                        <th>Status</th>
+                                        <th>Payment Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php if (count($historyBookings) > 0): ?>
-                                        <?php foreach ($historyBookings as $booking): ?>
-                                            <tr>
-                                                <td><?php echo htmlspecialchars($booking['id']); ?></td>
-                                                <td><?php echo htmlspecialchars($booking['user_id']); ?></td>
-                                                <td><?php echo htmlspecialchars($booking['event_type']); ?></td>
-                                                <td><?php echo htmlspecialchars($booking['reservation_date']); ?></td>
-                                                <td><?php echo htmlspecialchars($booking['time_slot']); ?></td>
-                                                <td>
-                                                    <button class="btn btn-success btn-sm mx-1" title="Approve"><i
-                                                            class="fas fa-check"></i></button>
-                                                    <button class="btn btn-danger btn-sm mx-1" title="Reject"><i
-                                                            class="fas fa-times"></i></button>
-                                                    <button class="btn btn-primary btn-sm mx-1" title="Edit"><i
-                                                            class="fas fa-pen"></i></button>
-                                                    <button class="btn btn-secondary btn-sm mx-1" data-bs-toggle="collapse"
-                                                        data-bs-target="#details-<?php echo $booking['id']; ?>"
-                                                        title="Expand/Collapse">
-                                                        <i class="fas fa-chevron-down"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr class="collapse" id="details-<?php echo $booking['id']; ?>">
-                                                <td colspan="6">
-                                                    <div class="p-3 bg-light">
-                                                        <strong>Duration:</strong>
-                                                        <?php echo htmlspecialchars($booking['duration']); ?> hours<br>
-                                                        <strong>Address:</strong>
-                                                        <?php echo htmlspecialchars($booking['street_address'] . ', ' . $booking['barangay'] . ', ' . $booking['city'] . ', ' . $booking['province']); ?><br>
-                                                        <strong>Reference Number:</strong>
-                                                        <?php echo htmlspecialchars($booking['reference_number']); ?><br>
-                                                        <strong>Payment Method:</strong>
-                                                        <?php echo htmlspecialchars($booking['payment_method']); ?><br>
-                                                        <strong>Payment Screenshot:</strong><br>
-                                                        <?php if (!empty($booking['payment_screenshot'])): ?>
-                                                            <a href="/NEW-PM-JI-RESERVIFY/pages/customer/uploads/<?php echo htmlspecialchars($booking['payment_screenshot']); ?>" 
-                                                               download="<?php echo htmlspecialchars($booking['payment_screenshot']); ?>" 
-                                                               class="btn btn-link">
-                                                                Download Payment Screenshot
-                                                            </a>
-                                                        <?php else: ?>
-                                                            <span class="text-danger">No screenshot uploaded.</span>
-                                                        <?php endif; ?>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    <?php else: ?>
+                                    <?php foreach ($historyBookings as $booking): ?>
+                                        <?php
+                                        $stmtUser = $pdo->prepare("SELECT email FROM tbl_users WHERE id = ?");
+                                        $stmtUser->execute([$booking['user_id']]);
+                                        $userEmail = $stmtUser->fetchColumn();
+                                        ?>
                                         <tr>
-                                            <td colspan="6" class="text-center">No booking history found.</td>
+                                            <td>
+                                                <a
+                                                    href="/NEW-PM-JI-RESERVIFY/pages/admin/dashboard/customers/profile.php?user_id=<?php echo htmlspecialchars($booking['user_id']); ?>">
+                                                    <?php echo htmlspecialchars($userEmail); ?>
+                                                </a>
+                                            </td>
+                                            <td><?php echo htmlspecialchars($booking['reference_id']); ?></td>
+                                            <td><?php echo htmlspecialchars($booking['event_type']); ?></td>
+                                            <td><?php echo htmlspecialchars($booking['reservation_date']); ?></td>
+                                            <td><?php echo htmlspecialchars($booking['status']); ?></td>
+                                            <td><?php echo htmlspecialchars($booking['payment_status']); ?></td>
+                                            <td>
+                                                <a href="edit_booking.php?booking_id=<?php echo $booking['id']; ?>"
+                                                    class="btn btn-primary btn-sm mx-1" title="Edit">
+                                                    <i class="fas fa-pen"></i>
+                                                </a>
+                                                <button class="btn btn-secondary btn-sm mx-1" data-bs-toggle="collapse"
+                                                    data-bs-target="#history-details-<?php echo $booking['id']; ?>"
+                                                    title="Expand/Collapse">
+                                                    <i class="fas fa-chevron-down"></i>
+                                                </button>
+                                            </td>
                                         </tr>
-                                    <?php endif; ?>
+                                        <tr class="collapse" id="history-details-<?php echo $booking['id']; ?>">
+                                            <td colspan="7">
+                                                <div class="p-3 bg-light border rounded">
+                                                    <strong>Event Details:</strong><br>
+                                                    <span class="ms-3">Duration:</span>
+                                                    <?php echo htmlspecialchars($booking['duration']); ?> hours<br>
+                                                    <span class="ms-3">Time Slot:</span>
+                                                    <?php echo htmlspecialchars($booking['time_slot']); ?><br>
+                                                    <br><strong>Location:</strong><br>
+                                                    <span
+                                                        class="ms-3"><?php echo htmlspecialchars($booking['street_address'] . ', ' . $booking['barangay'] . ', ' . $booking['city'] . ', ' . $booking['province']); ?></span><br>
+                                                    <br><strong>Payment:</strong><br>
+                                                    <span class="ms-3">Method:</span>
+                                                    <?php echo htmlspecialchars($booking['payment_method']); ?><br>
+                                                    <span class="ms-3">Type:</span>
+                                                    <?php echo htmlspecialchars($booking['payment_type']); ?><br>
+                                                    <span class="ms-3">Status:</span>
+                                                    <?php echo htmlspecialchars($booking['payment_status']); ?><br>
+                                                    <span class="ms-3">Reference #:</span>
+                                                    <?php echo htmlspecialchars($booking['reference_number']); ?><br>
+                                                    <span class="ms-3">Screenshot:</span>
+                                                    <?php if (!empty($booking['payment_screenshot'])): ?>
+                                                        <a href="/NEW-PM-JI-RESERVIFY/pages/customer/uploads/<?php echo htmlspecialchars($booking['payment_screenshot']); ?>"
+                                                            download class="btn btn-link">Download</a>
+                                                    <?php else: ?>
+                                                        <span class="text-danger">No screenshot uploaded.</span>
+                                                    <?php endif; ?><br>
+                                                    <br><strong>Created At:</strong>
+                                                    <?php echo htmlspecialchars($booking['created_at']); ?>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    <?php endforeach; ?>
                                 </tbody>
                             </table>
                         </div>
