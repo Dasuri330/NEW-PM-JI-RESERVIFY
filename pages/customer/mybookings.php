@@ -68,7 +68,7 @@ $result = $stmt->get_result();
       <?php if ($result->num_rows > 0): ?>
         <div class="horizontal-scroll-bookings">
           <?php while ($row = $result->fetch_assoc()): ?>
-            <div class="booking-card card flex-fill mx-2">
+            <div id="booking-card-<?php echo htmlspecialchars($row['reference_id']); ?>" class="booking-card card flex-fill mx-2 <?php echo strtolower($row['status']) === 'cancelled_by_user' ? 'disabled' : ''; ?>">
               <div class="card-header">
                 <?php echo htmlspecialchars($row['event_type']); ?>
               </div>
@@ -80,10 +80,10 @@ $result = $stmt->get_result();
                 </div>
                 <div class="booking-info mb-2">
                   <strong>Duration:</strong>
-                  <?php echo htmlspecialchars($row['duration']); ?> hours
+                  <?php echo htmlspecialchars($row['duration']); ?> HOURS
                 </div>
                 <div class="booking-info mb-2">
-                  <strong>Event Location:</strong>
+                  <strong>Location:</strong>
                   <?php echo htmlspecialchars($row['street_address']) . ', ' .
                     htmlspecialchars($row['barangay']) . ', ' .
                     htmlspecialchars($row['city']); ?>
@@ -95,17 +95,21 @@ $result = $stmt->get_result();
                 <div class="booking-info mb-2">
                   <strong>Status:</strong>
                   <span class="badge badge-<?php echo strtolower($row['status']); ?>">
-                    <?php echo htmlspecialchars($row['status']); ?>
+                    <?php echo htmlspecialchars($row['status'] === 'cancelled_by_user' ? 'Cancelled' : $row['status']); ?>
                   </span>
                 </div>
                 <div class="mt-auto pt-2">
-                  <button class="btn btn-primary w-100 toggle-details" data-target="#details-<?php echo $row['reference_number']; ?>">
-                    View Details
-                  </button>
-                  <form method="POST" action="" class="mt-2">
-                    <input type="hidden" name="cancel_reference_id" value="<?php echo htmlspecialchars($row['reference_id']); ?>">
-                    <button type="submit" class="btn btn-danger w-100">Cancel Booking</button>
-                  </form>
+                  <?php if (strtolower($row['status']) === 'cancelled_by_user'): ?>
+                    <a href="/NEW-PM-JI-RESERVIFY/pages/customer/rebook.php?reference_id=<?php echo htmlspecialchars($row['reference_id']); ?>" class="btn btn-success w-100">Re-book</a>
+                  <?php else: ?>
+                    <button class="btn btn-primary w-100 toggle-details" data-target="#details-<?php echo $row['reference_number']; ?>">
+                      View Details
+                    </button>
+                    <form method="POST" action="" class="mt-2">
+                      <input type="hidden" name="cancel_reference_id" value="<?php echo htmlspecialchars($row['reference_id']); ?>">
+                      <button type="submit" class="btn btn-danger w-100">Cancel Booking</button>
+                    </form>
+                  <?php endif; ?>
                 </div>
                 <div id="details-<?php echo $row['reference_number']; ?>" class="booking-details mt-3" style="display: none;">
                   <div class="booking-info mb-2">
@@ -170,11 +174,54 @@ $result = $stmt->get_result();
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" stlye="text-align: justify;">
           <!-- Booking details will be dynamically inserted here -->
           <div id="modalBookingDetails"></div>
         </div>
         <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cancel Confirmation Modal -->
+  <div class="modal fade" id="cancelConfirmationModal" tabindex="-1" role="dialog" aria-labelledby="cancelConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="cancelConfirmationModalLabel">Cancel Booking</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="text-align: justify;">
+          <?php
+          if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel_reference_id'])) {
+            $cancelReferenceId = $_POST['cancel_reference_id'];
+
+            // Check booking status
+            $statusQuery = "SELECT status FROM tbl_bookings WHERE reference_id = ? AND user_id = ?";
+            $stmt = $conn->prepare($statusQuery);
+            $stmt->bind_param("si", $cancelReferenceId, $userId);
+            $stmt->execute();
+            $stmt->bind_result($status);
+            $stmt->fetch();
+            $stmt->close();
+
+            if (strtolower($status) === 'pending') {
+              echo "You haven’t been approved yet. Cancelling now is penalty-free and you’ll receive a full refund. Do you want to continue?";
+            } else {
+              echo "Are you sure you want to cancel this booking?";
+            }
+          }
+          ?>
+        </div>
+        <div class="modal-footer">
+          <form method="POST" action="">
+            <input type="hidden" name="cancel_reference_id" value="<?php echo htmlspecialchars($cancelReferenceId); ?>">
+            <button type="submit" name="confirm_cancel" class="btn btn-danger">Confirm</button>
+          </form>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>
@@ -194,27 +241,13 @@ $result = $stmt->get_result();
           $('#bookingDetailsModal').modal('show');
         });
       });
+
+      // Trigger the cancel confirmation modal only once
+      <?php if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel_reference_id'])): ?>
+        $('#cancelConfirmationModal').modal('show');
+      <?php endif; ?>
     });
   </script>
 </body>
 
 </html>
-<?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['cancel_reference_id'])) {
-  $cancelReferenceId = $_POST['cancel_reference_id'];
-
-  // Update the booking status to "Cancelled"
-  $cancelQuery = "UPDATE tbl_bookings SET status = 'Cancelled' WHERE reference_id = ? AND user_id = ?";
-  $stmt = $conn->prepare($cancelQuery);
-  $stmt->bind_param("si", $cancelReferenceId, $userId);
-  if ($stmt->execute()) {
-    echo "<script>alert('Booking cancelled successfully.'); window.location.reload();</script>";
-  } else {
-    echo "<script>alert('Failed to cancel booking. Please try again.');</script>";
-  }
-  $stmt->close();
-}
-
-$stmt->close();
-$conn->close();
-?>
