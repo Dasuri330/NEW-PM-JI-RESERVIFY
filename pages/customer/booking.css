@@ -359,6 +359,10 @@ select.form-control {
     border: 1px solid #9e9e9e;
 }
 
+.legend-box.yellow {
+    background-color: #EEFC5E;
+    border: 1px solid yellow;
+  }
 /* ================= File Upload Styling for Payment Screenshot ================= */
 
 #paymentScreenshot {

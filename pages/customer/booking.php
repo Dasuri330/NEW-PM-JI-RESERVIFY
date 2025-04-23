@@ -1,17 +1,30 @@
 <?php
 session_start();
+
+// Redirect kung hindi naka-login
 if (!isset($_SESSION['user_email'])) {
+  // I-save ang event type sa session kung may parameter
+  if (isset($_GET['event'])) {
+    $_SESSION['selected_event'] = $_GET['event'];
+  }
   header("Location: /NEW-PM-JI-RESERVIFY/index.php");
   exit();
 }
 
-// gets the pre-selected event type from the query parameter
-$preselectedEvent = isset($_GET['event']) ? htmlspecialchars($_GET['event']) : '';
+// Kunin ang event type mula sa URL o session
+$selectedEvent = "";
+if (isset($_GET['event'])) {
+  $selectedEvent = htmlspecialchars($_GET['event']);
+  $_SESSION['selected_event'] = $selectedEvent; // Save to session for consistency
+} elseif (isset($_SESSION['selected_event'])) {
+  $selectedEvent = htmlspecialchars($_SESSION['selected_event']);
+}
 
 $mysqli = new mysqli('127.0.0.1', 'root', '', 'db_pmji');
 if ($mysqli->connect_error) {
   die('DB Connection Error: ' . $mysqli->connect_error);
 }
+
 
 /* ================= Calendar (Step 2: Booking Process) ================= */
 
@@ -29,8 +42,11 @@ while ($row = $result->fetch_assoc()) {
   $date = $row['reservation_date'];
   $count = (int) $row['cnt'];
 
-  if ($count >= 1) {
+  // Mark as red if fully booked, yellow if partially booked, otherwise green
+  if ($count >= 5) { // Assuming 5 bookings mean fully booked
     $availability[$date] = 'red';    // Fully booked
+  } elseif ($count > 0 && $count < 5) { // Assuming less than 5 bookings mean partially booked
+    $availability[$date] = 'yellow'; // Partially booked
   } else {
     $availability[$date] = 'green';  // Available
   }
@@ -47,7 +63,7 @@ $mysqli->close();
   <title>Reserve Your Service - PM&JI Reservify</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-  <link rel="stylesheet" href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.css">
+  <link rel="stylesheet" href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.css?v=1.1">
   <link rel="stylesheet" href="/NEW-PM-JI-RESERVIFY/pages/customer/components/footer.css">
   <link rel="stylesheet" href="/NEW-PM-JI-RESERVIFY/pages/customer/components/top_header.css">
 
@@ -95,16 +111,14 @@ $mysqli->close();
       <!-- Step 1: Select Event Type -->
       <div class="form-step active" data-step="1">
         <div class="form-group">
-          <label for="eventType">Event</label>
-          <select class="form-control" name="event_type" id="eventType" required>
-            <option value="" disabled <?= empty($selectedEvent) ? 'selected' : '' ?>>select event type</option>
-            <option value="Baptism" <?= $preselectedEvent === 'Baptism' ? 'selected' : '' ?>>Baptism</option>
-            <option value="Birthday" <?= $preselectedEvent === 'Birthday' ? 'selected' : '' ?>>Birthday</option>
-            <option value="Wedding" <?= $preselectedEvent === 'Wedding' ? 'selected' : '' ?>>Wedding</option>
-            <option value="Cormpany" <?= $preselectedEvent === 'Company Event' ? 'selected' : '' ?>>Corporate Event
-            </option>
-            <option value="Other" <?= $preselectedEvent === 'Other' ? 'selected' : '' ?>>Other</option>
-            </option>
+          <label for="eventType">Event Type</label>
+                    <select class="form-control" name="event_type" id="eventType" required>
+            <option value="" disabled <?= empty($selectedEvent) ? 'selected' : '' ?>>Select event type</option>
+            <option value="Baptism" <?= ($selectedEvent === 'Baptism') ? 'selected' : '' ?>>Baptism</option>
+            <option value="Reunion" <?= ($selectedEvent === 'Reunion') ? 'selected' : '' ?>>Reunion</option>
+            <option value="Birthday" <?= ($selectedEvent === 'Birthday') ? 'selected' : '' ?>>Birthday</option>
+            <option value="Wedding" <?= ($selectedEvent === 'Wedding') ? 'selected' : '' ?>>Wedding</option>
+            <option value="Company Event" <?= ($selectedEvent === 'Company Event') ? 'selected' : '' ?>>Company Event</option>
           </select>
         </div>
 
@@ -144,7 +158,8 @@ $mysqli->close();
                 <p class="card-text">
                   - Customized Layout<br>
                   - 1 Standee Frame<br>
-                  - 3 Ref Magnets (Single Shot)
+                  - 3 Ref Magnets (Single Shot)<br>
+                  - Limited to 4 Shots
                 </p>
               </div>
             </label>
@@ -159,6 +174,7 @@ $mysqli->close();
                 <p class="card-text">
                   - Customized Layout<br>
                   - 1 Polaroid Frame<br>
+                  - Unlimited Shots<br>
                   - 3 Ref Magnets (Single Shot)
                 </p>
               </div>
@@ -175,6 +191,7 @@ $mysqli->close();
                 <p class="card-text">
                   - Customized Layout<br>
                   - 2x6 Photo Strip Frame<br>
+                  - Unlimited Shotes<br>
                   - 3 Ref Magnets (Single Shot)
                 </p>
               </div>
@@ -194,17 +211,21 @@ $mysqli->close();
           <label for="reservationDate">Date</label>
           <input type="text" id="reservationDate" name="reservation_date" readonly required placeholder="Select a date">
         </div>
-        <div id="calendarLegend" class="calendar-legend">
+
+      <div id="calendarLegend" class="calendar-legend">
           <p><span class="legend-box gray"></span> Unavailable</p>
+          <p><span class="legend-box yellow"></span> Partially Booked</p>
           <p><span class="legend-box green"></span> Available</p>
-        </div>
-        <div class="form-group">
+      </div>
+
+      <div class="form-group">
           <label for="timeSlot">Time Slot</label>
           <select class="form-control select-custom" name="time_slot" id="timeSlot" required>
             <option value="" disabled selected>Select a time slot</option>
-            <option value="Morning (8AM - 12PM)">Morning (8AM - 12PM)</option>
-            <option value="Afternoon (1PM - 5PM)">Afternoon (1PM - 5PM)</option>
-            <option value="Evening (6PM - 10PM)">Evening (6PM - 10PM)</option>
+            <option value="Morning (10:00 AM - 1:00 PM)">Morning (10:00 AM - 1:00 PM)</option>
+            <option value="Afternoon (1:00 PM - 4:00 PM)">Afternoon (1:00 PM - 4:00 PM)</option>
+            <option value="Afternoon (4:00 PM - 7:00 PM)">Afternoon (4:00 PM - 7:00 PM)</option>
+            <option value="Evening (7:00 PM - 10:00 PM)">Evening (7:00 PM - 10:00 PM)</option>
           </select>
         </div>
         <p class="text-muted mt-3">
@@ -224,22 +245,20 @@ $mysqli->close();
             placeholder="e.g., 123 Main St" required>
         </div>
 
-        <!-- City Dropdown -->
+        <!-- City/Municipality Dropdown -->
         <div class="form-group">
           <label for="citySelect">City</label>
-          <select id="citySelect" name="city" class="form-control" required>
+          <select id="citySelect" name="city" class="form-control" required disabled>
             <option value="">Loading…</option>
           </select>
-          <input type="hidden" name="city_name" id="cityName">
         </div>
 
         <!-- Barangay Dropdown -->
         <div class="form-group">
           <label for="barangaySelect">Barangay</label>
-          <select id="barangaySelect" name="barangay" class="form-control" required>
+          <select id="barangaySelect" name="barangay" class="form-control" required disabled>
             <option value="">Select a city first</option>
           </select>
-          <input type="hidden" name="barangay_name" id="barangayName">
         </div>
 
         <div class="form-navigation">
@@ -249,8 +268,7 @@ $mysqli->close();
 
         <!-- Note -->
         <p class="text-muted mt-3">
-          <small>Note: Photo coverage within Metro Manila and neighboring cities is free of travel charges.
-            For events outside these areas, an additional travel fee of ₱2,000 will apply.📍</small>
+          <small>Note: Photo coverage is within Metro Manila only.📍</small>
         </p>
       </div>
 
@@ -290,7 +308,7 @@ $mysqli->close();
             <span class="value" id="previewPrice"></span>
           </div>
           <div class="review-item">
-            <span class="label">Selected Package:</span>
+            <span class="label">Selected Packages:</span>
             <span class="value" id="previewPackages"></span>
           </div>
         </div>
@@ -374,18 +392,6 @@ $mysqli->close();
           });
         });
       });
-
-      document.getElementById('citySelect').addEventListener('change', function () {
-        const selectedOption = this.options[this.selectedIndex];
-        const cityName = selectedOption ? selectedOption.text : '';
-        document.getElementById('cityName').value = cityName;
-      });
-
-      document.getElementById('barangaySelect').addEventListener('change', function () {
-        const selectedOption = this.options[this.selectedIndex];
-        const barangayName = selectedOption ? selectedOption.text : '';
-        document.getElementById('barangayName').value = barangayName;
-      });
     </script>
   </div>
 
@@ -430,18 +436,18 @@ $mysqli->close();
     /***********************
      * Price Calculation & Preview
      ***********************/
-    // defined event prices.
-    // 1. Base for 3 hours (hindi na babaguhin)
+    // Define your event prices.
+    // 1. Base prices mo for 3 hours (hindi na babaguhin)
     const eventPrices = {
       'Baptism': 4500,
       'Reunion': 5000,
       'Birthday': 4000,
       'Wedding': 7500,
       'Company Event': 7000,
-      'Other': 10000
+  
     };
 
-    // 2. Base for 4 hours (dito natin nilagay yung 4‑hour rates)
+    // 2. Override prices for special durations (dito natin nilagay yung 5‑hour rates)
     const overridePrices = {
       5: {
         'Baptism': 4600,
@@ -459,6 +465,7 @@ $mysqli->close();
       const priceDisplay = document.getElementById('priceDisplay');
 
       if (!eventType || !durationEl) {
+        // Reset kung incomplete ang selection
         if (pricePreview) pricePreview.textContent = "₱0.00";
         if (priceDisplay) priceDisplay.textContent = "Price: ₱0.00";
         return;
@@ -467,6 +474,7 @@ $mysqli->close();
       const durationHours = parseInt(durationEl.value, 10);
       let totalPrice = 0;
 
+      // 3. Check kung may override price for this duration
       if (
         overridePrices[durationHours] &&
         overridePrices[durationHours][eventType] !== undefined
@@ -503,25 +511,17 @@ $mysqli->close();
       document.getElementById('previewDate').textContent = document.getElementById('reservationDate').value;
       document.getElementById('previewTimeSlot').textContent = document.getElementById('timeSlot').value;
       document.getElementById('previewStreetAddress').textContent = document.getElementById('streetAddress').value;
-      const citySelect = document.getElementById('citySelect');
-      const barangaySelect = document.getElementById('barangaySelect');
-
-      // get the selected city name
-      const selectedCityOption = citySelect.options[citySelect.selectedIndex];
-      document.getElementById('previewCity').textContent = selectedCityOption ? selectedCityOption.text : '';
-
-      // get the selected barangay name
-      const selectedBarangayOption = barangaySelect.options[barangaySelect.selectedIndex];
-      document.getElementById('previewBarangay').textContent = selectedBarangayOption ? selectedBarangayOption.text : '';
+      document.getElementById('previewCity').textContent = document.getElementById('citySelect').selectedOptions[0].text;
+      document.getElementById('previewBarangay').textContent = document.getElementById('barangaySelect').selectedOptions[0].text;
       updatePrice();
 
-      // retrieve the selected package radio button
+      // Retrieve the selected package radio button
       const selectedPackage = document.querySelector('input[name="package"]:checked');
       const packageName = selectedPackage
         ? selectedPackage.closest('.package-card').querySelector('.card-title').textContent
         : 'None selected';
 
-      // display the selected package
+      // Display the selected package
       document.getElementById('previewPackages').textContent = packageName;
     }
 
@@ -533,14 +533,14 @@ $mysqli->close();
     const prevButtons = document.querySelectorAll('.prev-btn');
     const progressSteps = document.querySelectorAll('.progress-indicator .step');
 
-    // helper function to validate all required fields in current step.
+    // Helper function to validate all required fields in current step.
     function validateStep(stepElement) {
-      // get all input, select, and textarea elements in the current step.
+      // Get all input, select, and textarea elements in the current step.
       const inputs = stepElement.querySelectorAll('input, select, textarea');
       for (let input of inputs) {
-        // if an input field is invalid according to HTML5 validations...
+        // If an input field is invalid according to HTML5 validations...
         if (!input.checkValidity()) {
-          // show the built-in validation message.
+          // Show the built-in validation message.
           input.reportValidity();
           return false;
         }
@@ -562,14 +562,14 @@ $mysqli->close();
     nextButtons.forEach(button => {
       button.addEventListener('click', () => {
         const currentStep = button.closest('.form-step');
-        // validate all required fields in the current step.
+        // Validate all required fields in the current step.
         if (!validateStep(currentStep)) {
-          // do not continue to the next step if validation fails.
+          // Do not continue to the next step if validation fails.
           return;
         }
 
         let currentStepNum = parseInt(currentStep.getAttribute('data-step'));
-        // remove active class from the current step.
+        // Remove active class from the current step.
         currentStep.classList.remove('active');
 
         // Special: When moving to the review step (step 4), update the preview.
@@ -627,6 +627,70 @@ $mysqli->close();
     document.querySelectorAll('input[name="payment_method"]').forEach(input => {
       input.addEventListener('change', updateQRCode);
     });
+
+  // For time slot
+  
+    const timeSlotSelect = document.getElementById('timeSlot');
+    const durationInputs = document.querySelectorAll('input[name="duration"]');
+    const eventTypeSelect = document.getElementById('eventType');
+
+    // Available Time Slots Data
+    const timeSlots = {
+      3: [
+        { value: "9:00 AM - 12:00 PM", text: "9:00 AM - 12:00 PM" },
+        { value: "10:00 AM - 1:00 PM", text: "10:00 AM - 1:00 PM" },
+        { value: "1:00 PM - 4:00 PM", text: "1:00 PM - 4:00 PM" },
+        { value: "4:00 PM - 7:00 PM", text: "4:00 PM - 7:00 PM" },
+        { value: "7:00 PM - 10:00 PM", text: "7:00 PM - 10:00 PM" }
+      ],
+      4: [
+        { value: "9:00 AM - 1:00 PM", text: "9:00 AM - 1:00 PM" },
+        { value: "1:00 PM - 5:00 PM", text: "1:00 PM - 5:00 PM" },
+        { value: "5:00 PM - 9:00 PM", text: "5:00 PM - 9:00 PM" }
+      ]
+    };
+
+    // Convert time to minutes for comparison
+    function convertTimeToNumber(time) {
+      const [timePart, modifier] = time.split(" ");
+      let [hours, minutes] = timePart.split(":").map(Number);
+      if (modifier === "PM" && hours !== 12) hours += 12;
+      return hours * 60 + minutes;
+    }
+
+    // Filter slots based on event type
+    function getFilteredSlots(duration, eventType) {
+      const slots = timeSlots[duration] || [];
+      
+      if (eventType === "Baptism") {
+        return slots.filter(slot => {
+          const endTime = slot.text.split(" - ")[1];
+          return convertTimeToNumber(endTime) <= convertTimeToNumber("4:00 PM");
+        });
+      }
+      return slots;
+    }
+
+    // Update time slot options
+    function updateTimeSlots() {
+      const duration = parseInt(document.querySelector('input[name="duration"]:checked')?.value || 3);
+      const eventType = eventTypeSelect.value;
+      
+      timeSlotSelect.innerHTML = '<option value="" disabled selected>Select time slot</option>';
+      
+      getFilteredSlots(duration, eventType).forEach(slot => {
+        const option = new Option(slot.text, slot.value);
+        timeSlotSelect.appendChild(option);
+      });
+    }
+
+    // Event Listeners
+    durationInputs.forEach(input => input.addEventListener('change', updateTimeSlots));
+    eventTypeSelect.addEventListener('change', updateTimeSlots);
+
+    // Initial load
+    updateTimeSlots();
+  
   </script>
 </body>
 

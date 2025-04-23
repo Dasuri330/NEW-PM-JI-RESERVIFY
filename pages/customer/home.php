@@ -133,9 +133,8 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
 
     <div class="container">
       <div class="row">
-
-        <!-- Baptism Service Card -->
-        <div class="col-md-6 col-lg-4 mb-4">
+ <!-- Baptism Service Card -->
+ <div class="col-md-6 col-lg-4 mb-4">
           <div class="service-card card h-100">
             <div class="card-body">
               <div class="service-icon">
@@ -146,13 +145,34 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
                 Capture precious moment with professional coverage.
               </p>
               <ul class="pricing-list">
-                <li><strong>3 Hours:</strong> ₱3,500 <span>(50% down: ₱1,750)</span></li>
-                <li><strong>5 Hours:</strong> ₱5,000 <span>(50% down: ₱2,500)</span></li>
+                  <li><strong>3 Hours:</strong> ₱4,500 <span>(50% down: ₱2,250)</span></li>
+                  <li><strong>4 Hours:</strong> ₱4,600 <span>(50% down: ₱2,300)</span></li>
               </ul>
-              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
-                Drive.</p>
-              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php?event=Baptism"
-                class="btn btn-primary service-cta">Book Now</a>
+              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google Drive.</p>
+              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php" class="btn btn-primary service-cta" data-event="Baptism"> Book Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reunion Service Card -->
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="service-card card h-100">
+            <div class="card-body">
+              <div class="service-icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <h5 class="card-title">Reunion</h5>
+              <p class="card-text">
+                Relive old memories with a full event coverage.
+              </p>
+              <ul class="pricing-list">
+                  <li><strong>3 Hours:</strong> ₱5,000 <span>(50% down: ₱2,500)</span></li>
+                  <li><strong>4 Hours:</strong> ₱6,500 <span>(50% down: ₱3,250)</span></li>
+              </ul>
+              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google Drive.</p>
+              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php" 
+   class="btn btn-primary service-cta" 
+   data-event="Reunion">Book Now</a>
             </div>
           </div>
         </div>
@@ -169,13 +189,13 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
                 Celebrate in style with lively and creative coverage.
               </p>
               <ul class="pricing-list">
-                <li><strong>3 Hours:</strong> ₱3,500<span>(50% down: ₱1,750)</span></li>
-                <li><strong>5 Hours:</strong> ₱5,000 <span>(50% down: ₱2,500)</span></li>
+                <li><strong>3 Hours:</strong> ₱4,000<span>(50% down: ₱2,000)</span></li>
+                <li><strong>4 Hours:</strong> ₱4,500 <span>(50% down: ₱2,750)</span></li>
               </ul>
-              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
-                Drive.</p>
-              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php?event=Birthday"
-                class="btn btn-primary service-cta">Book Now</a>
+              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google Drive.</p>
+              <<a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php" 
+   class="btn btn-primary service-cta" 
+   data-event="Birthday">Book Now</a>
             </div>
           </div>
         </div>
@@ -193,35 +213,12 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
               </p>
               <ul class="pricing-list">
                 <li><strong>3 Hours:</strong> ₱7,000 <span>(50% down: ₱3,500)</span></li>
-                <li><strong>5 Hours:</strong> ₱8,000 <span>(50% down: ₱4,000)</span></li>
+                <li><strong>4 Hours:</strong> ₱8,000 <span>(50% down: ₱4,000)</span></li>
               </ul>
-              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
-                Drive.</p>
-              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php?event=Company"
-                class="btn btn-primary service-cta">Book Now</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Reunion Service Card -->
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="service-card card h-100">
-            <div class="card-body">
-              <div class="service-icon">
-                <i class="fas fa-users"></i>
-              </div>
-              <h5 class="card-title">Reunion</h5>
-              <p class="card-text">
-                Relive old memories with a full event coverage.
-              </p>
-              <ul class="pricing-list">
-                <li><strong>3 Hours:</strong> ₱4,500 <span>(50% down: ₱2,250)</span></li>
-                <li><strong>5 Hours:</strong> ₱6,500 <span>(50% down: ₱3,250)</span></li>
-              </ul>
-              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
-                Drive.</p>
-              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php?event=Wedding"
-                class="btn btn-primary service-cta">Book Now</a>
+              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google Drive.</p>
+              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php" 
+   class="btn btn-primary service-cta" 
+   data-event="Company Event">Book Now</a>
             </div>
           </div>
         </div>
@@ -241,15 +238,15 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
                 <li><strong>3 Hours:</strong> ₱7,500 <span>(50% down: ₱3,750)</span></li>
                 <li><strong>4 Hours:</strong> ₱11,000 <span>(50% down: ₱5,500)</span></li>
               </ul>
-              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
-                Drive.</p>
-              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php?event=Wedding"
-                class="btn btn-primary service-cta">Book Now</a>
+              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google Drive.</p>
+              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php" 
+   class="btn btn-primary service-cta" 
+   data-event="Wedding">Book Now</a>
             </div>
           </div>
         </div>
 
-        <!-- Other Events Service Card -->
+        <!-- 
         <div class="col-md-6 col-lg-4 mb-4">
           <div class="service-card card h-100">
             <div class="card-body">
@@ -263,13 +260,13 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
               <ul class="pricing-list">
                 <li><strong>Flat Rate:</strong> ₱10,000 <span>(50% down: ₱5,000)</span></li>
               </ul>
-              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
-                Drive.</p>
-              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booked.php?event=Other"
-                class="btn btn-primary service-cta">Book Now</a>
+              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google Drive.</p>
+              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php" 
+   class="btn btn-primary service-cta" 
+   data-event="Other Events">Book Now</a>
             </div>
           </div>
-        </div>
+        </div> -->
 
         <!-- Portfolio / Past Photo Works Section -->
         <section id="portfolio" class="py-5">
@@ -278,34 +275,42 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
             <div class="row">
               <!-- Portfolio Item 1 -->
               <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                <div class="portfolio-item" data-title="Wedding Event"
-                  data-description="A beautiful wedding ceremony captured with elegance." data-date="May 2019">
-                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work1.jpg" alt="Wedding Event"
+                <div class="portfolio-item" data-title="Corporate Event"
+                  data-description="Professional coverage of a corporate gathering at Quezon City Sports Club.">
+                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work1.jpg" alt="Corporate Event"
                     class="img-fluid portfolio-img">
                 </div>
               </div>
               <!-- Portfolio Item 2 -->
               <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                <div class="portfolio-item" data-title="Corporate Event"
-                  data-description="Professional coverage of a corporate gathering at Quezon City Sports Club."
-                  data-date="March 2019">
-                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work2.jpg" alt="Corporate Event"
+                <div class="portfolio-item" data-title="Birthday Party"
+                data-description="A lively birthday celebration with creative shots." data-date="March 2019">
+          
+                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work2.jpg" alt="Birthday Party"
                     class="img-fluid portfolio-img">
                 </div>
               </div>
               <!-- Portfolio Item 3 -->
               <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                <div class="portfolio-item" data-title="Birthday Party"
-                  data-description="A lively birthday celebration with creative shots." data-date="March 2019">
-                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work3.jpg" alt="Birthday Party"
+                <div class="portfolio-item" data-title="Reunion Event"
+                data-description="Reliving memories with a fun-filled reunion." data-date="May 2019">
+                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work3.jpg" alt="Reunion Event"
                     class="img-fluid portfolio-img">
                 </div>
               </div>
               <!-- Portfolio Item 4 -->
               <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                <div class="portfolio-item" data-title="Reunion Event"
-                  data-description="Reliving memories with a fun-filled reunion." data-date="May 2019">
-                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work4.jpg" alt="Reunion Event"
+                <div class="portfolio-item" data-title="Wedding Event"
+                data-description="A beautiful wedding ceremony captured with elegance." data-date="May 2019">
+                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/wedding_photobooth.jpg" alt="Wedding Event"
+                    class="img-fluid portfolio-img">
+                </div>
+              </div>
+              <!-- Portfolio Item 5 -->
+              <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="portfolio-item" data-title="Baptism Event"
+                data-description="Capturing Moments, Blessing Memories. Your Baptism, Our Lens." data-date="May 2019">
+                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/Baptism_photobooth.jpg" alt="Baptism Event"
                     class="img-fluid portfolio-img">
                 </div>
               </div>
@@ -342,7 +347,8 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
       <i class="fa fa-message"></i>
     </div>
   </a>
-  <?php include $_SERVER['DOCUMENT_ROOT'] . '/NEW-PM-JI-RESERVIFY/pages/customer/components/footer.php'; ?>
+
+  <?php include $_SERVER['DOCUMENT_ROOT'] . '/NEW-PM-JI-RESERVIFY/components/footer.html'; ?>
 
   <!-- Carousel Script -->
   <script>
@@ -408,7 +414,24 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
       });
     });
   </script>
-  <!-- End of Past Works Modal Script -->
+    <!-- Dagdag na Script para sa Event Selection -->
+    <script>
+    $(document).ready(function() {
+      // I-intercept ang pag-click sa LAHAT ng "Book Now" buttons
+      $('.service-cta').on('click', function(e) {
+        e.preventDefault(); // Pigilan ang default na pag-redirect
+
+        // Kunin ang event type mula sa data attribute
+        const eventType = $(this).data('event');
+
+        // Bumuo ng URL kasama ang event parameter
+        const bookingUrl = `/NEW-PM-JI-RESERVIFY/pages/customer/booking.php?event=${encodeURIComponent(eventType)}`;
+
+        // I-redirect sa booking.php
+        window.location.href = bookingUrl;
+      });
+    });
+  </script>
 
 
 </body>
