@@ -1,24 +1,12 @@
 <?php
 session_start();
-
-// Redirect kung hindi naka-login
 if (!isset($_SESSION['user_email'])) {
-  // I-save ang event type sa session kung may parameter
-  if (isset($_GET['event'])) {
-    $_SESSION['selected_event'] = $_GET['event'];
-  }
   header("Location: /NEW-PM-JI-RESERVIFY/index.php");
   exit();
 }
 
-// Kunin ang event type mula sa URL o session
-$selectedEvent = "";
-if (isset($_GET['event'])) {
-  $selectedEvent = htmlspecialchars($_GET['event']);
-} elseif (isset($_SESSION['selected_event'])) {
-  $selectedEvent = htmlspecialchars($_SESSION['selected_event']);
-  unset($_SESSION['selected_event']); // Tanggalin pagkatapos magamit
-}
+// gets the pre-selected event type from the query parameter
+$preselectedEvent = isset($_GET['event']) ? htmlspecialchars($_GET['event']) : '';
 
 $mysqli = new mysqli('127.0.0.1', 'root', '', 'db_pmji');
 if ($mysqli->connect_error) {
@@ -26,6 +14,7 @@ if ($mysqli->connect_error) {
 }
 
 /* ================= Calendar (Step 2: Booking Process) ================= */
+
 $sql = "
   SELECT
     reservation_date,
@@ -40,6 +29,7 @@ while ($row = $result->fetch_assoc()) {
   $date = $row['reservation_date'];
   $count = (int) $row['cnt'];
 
+  // Mark as red if there is at least one booking, otherwise green
   if ($count >= 1) {
     $availability[$date] = 'red';    // Fully booked
   } else {
@@ -106,22 +96,17 @@ $mysqli->close();
       <!-- Step 1: Select Event Type -->
       <div class="form-step active" data-step="1">
         <div class="form-group">
-          <label for="eventType">Event Type</label>
+          <label for="eventType">Event</label>
           <select class="form-control" name="event_type" id="eventType" required>
-  <option value="" disabled <?= empty($selectedEvent) ? 'selected' : '' ?>>Select event type</option>
-  <option value="Baptism" <?= ($selectedEvent === 'Baptism') ? 'selected' : '' ?>>Baptism</option>
-  <option value="Reunion" <?= ($selectedEvent === 'Reunion') ? 'selected' : '' ?>>Reunion</option>
-  <option value="Birthday" <?= ($selectedEvent === 'Birthday') ? 'selected' : '' ?>>Birthday</option>
-  <option value="Wedding" <?= ($selectedEvent === 'Wedding') ? 'selected' : '' ?>>Wedding</option>
-  <!-- PALITAN ANG "Corporate Event" → "Company Event" PARA TUGMA SA HOME.PHP -->
-  <option value="Company Event" <?= ($selectedEvent === 'Company Event') ? 'selected' : '' ?>>Company Event</option>
-  <option value="Other" <?= ($selectedEvent === 'Other Events') ? 'selected' : '' ?>>Other</option>
-</select>
-        </div>
-
-        <!-- Pricing Display -->
-        <div class="form-group">
-          <p id="priceDisplay">Price: ₱0.00</p>
+            <option value="" disabled <?= empty($selectedEvent) ? 'selected' : '' ?>>select event type</option>
+            <option value="" disabled <?= $preselectedEvent === '' ? 'selected' : '' ?>>Select event type</option>
+            <option value="Baptism" <?= $preselectedEvent === 'Baptism' ? 'selected' : '' ?>>Baptism</option>
+            <option value="Birthday" <?= $preselectedEvent === 'Birthday' ? 'selected' : '' ?>>Birthday</option>
+            <option value="Wedding" <?= $preselectedEvent === 'Wedding' ? 'selected' : '' ?>>Wedding</option>
+            <option value="Cormpany" <?= $preselectedEvent === 'Company Event' ? 'selected' : '' ?>>Corporate Event</option>
+            <option value="Other" <?= $preselectedEvent === 'Other' ? 'selected' : '' ?>>Other</option>
+            </option>
+          </select>
         </div>
 
         <div class="form-group">
@@ -140,9 +125,14 @@ $mysqli->close();
           </div>
         </div>
 
+        <!-- Pricing Display -->
+        <div class="form-group">
+          <p id="priceDisplay">Price: ₱0.00</p>
+        </div>
+
         <!-- Package Selection as Cards -->
         <div class="form-group packages-selection">
-          <label style="margin-bottom: 8px">Select Packages:</label>
+          <label style="margin-bottom: 8px">Select Package:</label>
           <div class="card-deck">
             <!-- Package 1: Photo Standee Frame -->
             <label class="card package-card">
@@ -194,7 +184,8 @@ $mysqli->close();
         </div>
 
         <div class="form-navigation">
-          <button type="button" class="next-btn btn btn-primary">Next</button>
+          <a href="/NEW-PM-JI-RESERVIFY/pages/customer/home.php" class="btn btn-danger">Cancel</a>
+          <button type="button" class="next-btn btn">Next</button>
         </div>
       </div>
 
@@ -222,7 +213,7 @@ $mysqli->close();
         </p>
         <div class="form-navigation">
           <button type="button" class="prev-btn btn btn-secondary">Previous</button>
-          <button type="button" class="next-btn btn btn-primary">Next</button>
+          <button type="button" class="next-btn btn">Next</button>
         </div>
       </div>
 
@@ -252,12 +243,12 @@ $mysqli->close();
 
         <div class="form-navigation">
           <button type="button" class="prev-btn btn btn-secondary">Previous</button>
-          <button type="button" class="next-btn btn btn-primary">Next</button>
+          <button type="button" class="next-btn btn">Next</button>
         </div>
 
         <!-- Note -->
         <p class="text-muted mt-3">
-          <small>Note: Photo coverage within Metro Manila and neighboring cities is free of travel charges. 
+          <small>Note: Photo coverage within Metro Manila and neighboring cities is free of travel charges.
             For events outside these areas, an additional travel fee of ₱2,000 will apply.📍</small>
         </p>
       </div>
@@ -266,7 +257,7 @@ $mysqli->close();
       <div class="form-step" data-step="4">
         <div class="review-card">
           <div class="review-item">
-            <span class="label">Event Type:</span>
+            <span class="label">Event:</span>
             <span class="value" id="previewEventType"></span>
           </div>
           <div class="review-item">
@@ -304,7 +295,7 @@ $mysqli->close();
         </div>
         <div class="form-navigation">
           <button type="button" class="prev-btn btn btn-secondary">Previous</button>
-          <button type="button" class="next-btn btn btn-primary">Next</button>
+          <button type="button" class="next-btn btn">Next</button>
         </div>
       </div>
 
@@ -356,33 +347,33 @@ $mysqli->close();
         </div>
         <div class="form-navigation">
           <button type="button" class="prev-btn btn btn-secondary">Previous</button>
-          <button type="submit" class="btn btn-primary btn-reserve">Confirm Booking</button>
+          <button type="submit" class="btn btn-reserve">Confirm Booking</button>
         </div>
       </div>
     </form>
 
     <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const qrContainer = document.getElementById('qrContainer');
-    const qrImage     = document.getElementById('qrImage');
+      document.addEventListener('DOMContentLoaded', () => {
+        const qrContainer = document.getElementById('qrContainer');
+        const qrImage = document.getElementById('qrImage');
 
-    // Tiyaking tugma sa eksaktong filename (case‑sensitive sa server!)
-    const qrPaths = {
-     'GCash':   '/NEW-PM-JI-RESERVIFY/assets/qr/Gcash.jpg',
-     'Paymaya': '/NEW-PM-JI-RESERVIFY/assets/qr/Maya.jpg'
-    };
+        // Tiyaking tugma sa eksaktong filename (case‑sensitive sa server!)
+        const qrPaths = {
+          'GCash': '/NEW-PM-JI-RESERVIFY/assets/qr/Gcash.jpg',
+          'Paymaya': '/NEW-PM-JI-RESERVIFY/assets/qr/Maya.jpg'
+        };
 
-    document.querySelectorAll('input[name="payment_method"]').forEach(radio => {
-      radio.addEventListener('change', () => {
-        if (!radio.checked) return;
-        const path = qrPaths[radio.value] || '';
-        qrImage.src = path;
-        qrImage.alt = path ? `${radio.value} QR Code` : 'QR Code';
-        qrContainer.style.display = path ? 'block' : 'none';
+        document.querySelectorAll('input[name="payment_method"]').forEach(radio => {
+          radio.addEventListener('change', () => {
+            if (!radio.checked) return;
+            const path = qrPaths[radio.value] || '';
+            qrImage.src = path;
+            qrImage.alt = path ? `${radio.value} QR Code` : 'QR Code';
+            qrContainer.style.display = path ? 'block' : 'none';
+          });
+        });
       });
-    });
-  });
-</script>
+    </script>
   </div>
 
   <?php include $_SERVER['DOCUMENT_ROOT'] . '/NEW-PM-JI-RESERVIFY/pages/customer/components/footer.php'; ?>
@@ -427,69 +418,69 @@ $mysqli->close();
      * Price Calculation & Preview
      ***********************/
     // Define your event prices.
- // 1. Base prices mo for 3 hours (hindi na babaguhin)
-const eventPrices = {
-  'Baptism': 4500,
-  'Reunion': 5000,
-  'Birthday': 4000,
-  'Wedding': 7500,
-  'Company Event': 7000,
-  'Other': 10000
-};
+    // 1. Base prices mo for 3 hours (hindi na babaguhin)
+    const eventPrices = {
+      'Baptism': 4500,
+      'Reunion': 5000,
+      'Birthday': 4000,
+      'Wedding': 7500,
+      'Company Event': 7000,
+      'Other': 10000
+    };
 
-// 2. Override prices for special durations (dito natin nilagay yung 5‑hour rates)
-const overridePrices = {
-  5: {
-    'Baptism': 4600,
-    'Reunion': 6500,
-    'Birthday': 4500,
-    'Company Event': 8000,
-    'Wedding': 11000
-  }
-};
+    // 2. Override prices for special durations (dito natin nilagay yung 5‑hour rates)
+    const overridePrices = {
+      5: {
+        'Baptism': 4600,
+        'Reunion': 6500,
+        'Birthday': 4500,
+        'Company Event': 8000,
+        'Wedding': 11000
+      }
+    };
 
-function updatePrice() {
-  const eventType = document.getElementById('eventType').value;
-  const durationEl = document.querySelector('input[name="duration"]:checked');
-  const pricePreview = document.getElementById('previewPrice');
-  const priceDisplay = document.getElementById('priceDisplay');
+    function updatePrice() {
+      const eventType = document.getElementById('eventType').value;
+      const durationEl = document.querySelector('input[name="duration"]:checked');
+      const pricePreview = document.getElementById('previewPrice');
+      const priceDisplay = document.getElementById('priceDisplay');
 
-  if (!eventType || !durationEl) {
-    // Reset kung incomplete ang selection
-    if (pricePreview) pricePreview.textContent = "₱0.00";
-    if (priceDisplay) priceDisplay.textContent = "Price: ₱0.00";
-    return;
-  }
+      if (!eventType || !durationEl) {
+        // Reset kung incomplete ang selection
+        if (pricePreview) pricePreview.textContent = "₱0.00";
+        if (priceDisplay) priceDisplay.textContent = "Price: ₱0.00";
+        return;
+      }
 
-  const durationHours = parseInt(durationEl.value, 10);
-  let totalPrice = 0;
+      const durationHours = parseInt(durationEl.value, 10);
+      let totalPrice = 0;
 
-  // 3. Check kung may override price for this duration
-  if (
-    overridePrices[durationHours] &&
-    overridePrices[durationHours][eventType] !== undefined
-  ) {
-    totalPrice = overridePrices[durationHours][eventType];
-  } else {
-    // fallback: proportionate calculation base on 3‑hour basePrice
-    const basePrice = eventPrices[eventType] || 0;
-    totalPrice = basePrice * (durationHours / 3);
-  }
+      // 3. Check kung may override price for this duration
+      if (
+        overridePrices[durationHours] &&
+        overridePrices[durationHours][eventType] !== undefined
+      ) {
+        totalPrice = overridePrices[durationHours][eventType];
+      } else {
+        // fallback: proportionate calculation base on 3‑hour basePrice
+        const basePrice = eventPrices[eventType] || 0;
+        totalPrice = basePrice * (durationHours / 3);
+      }
 
-  // i-update ang UI
-  const formatted = `₱${totalPrice.toLocaleString()}.00`;
-  if (pricePreview) pricePreview.textContent = formatted;
-  if (priceDisplay) priceDisplay.textContent = `Price: ${formatted}`;
-}
+      // i-update ang UI
+      const formatted = `₱${totalPrice.toLocaleString()}.00`;
+      if (pricePreview) pricePreview.textContent = formatted;
+      if (priceDisplay) priceDisplay.textContent = `Price: ${formatted}`;
+    }
 
-// event listeners
-document.getElementById('eventType')
-        .addEventListener('change', updatePrice);
-document.querySelectorAll('input[name="duration"]')
-        .forEach(input => input.addEventListener('change', updatePrice));
+    // event listeners
+    document.getElementById('eventType')
+      .addEventListener('change', updatePrice);
+    document.querySelectorAll('input[name="duration"]')
+      .forEach(input => input.addEventListener('change', updatePrice));
 
-// initialize
-updatePrice();
+    // initialize
+    updatePrice();
 
 
     function updatePreview() {

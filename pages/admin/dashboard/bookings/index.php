@@ -1,13 +1,11 @@
 <?php
 session_start();
-// Check if admin is logged in; if not, redirect to the login page.
 if (!isset($_SESSION['admin_id'])) {
-    header("Location: ../../admin_login.php");
+    header("Location: /NEW-PM-JI-RESERVIFY/pages/admin");
     exit;
 }
 $admin_username = $_SESSION['admin_username'];
 
-// Database connection configuration.
 $host = 'localhost';
 $db = 'db_pmji';
 $user = 'root';
@@ -27,17 +25,17 @@ try {
     die('Database connection failed: ' . $e->getMessage());
 }
 
-// Fetch pending bookings
+// fetch pending bookings
 $stmtPending = $pdo->prepare("SELECT * FROM tbl_bookings WHERE status = 'pending'");
 $stmtPending->execute();
 $pendingBookings = $stmtPending->fetchAll();
 
-// Fetch approved bookings
+// fetch approved bookings
 $stmtApproved = $pdo->prepare("SELECT * FROM tbl_bookings WHERE status = 'approved'");
 $stmtApproved->execute();
 $approvedBookings = $stmtApproved->fetchAll();
 
-// Fetch booking history (e.g., completed bookings)
+// fetch booking history (e.g., completed bookings)
 $stmtHistory = $pdo->prepare("SELECT * FROM tbl_bookings WHERE status = 'completed'");
 $stmtHistory->execute();
 $historyBookings = $stmtHistory->fetchAll();
@@ -51,20 +49,32 @@ $historyBookings = $stmtHistory->fetchAll();
     <title>Admin - Bookings</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
-    <link rel="stylesheet" href="../index.css">
+    <link rel="stylesheet" href="/NEW-PM-JI-RESERVIFY/pages/admin/dashboard/index.css">
 </head>
 
 <body>
-    <!-- Include common header -->
-    <?php include '../components/admin_header.php'; ?>
+    <!-- Include Header -->
+    <?php include $_SERVER['DOCUMENT_ROOT'] . '/NEW-PM-JI-RESERVIFY/pages/admin/dashboard/components/admin_header.php'; ?>
 
     <!-- Dashboard Container: Sidebar + Main Content -->
     <div class="dashboard-container">
         <!-- Include Sidebar -->
-        <?php include '../components/admin_sidebar.php'; ?>
+        <?php include $_SERVER['DOCUMENT_ROOT'] . '/NEW-PM-JI-RESERVIFY/pages/admin/dashboard/components/admin_sidebar.php'; ?>
 
         <!-- Main Content Section -->
         <main class="main-content">
+            <div class="container my-4">
+                <?php if (isset($_SESSION['success_message'])): ?>
+                    <div class="alert alert-success">
+                        <?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?>
+                    </div>
+                <?php endif; ?>
+                <?php if (isset($_SESSION['error_message'])): ?>
+                    <div class="alert alert-danger">
+                        <?php echo $_SESSION['error_message']; unset($_SESSION['error_message']); ?>
+                    </div>
+                <?php endif; ?>
+            </div>
             <div class="container my-4">
                 <h2 class="mb-4">Manage Bookings</h2>
 
@@ -109,7 +119,6 @@ $historyBookings = $stmtHistory->fetchAll();
                                 <tbody>
                                     <?php if (count($pendingBookings) > 0): ?>
                                         <?php foreach ($pendingBookings as $booking): ?>
-                                            <!-- Main Row -->
                                             <tr>
                                                 <td><?php echo htmlspecialchars($booking['id']); ?></td>
                                                 <td><?php echo htmlspecialchars($booking['user_id']); ?></td>
@@ -117,22 +126,21 @@ $historyBookings = $stmtHistory->fetchAll();
                                                 <td><?php echo htmlspecialchars($booking['reservation_date']); ?></td>
                                                 <td><?php echo htmlspecialchars($booking['time_slot']); ?></td>
                                                 <td>
-                                                    <!-- Action Buttons -->
-                                                    <button class="btn btn-success btn-sm mx-1" title="Approve"><i
-                                                            class="fas fa-check"></i></button>
-                                                    <button class="btn btn-danger btn-sm mx-1" title="Reject"><i
-                                                            class="fas fa-times"></i></button>
-                                                    <button class="btn btn-primary btn-sm mx-1" title="Edit"><i
-                                                            class="fas fa-pen"></i></button>
-                                                    <!-- Expand/Collapse Button -->
+                                                    <!-- Combined Approve Button -->
+                                                    <form action="approve_combined.php" method="POST" class="d-inline">
+                                                        <input type="hidden" name="booking_id" value="<?php echo $booking['id']; ?>">
+                                                        <button type="submit" class="btn btn-success btn-sm mx-1" title="Verify Down Payment & Approve Booking">
+                                                            <i class="fas fa-check-double"></i>
+                                                        </button>
+                                                    </form>
+                                                    <button class="btn btn-danger btn-sm mx-1" title="Reject"><i class="fas fa-times"></i></button>
+                                                    <button class="btn btn-primary btn-sm mx-1" title="Edit"><i class="fas fa-pen"></i></button>
                                                     <button class="btn btn-secondary btn-sm mx-1" data-bs-toggle="collapse"
-                                                        data-bs-target="#details-<?php echo $booking['id']; ?>"
-                                                        title="Expand/Collapse">
+                                                        data-bs-target="#details-<?php echo $booking['id']; ?>" title="Expand/Collapse">
                                                         <i class="fas fa-chevron-down"></i>
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <!-- Expanded Details Row (Hidden by default) -->
                                             <tr class="collapse" id="details-<?php echo $booking['id']; ?>">
                                                 <td colspan="6">
                                                     <div class="p-3 bg-light">
@@ -143,7 +151,17 @@ $historyBookings = $stmtHistory->fetchAll();
                                                         <strong>Reference Number:</strong>
                                                         <?php echo htmlspecialchars($booking['reference_number']); ?><br>
                                                         <strong>Payment Method:</strong>
-                                                        <?php echo htmlspecialchars($booking['payment_method']); ?>
+                                                        <?php echo htmlspecialchars($booking['payment_method']); ?><br>
+                                                        <strong>Payment Screenshot:</strong><br>
+                                                        <?php if (!empty($booking['payment_screenshot'])): ?>
+                                                            <a href="/NEW-PM-JI-RESERVIFY/pages/customer/uploads/<?php echo htmlspecialchars($booking['payment_screenshot']); ?>" 
+                                                               download="<?php echo htmlspecialchars($booking['payment_screenshot']); ?>" 
+                                                               class="btn btn-link">
+                                                                Download Payment Screenshot
+                                                            </a>
+                                                        <?php else: ?>
+                                                            <span class="text-danger">No screenshot uploaded.</span>
+                                                        <?php endif; ?>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -205,7 +223,17 @@ $historyBookings = $stmtHistory->fetchAll();
                                                         <strong>Reference Number:</strong>
                                                         <?php echo htmlspecialchars($booking['reference_number']); ?><br>
                                                         <strong>Payment Method:</strong>
-                                                        <?php echo htmlspecialchars($booking['payment_method']); ?>
+                                                        <?php echo htmlspecialchars($booking['payment_method']); ?><br>
+                                                        <strong>Payment Screenshot:</strong><br>
+                                                        <?php if (!empty($booking['payment_screenshot'])): ?>
+                                                            <a href="/NEW-PM-JI-RESERVIFY/pages/customer/uploads/<?php echo htmlspecialchars($booking['payment_screenshot']); ?>" 
+                                                               download="<?php echo htmlspecialchars($booking['payment_screenshot']); ?>" 
+                                                               class="btn btn-link">
+                                                                Download Payment Screenshot
+                                                            </a>
+                                                        <?php else: ?>
+                                                            <span class="text-danger">No screenshot uploaded.</span>
+                                                        <?php endif; ?>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -267,7 +295,17 @@ $historyBookings = $stmtHistory->fetchAll();
                                                         <strong>Reference Number:</strong>
                                                         <?php echo htmlspecialchars($booking['reference_number']); ?><br>
                                                         <strong>Payment Method:</strong>
-                                                        <?php echo htmlspecialchars($booking['payment_method']); ?>
+                                                        <?php echo htmlspecialchars($booking['payment_method']); ?><br>
+                                                        <strong>Payment Screenshot:</strong><br>
+                                                        <?php if (!empty($booking['payment_screenshot'])): ?>
+                                                            <a href="/NEW-PM-JI-RESERVIFY/pages/customer/uploads/<?php echo htmlspecialchars($booking['payment_screenshot']); ?>" 
+                                                               download="<?php echo htmlspecialchars($booking['payment_screenshot']); ?>" 
+                                                               class="btn btn-link">
+                                                                Download Payment Screenshot
+                                                            </a>
+                                                        <?php else: ?>
+                                                            <span class="text-danger">No screenshot uploaded.</span>
+                                                        <?php endif; ?>
                                                     </div>
                                                 </td>
                                             </tr>

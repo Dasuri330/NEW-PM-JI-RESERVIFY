@@ -9,7 +9,7 @@
 
 body {
     font-family: "Poppins", sans-serif;
-    background: url("/NEW-PM-JI-RESERVIFY/assets/bg/bg2.jpg") no-repeat center;
+    background: url("/NEW-PM-JI-RESERVIFY/assets/bg/bg4.jpg") center center / cover no-repeat fixed;
     background-size: cover;
     min-height: 100vh;
 }
@@ -39,12 +39,16 @@ a:hover {
     color: var(--hover-color);
 }
 
+h1 {
+    font-size: 2.8rem;
+}
+
 /* ================= Booking Form Styles ================= */
 
 .reservation-container {
     max-width: 800px;
     min-height: 75vh;
-    margin: 110px auto 80px;
+    margin: 120px auto 80px;
     background-color: var(--card-bg);
     padding: 40px;
     border-radius: 10px;
@@ -61,6 +65,8 @@ a:hover {
 .reservation-title {
     margin: 0;
     margin-bottom: 0;
+    position: relative;
+    top: -8px;
 }
 
 .reservation-form label {
@@ -97,7 +103,21 @@ select.form-control {
     background-size: 10px;
 }
 
+.flex-container {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+/* Flex items */
+.flex-item {
+    flex: 1;
+    min-width: 200px;
+}
+
 /* ================= Custom Radio Button Styling ================= */
+
 .radio-inputs-19 {
     position: relative;
     display: flex;
@@ -186,19 +206,26 @@ select.form-control {
 }
 
 /* ================= Submit Button Styling ================= */
+
+.btn-danger {
+    padding: 0.575rem 0.75rem;
+}
+
 .btn-reserve,
 .next-btn {
+    font-weight: bold;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
     border-radius: 5px;
     background-color: var(--secondary-bg);
-    color: var(--primary-color);
+    color: var(--secondary-color);
     transition: background-color 0.3s ease;
 }
 
 .btn-reserve:hover,
 .next-btn:hover {
+    color: var(--secondary-color);
     transform: scale(1.05);
 }
 
@@ -220,6 +247,7 @@ select.form-control {
 }
 
 /* ================= Form Navigation & Form Steps ================= */
+
 .form-navigation {
     margin-top: 20px;
     display: flex;
@@ -266,6 +294,7 @@ select.form-control {
 .progress-indicator .step.active .step-number {
     background-color: var(--secondary-bg);
     color: var(--hover-color);
+    border-color: var(--primary-bg);
 }
 
 .step-number {
@@ -277,6 +306,8 @@ select.form-control {
     background: #ccc;
     margin-bottom: 5px;
     font-weight: bold;
+    border: 2px solid var(--primary-color);
+    transition: border-color 0.3s ease-in-out;
 }
 
 .step-description {

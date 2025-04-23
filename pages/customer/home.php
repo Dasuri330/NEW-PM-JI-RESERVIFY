@@ -29,9 +29,8 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
 <body>
   <?php include $_SERVER['DOCUMENT_ROOT'] . '/NEW-PM-JI-RESERVIFY/pages/customer/components/top_header.php'; ?>
 
-
   <!-- Hero Section -->
-  <section class="hero-section">a
+  <section class="hero-section">
     <!-- Optionally include a carousel background -->
     <div class="carousel">
       <div class="carousel-inner">
@@ -56,14 +55,79 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
         Welcome to PM&JI Reservify—booking photo booth services and capturing memories.
         Check out our services and reserve your spot today!
       </p>
-      <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php" class="hero-button">Book Now</a>
+      <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php" class="hero-button">Book now!</a>
     </div>
   </section>
 
   <!-- Services Section -->
   <section id="services-section" class="py-5">
     <div>
-      <h2 class="section-title text-center mb-5">Our Services</h2>
+      <h2 class="section-title text-center mb-5"><i class="fas fa-cogs"></i> Our Services
+      </h2>
+    </div>
+
+    <!-- Modified Service Inclusions & Horizontal Testimonials Row -->
+    <div class="container mb-4">
+      <div class="row">
+        <!-- Service Inclusions Column (left side) -->
+        <div class="col-md-7">
+          <div class="service-inclusions">
+            <h5><i class="fas fa-concierge-bell"></i> Service Inclusions:</h5>
+            <ul>
+              <li>📸 Unlimited Shots</li>
+              <li>🖼️ Personalized Photo Layout</li>
+              <li>💎 High-Quality Photo (4 Frames)</li>
+              <li>🎨 Custom Layouts (According to Event Theme)</li>
+              <li>☁️ Soft Copy of All Photos (via Google Drive)</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Horizontal Testimonials Column (right side) -->
+        <div class="col-md-5">
+          <h5>What Our Clients Say</h5>
+          <div class="testimonials-container">
+            <!-- Testimonial Card 1 -->
+            <div class="testimonial-card">
+              <div class="testimonial-header">
+                <img src="/NEW-PM-JI-RESERVIFY/assets/profile/profile1.png" alt="Profile 1" class="profile-pic">
+                <div class="user-info">
+                  <span class="username">Jamie D.</span>
+                  <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                  </div>
+                </div>
+              </div>
+              <blockquote>
+                "Excellent service and exceptional quality – highly recommend!"
+              </blockquote>
+            </div>
+            <!-- Testimonial Card 2 -->
+            <div class="testimonial-card">
+              <div class="testimonial-header">
+                <img src="/NEW-PM-JI-RESERVIFY/assets/profile/profile2.png" alt="Profile 2" class="profile-pic">
+                <div class="user-info">
+                  <span class="username">Alex T.</span>
+                  <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                  </div>
+                </div>
+              </div>
+              <blockquote>
+                "Professional, timely, and creative. Our event was unforgettable!"
+              </blockquote>
+            </div>
+            <!-- Add additional testimonial cards as needed -->
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="container">
@@ -81,34 +145,13 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
                 Capture precious moment with professional coverage.
               </p>
               <ul class="pricing-list">
-                  <li><strong>3 Hours:</strong> ₱4,500 <span>(50% down: ₱2,250)</span></li>
-                  <li><strong>4 Hours:</strong> ₱4,600 <span>(50% down: ₱2,300)</span></li>
+                <li><strong>3 Hours:</strong> ₱3,500 <span>(50% down: ₱1,750)</span></li>
+                <li><strong>5 Hours:</strong> ₱5,000 <span>(50% down: ₱2,500)</span></li>
               </ul>
-              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google Drive.</p>
-              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php" class="btn btn-primary service-cta" data-event="Baptism"> Book Now</a>
-            </div>
-          </div>
-        </div>
-
-        <!-- Reunion Service Card -->
-        <div class="col-md-6 col-lg-4 mb-4">
-          <div class="service-card card h-100">
-            <div class="card-body">
-              <div class="service-icon">
-                <i class="fas fa-users"></i>
-              </div>
-              <h5 class="card-title">Reunion</h5>
-              <p class="card-text">
-                Relive old memories with a full event coverage.
-              </p>
-              <ul class="pricing-list">
-                  <li><strong>3 Hours:</strong> ₱5,000 <span>(50% down: ₱2,500)</span></li>
-                  <li><strong>4 Hours:</strong> ₱6,500 <span>(50% down: ₱3,250)</span></li>
-              </ul>
-              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google Drive.</p>
-              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php" 
-   class="btn btn-primary service-cta" 
-   data-event="Reunion">Book Now</a>
+              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
+                Drive.</p>
+              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php?event=Baptism"
+                class="btn btn-primary service-cta">Book Now</a>
             </div>
           </div>
         </div>
@@ -125,13 +168,13 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
                 Celebrate in style with lively and creative coverage.
               </p>
               <ul class="pricing-list">
-                <li><strong>3 Hours:</strong> ₱4,000<span>(50% down: ₱2,000)</span></li>
-                <li><strong>4 Hours:</strong> ₱4,500 <span>(50% down: ₱2,750)</span></li>
+                <li><strong>3 Hours:</strong> ₱3,500<span>(50% down: ₱1,750)</span></li>
+                <li><strong>5 Hours:</strong> ₱5,000 <span>(50% down: ₱2,500)</span></li>
               </ul>
-              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google Drive.</p>
-              <<a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php" 
-   class="btn btn-primary service-cta" 
-   data-event="Birthday">Book Now</a>
+              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
+                Drive.</p>
+              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php?event=Birthday"
+                class="btn btn-primary service-cta">Book Now</a>
             </div>
           </div>
         </div>
@@ -149,12 +192,35 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
               </p>
               <ul class="pricing-list">
                 <li><strong>3 Hours:</strong> ₱7,000 <span>(50% down: ₱3,500)</span></li>
-                <li><strong>4 Hours:</strong> ₱8,000 <span>(50% down: ₱4,000)</span></li>
+                <li><strong>5 Hours:</strong> ₱8,000 <span>(50% down: ₱4,000)</span></li>
               </ul>
-              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google Drive.</p>
-              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php" 
-   class="btn btn-primary service-cta" 
-   data-event="Company Event">Book Now</a>
+              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
+                Drive.</p>
+              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php?event=Company"
+                class="btn btn-primary service-cta">Book Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reunion Service Card -->
+        <div class="col-md-6 col-lg-4 mb-4">
+          <div class="service-card card h-100">
+            <div class="card-body">
+              <div class="service-icon">
+                <i class="fas fa-users"></i>
+              </div>
+              <h5 class="card-title">Reunion</h5>
+              <p class="card-text">
+                Relive old memories with a full event coverage.
+              </p>
+              <ul class="pricing-list">
+                <li><strong>3 Hours:</strong> ₱4,500 <span>(50% down: ₱2,250)</span></li>
+                <li><strong>5 Hours:</strong> ₱6,500 <span>(50% down: ₱3,250)</span></li>
+              </ul>
+              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
+                Drive.</p>
+              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php?event=Wedding"
+                class="btn btn-primary service-cta">Book Now</a>
             </div>
           </div>
         </div>
@@ -174,10 +240,10 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
                 <li><strong>3 Hours:</strong> ₱7,500 <span>(50% down: ₱3,750)</span></li>
                 <li><strong>4 Hours:</strong> ₱11,000 <span>(50% down: ₱5,500)</span></li>
               </ul>
-              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google Drive.</p>
-              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php" 
-   class="btn btn-primary service-cta" 
-   data-event="Wedding">Book Now</a>
+              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
+                Drive.</p>
+              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php?event=Wedding"
+                class="btn btn-primary service-cta">Book Now</a>
             </div>
           </div>
         </div>
@@ -196,10 +262,10 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
               <ul class="pricing-list">
                 <li><strong>Flat Rate:</strong> ₱10,000 <span>(50% down: ₱5,000)</span></li>
               </ul>
-              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google Drive.</p>
-              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booking.php" 
-   class="btn btn-primary service-cta" 
-   data-event="Other Events">Book Now</a>
+              <p class="inclusions">Includes unlimited enhanced shots delivered digitally via Google
+                Drive.</p>
+              <a href="/NEW-PM-JI-RESERVIFY/pages/customer/booked.php?event=Other"
+                class="btn btn-primary service-cta">Book Now</a>
             </div>
           </div>
         </div>
@@ -211,47 +277,62 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
             <div class="row">
               <!-- Portfolio Item 1 -->
               <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                <div class="portfolio-item">
-                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work1.jpg" alt="Photo Work 1"
-                    class="img-fluid portfolio-img" data-toggle="modal" data-target="#portfolioModal">
+                <div class="portfolio-item" data-title="Wedding Event"
+                  data-description="A beautiful wedding ceremony captured with elegance." data-date="May 2019">
+                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work1.jpg" alt="Wedding Event"
+                    class="img-fluid portfolio-img">
                 </div>
               </div>
               <!-- Portfolio Item 2 -->
               <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                <div class="portfolio-item">
-                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work2.jpg" alt="Photo Work 2"
-                    class="img-fluid portfolio-img" data-toggle="modal" data-target="#portfolioModal">
+                <div class="portfolio-item" data-title="Corporate Event"
+                  data-description="Professional coverage of a corporate gathering at Quezon City Sports Club."
+                  data-date="March 2019">
+                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work2.jpg" alt="Corporate Event"
+                    class="img-fluid portfolio-img">
                 </div>
               </div>
               <!-- Portfolio Item 3 -->
               <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                <div class="portfolio-item">
-                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work3.jpg" alt="Photo Work 3"
-                    class="img-fluid portfolio-img" data-toggle="modal" data-target="#portfolioModal">
+                <div class="portfolio-item" data-title="Birthday Party"
+                  data-description="A lively birthday celebration with creative shots." data-date="March 2019">
+                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work3.jpg" alt="Birthday Party"
+                    class="img-fluid portfolio-img">
                 </div>
               </div>
               <!-- Portfolio Item 4 -->
               <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                <div class="portfolio-item">
-                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work4.jpg" alt="Photo Work 4"
-                    class="img-fluid portfolio-img" data-toggle="modal" data-target="#portfolioModal">
+                <div class="portfolio-item" data-title="Reunion Event"
+                  data-description="Reliving memories with a fun-filled reunion." data-date="May 2019">
+                  <img src="/NEW-PM-JI-RESERVIFY/assets/portfolio/work4.jpg" alt="Reunion Event"
+                    class="img-fluid portfolio-img">
                 </div>
               </div>
-              <!-- Add more portfolio items as needed -->
             </div>
           </div>
         </section>
 
-        <!-- Simplified Portfolio Modal -->
-        <div class="modal fade" id="portfolioModal" tabindex="-1" role="dialog" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-            <div class="modal-content bg-transparent border-0">
-              <div class="modal-body p-0 d-flex justify-content-center align-items-center">
-                <img src="" alt="Portfolio Preview" class="img-fluid" id="modalPortfolioImg">
+        <!-- Modal for Portfolio Items -->
+        <div class="modal fade" id="portfolioModal" tabindex="-1" role="dialog" aria-labelledby="portfolioModalLabel"
+          aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="portfolioModalLabel"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body text-center">
+                <img id="portfolioModalImage" src="" alt="Portfolio Image" class="img-fluid mb-3">
+                <p id="portfolioModalDescription"></p>
+                <p><strong>Date:</strong> <span id="portfolioModalDate"></span></p>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
   </section>
 
   <!-- Floating Contact Button -->
@@ -261,30 +342,7 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
     </div>
   </a>
 
-  <!-- Footer -->
-  <footer class="footer-section" id="footer-section">
-    <div class="footer-container">
-      <!-- Left Column: Brand, Logo, & Services -->
-      <div class="footer-brand">
-        <img src="/NEW-PM-JI-RESERVIFY/assets/logo/PM&JI-logo.png" alt="PM&JI Reservify Logo" class="client-logo">
-        <h1 class="brand-name">PM&JI Reservify</h1>
-        <ul class="services">
-          <li>Photo Booth</li>
-        </ul>
-      </div>
-
-      <!-- Right Column: Locations -->
-      <div class="footer-locations">
-                <h2 class="region-title">Philippines</h2>
-                <div class="location-box">
-                    <h3 class="location-name">NCR</h3>
-                    <p>+63 915 613 8722</p>
-                    <p>reservifypm&ji@gmail.com</p>
-                    <p>Phase 5Y Bagong Silang Caloocan Metro Manila, PH</p>
-                </div>
-            </div>
-    </div>
-  </footer>
+  <?php include $_SERVER['DOCUMENT_ROOT'] . '/NEW-PM-JI-RESERVIFY/components/footer.html'; ?>
 
   <!-- Carousel Script -->
   <script>
@@ -328,44 +386,31 @@ $firstName = htmlspecialchars($_SESSION['first_name'] ?? 'User');
     });
   </script>
 
-   <!-- Dagdag na Script para sa Event Selection -->
-   <script>
-    $(document).ready(function() {
-      // I-intercept ang pag-click sa LAHAT ng "Book Now" buttons
-      $('.service-cta').on('click', function(e) {
-        e.preventDefault(); // Pigilan ang default na pag-redirect
-
-        // Kunin ang event type mula sa data attribute
-        const eventType = $(this).data('event');
-
-        // Bumuo ng URL kasama ang event parameter
-        const bookingUrl = `/NEW-PM-JI-RESERVIFY/pages/customer/booking.php?event=${encodeURIComponent(eventType)}`;
-
-        // I-redirect sa booking.php
-        window.location.href = bookingUrl;
-      });
-    });
-  </script>
-
-
-  <!-- Portfolio / Past Photo Works Script -->
+  <!-- Past Works Modal Script -->
   <script>
     $(document).ready(function () {
-      // create an array to hold portfolio image sources
-      var portfolioImages = [];
-      $('.portfolio-img').each(function () {
-        portfolioImages.push($(this).attr('src'));
-      });
+      // when a portfolio item is clicked
+      $('.portfolio-item').on('click', function () {
+        // get data attributes from the clicked portfolio item
+        const title = $(this).data('title');
+        const description = $(this).data('description');
+        const date = $(this).data('date');
+        const imageSrc = $(this).find('img').attr('src'); // Get the image source
 
-      var currentIndex = 0;
+        // update the modal content
+        $('#portfolioModalLabel').text(title);
+        $('#portfolioModalDescription').text(description);
+        $('#portfolioModalDate').text(date);
+        $('#portfolioModalImage').attr('src', imageSrc);
 
-      // open modal and set current index based on clicked image
-      $('.portfolio-img').on('click', function () {
-        currentIndex = $('.portfolio-img').index(this);
-        var imgSrc = portfolioImages[currentIndex];
-        $('#modalPortfolioImg').attr('src', imgSrc);
+        // show the modal
+        $('#portfolioModal').modal('show');
       });
     });
   </script>
+  <!-- End of Past Works Modal Script -->
+
+
 </body>
+
 </html>
